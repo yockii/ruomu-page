@@ -1,0 +1,9 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vite/client"]
+  },
+  "include": ["packages/core", "packages/toolbars/*"],
+  "exclude": ["**/dist", "**/node_modules", "packages/**/dist", "packages/**/node_modules"]
+}

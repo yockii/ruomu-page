@@ -1,0 +1,32 @@
+{
+  "name": "@ruomu-ui/app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@ruomu-ui/core": "workspace:*",
+    "@ruomu-ui/desinger": "workspace:*",
+
+    
+    "vue": "^3.4.34",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "less": "^4.2.0",
+    "naive-ui": "^2.39.0",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "typescript": "^5.2.2",
+    "unocss": "^0.61.5",
+    "vite": "^5.3.4",
+    "vue-tsc": "^2.0.24"
+  }
+}

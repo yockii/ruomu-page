@@ -1,0 +1,21 @@
+{
+  "name": "@ruomu-ui/toolbar-logo",
+  "private": true ,
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.34",
+    "@ruomu-ui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
+    "vue-tsc": "^2.0.29"
+  }
+}

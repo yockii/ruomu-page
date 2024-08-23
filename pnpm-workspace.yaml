@@ -1,0 +1,5 @@
+packages:
+  # projects
+  - 'apps/**'
+  # components as node_modules deps
+  - 'packages/**/*'

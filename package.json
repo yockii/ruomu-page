@@ -1,0 +1,21 @@
+{
+  "name": "ruomu-ui",
+  "private": true,
+  "packageManager": "pnpm@9.6.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "pnpm --filter @ruomu-ui/desinger run dev"
+  },
+  "dependencies": {
+    "vue": "^3.4.34"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@vue/tsconfig": "^0.5.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5"
+  }
+}

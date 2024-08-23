@@ -1,0 +1,27 @@
+import axios, { AxiosInstance } from "axios";
+import { Response } from "../types";
+
+const instance: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_APP_API_BASE_URL || "http://192.168.1.100:4523/m1/5018611-4678324-default",
+  timeout: 5000,
+  //   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+async function Get<T>(url: string, params?: Record<string, any>): Promise<Response<T>> {
+  const { data } = await instance.get(url, { params });
+  return data;
+}
+
+async function Post<T>(url: string, data?: Record<string, any>): Promise<Response<T>> {
+  const res = await instance.post(url, data);
+  return res.data;
+}
+
+export { 
+  instance as http,
+  Get as httpGet,
+  Post as httpPost,
+};
