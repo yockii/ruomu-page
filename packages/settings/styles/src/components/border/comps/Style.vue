@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import {NPopover, NButton, NDropdown} from 'naive-ui'
-  import { onMounted, ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   import { changeStyle } from '../../../util'
 
   const props = defineProps({
@@ -57,14 +57,13 @@
     }
   ]
 
+  const display = computed(() => {
+    return options.find(option => option.key === props.defaultValue)?.label
+  })
 </script>
 
 <template>
   <n-dropdown trigger="click" :options="options" @select="handleSelect">
-    <n-button quaternary>{{defaultValue}}</n-button>
+    <n-button quaternary>{{display}}</n-button>
   </n-dropdown>
 </template>
-
-<style scoped>
-
-</style>

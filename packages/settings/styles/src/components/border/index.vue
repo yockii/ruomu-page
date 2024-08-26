@@ -7,6 +7,7 @@
   import Width from './comps/Width.vue'
   import BorderStyle from './comps/Style.vue'
   import Color from './comps/Color.vue'
+  import Radius from './comps/Radius.vue'
   const expanded = ref(true)
   
   const canvasStore = useCanvasStore()
@@ -28,10 +29,22 @@
       borderRightWidth: projectStore.styleValue(selectState.value.id, "borderRightWidth") || '0',
       borderRightStyle: projectStore.styleValue(selectState.value.id, "borderRightStyle") || 'none',
       borderRightColor: projectStore.styleValue(selectState.value.id, "borderRightColor") || '#000',
+      
+      borderTopLeftRadius: projectStore.styleValue(selectState.value.id, "borderTopLeftRadius") || '0',
+      borderTopRightRadius: projectStore.styleValue(selectState.value.id, "borderTopRightRadius") || '0',
+      borderBottomLeftRadius: projectStore.styleValue(selectState.value.id, "borderBottomLeftRadius") || '0',
+      borderBottomRightRadius: projectStore.styleValue(selectState.value.id, "borderBottomRightRadius") || '0',
     }
   })
 
-
+  const radius = computed(() => {
+    return {
+      'border-top-left-radius': border.value.borderTopLeftRadius,
+      'border-top-right-radius': border.value.borderTopRightRadius,
+      'border-bottom-left-radius': border.value.borderBottomLeftRadius,
+      'border-bottom-right-radius': border.value.borderBottomRightRadius,
+    }
+  })
 </script>
 
 <template>
@@ -45,32 +58,41 @@
 
   <n-collapse-transition :show="expanded">
     <div class="m-4px flex justify-center">
-      <div class="border">
-        <div class="top" ></div>
-        <div class="bottom" ></div>
-        <div class="left" ></div>
-        <div class="right" ></div>
+      <div class="border-container">
+        <div class="border" :style="radius">
+          <div class="top" ></div>
+          <div class="bottom" ></div>
+          <div class="left" ></div>
+          <div class="right" ></div>
+  
+          <div class="v t">
+            <width style-name="borderTopWidth" :default-value="border.borderTopWidth" />
+            <border-style style-name="borderTopStyle" :default-value="border.borderTopStyle" />
+            <color style-name="borderTopColor" :default-value="border.borderTopColor" />
+          </div>
+          <div class="v b">
+            <width style-name="borderBottomWidth" :default-value="border.borderBottomWidth" />
+            <border-style style-name="borderBottomStyle" :default-value="border.borderBottomStyle" />
+            <color style-name="borderBottomColor" :default-value="border.borderBottomColor" />
+          </div>
+          <div class="v l">
+            <width style-name="borderLeftWidth" :default-value="border.borderLeftWidth" />
+            <border-style style-name="borderLeftStyle" :default-value="border.borderLeftStyle" />
+            <color style-name="borderLeftColor" :default-value="border.borderLeftColor" />
+          </div>
+          <div class="v r">
+            <width style-name="borderRightWidth" :default-value="border.borderRightWidth" />
+            <border-style style-name="borderRightStyle" :default-value="border.borderRightStyle" />
+            <color style-name="borderRightColor" :default-value="border.borderRightColor" />
+          </div>
+  
+        </div>
 
-        <div class="v t">
-          <width style-name="borderTopWidth" :default-value="border.borderTopWidth" />
-          <border-style style-name="borderTopStyle" :default-value="border.borderTopStyle" />
-          <color style-name="borderTopColor" :default-value="border.borderTopColor" />
-        </div>
-        <div class="v b">
-          <width style-name="borderBottomWidth" :default-value="border.borderBottomWidth" />
-          <border-style style-name="borderBottomStyle" :default-value="border.borderBottomStyle" />
-          <color style-name="borderBottomColor" :default-value="border.borderBottomColor" />
-        </div>
-        <div class="v l">
-          <width style-name="borderLeftWidth" :default-value="border.borderLeftWidth" />
-          <border-style style-name="borderLeftStyle" :default-value="border.borderLeftStyle" />
-          <color style-name="borderLeftColor" :default-value="border.borderLeftColor" />
-        </div>
-        <div class="v r">
-          <width style-name="borderRightWidth" :default-value="border.borderRightWidth" />
-          <border-style style-name="borderRightStyle" :default-value="border.borderRightStyle" />
-          <color style-name="borderRightColor" :default-value="border.borderRightColor" />
-        </div>
+        <!-- 四个角 -->
+        <radius position="tl" style-name="borderTopLeftRadius" :default-value="border.borderTopLeftRadius"/>
+        <radius position="tr" style-name="borderTopRightRadius" :default-value="border.borderTopRightRadius"/>
+        <radius position="bl" style-name="borderBottomLeftRadius" :default-value="border.borderBottomLeftRadius"/>
+        <radius position="br" style-name="borderBottomRightRadius" :default-value="border.borderBottomRightRadius"/>
       </div>
       
     </div>
@@ -78,16 +100,19 @@
 </template>
 
 <style lang="less" scoped>
+.border-container {
+  position: relative;
+
+  --outer-width: 200px;
+  --outer-height: 100px;
+  --outer-border: 60px;
+  --bg-color: #AAA;
+}
 .border {
+  overflow:hidden;
   position: relative;
   width: calc(var(--outer-width) + var(--outer-border) * 2);
   height: calc(var(--outer-height) + var(--outer-border) * 2);
-
-  --outer-width: 200px;
-  --outer-height: 120px;
-  --outer-border: 40px;
-  --bg-color: #AAA;
-
 
   .top,.bottom,.left,.right {
     position: absolute;
@@ -161,7 +186,7 @@
       right: 0;
     }
   }
+ 
 }
-
 
 </style>
