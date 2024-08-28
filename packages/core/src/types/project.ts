@@ -20,14 +20,9 @@ export type Page = {
 }
 
 export type PageSchema = Schema & {
-  // id?: string;
   state: Record<string, any>;
   fileName: string;
-  // Page
-  // componentName: string;
   css: string;
-  // props: any;
-  // children: Schema[];
 }
 
 export type Schema = {
@@ -39,4 +34,6 @@ export type Schema = {
   tagName: string;
   props: Record<string, any>;
   children?: Schema[];
+  // 代码编写的style样式
+  style?: string;
 }

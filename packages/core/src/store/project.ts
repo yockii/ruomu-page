@@ -176,8 +176,6 @@ export const useProjectStore = defineStore("project", {
       }
       if (!schema.props.style) {
         schema.props.style = defaultStyle
-      } else if (!schema.props.style.padding) {
-        schema.props.style.padding = defaultStyle.padding
       }
       
       this.moveSchema(schema, targetSchemaId, position)
@@ -204,21 +202,36 @@ export const useProjectStore = defineStore("project", {
         }
       }
     },
-    addSchemaPropStyleValue(schemaId: string, styleName: string, value: string) {
+    updateSchemaStyleValue(schemaId: string, value: string) {
+      const schema = this.findSchemaSegment(schemaId)
+      if (schema) {
+        schema.style = value
+      }
+    },
+    addSchemaPropStyleValue(schemaId: string, styleName: string, value: string | null) {
       const schema = this.findSchemaSegment(schemaId)
       if (schema) {
         if (schema.props) {
           if (schema.props.style) {
-            schema.props.style[styleName] = value
+            if (value) {
+              schema.props.style[styleName] = value
+            } else {
+              // 删除属性
+              delete schema.props.style[styleName]
+            }
           } else {
-            schema.props.style = {
-              [styleName]: value
+            if (value) {
+              schema.props.style = {
+                [styleName]: value,
+              }
             }
           }
         } else {
-          schema.props = {
-            style: {
-              [styleName]: value
+          if (value) {
+            schema.props = {
+              style: {
+                [styleName]: value,
+              },
             }
           }
         }

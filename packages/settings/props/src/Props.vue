@@ -41,7 +41,7 @@
 </script>
 
 <template>
-  <div class="mt-4px">
+  <div class="panel">
     <template v-for="group in groups">
       <div class="bg-#EFEFEF flex mt-8px px-8px h-36px items-center justify-between cursor-pointer" @click="group.expanded = !group.expanded">
         <span>{{group.groupName}}</span>
@@ -59,5 +59,11 @@
 </template>
 
 <style scoped>
-
+  .panel {
+    margin-top: 4px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #18A058 #f0f0f0;
+  }
 </style>

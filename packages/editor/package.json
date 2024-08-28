@@ -1,7 +1,7 @@
 {
-  "name": "@ruomu-ui/setting-styles",
+  "name": "@ruomu-ui/editor",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,17 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ruomu-ui/core": "workspace:*",
-    "@ruomu-ui/editor": "workspace:*",
-    
-    "@vicons/tabler": "^0.12.0",
+    "monaco-editor": "^0.51.0",
     "vue": "^3.4.37"
   },
   "devDependencies": {
-    "@vicons/material": "^0.12.0",
+    "@monaco-editor/loader": "^1.4.0",
     "@vitejs/plugin-vue": "^5.1.2",
-    "naive-ui": "^2.39.0",
-    "pinia": "^2.1.7",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
     "vue-tsc": "^2.0.29"

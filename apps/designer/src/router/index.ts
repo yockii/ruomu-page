@@ -1,5 +1,5 @@
 import {
-  createRouter, createWebHashHistory,
+  createRouter, 
   createWebHistory,
   isNavigationFailure,
 } from 'vue-router'
@@ -22,7 +22,7 @@ export const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

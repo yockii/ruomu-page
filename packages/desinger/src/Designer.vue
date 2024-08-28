@@ -59,7 +59,7 @@
       <div class="flex-1">
         <designer-canvas />
       </div>
-      <div class="z-4 relative">
+      <div class="settings">
         <designer-settings />
       </div>
     </div>
@@ -67,5 +67,9 @@
 </template>
 
 <style scoped>
-
+.settings {
+  z-index: 4;
+  position: relative;
+  border-left: 1px solid #666;
+}
 </style>

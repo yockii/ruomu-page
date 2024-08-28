@@ -30,7 +30,10 @@ export default ({options, store}: {options: PiniaShareOptions, store: Store}) =>
   
   // 清理
   const onBeforeUnload = () => {
-    channel && (channel.onmessage = null, channel, channel.close())
+    if (channel) {
+      channel.onmessage = null
+      channel.close()
+    }
     channel = null
     window.removeEventListener('beforeunload', onBeforeUnload)
   }

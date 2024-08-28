@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { Property, useCanvasStore, useProjectStore } from '@ruomu-ui/core'
-  import { computed, PropType, ref } from 'vue'
+  import { computed, PropType } from 'vue'
   import { NIcon, NTooltip, NInput } from 'naive-ui';
   import { CodeFilled } from '@vicons/material'
   import { storeToRefs } from 'pinia'

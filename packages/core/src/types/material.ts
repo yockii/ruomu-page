@@ -82,6 +82,7 @@ export type Property = {
 
 export type Event = {
   label: string;
+  name: string;
   description: string;
   params: Parameter[];
   returnValue: Parameter;
@@ -92,5 +93,5 @@ export type Parameter = {
   name: string;
   description: string;
   type: string;
-  defaultValue: string;
+  defaultValue?: any;
 }

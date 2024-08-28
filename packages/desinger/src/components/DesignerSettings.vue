@@ -4,7 +4,7 @@
   import { useLayoutStore, type Setting } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
   import addons from "../config/addons"
-  import { h } from 'vue'
+  import { h, onMounted, onUnmounted, ref } from 'vue'
   
   const layoutStore = useLayoutStore()
   const { settingsPanelPinned, showSettingsPanel } = storeToRefs(layoutStore)
@@ -21,11 +21,54 @@
     }
     return s.title
   }
+  
+  const panel = ref<HTMLElement | null>(null)
+  const panelHeader = ref<HTMLElement | null>(null)
+  const isMoving = ref(false)
+  const mousePos = ref({ x: 0, y: 0 })
+  
+  const moveStart = (e: MouseEvent) => {
+    if(!settingsPanelPinned.value) {
+      isMoving.value = true
+      mousePos.value = { x: e.clientX, y: e.clientY }
+    }
+  }
+  const move = (e: MouseEvent) => {
+    if (isMoving.value) {
+      const dx = e.clientX - mousePos.value.x
+      const dy = e.clientY - mousePos.value.y
+      if (panel.value) {
+        // 用top和right
+        panel.value.style.top = `${panel.value.offsetTop + dy}px`
+        panel.value.style.left = `${panel.value.offsetLeft + dx}px`
+        mousePos.value = { x: e.clientX, y: e.clientY }
+      }
+    }
+  }
+  const moveEnd = () => {
+    isMoving.value = false
+  }
+  
+  onMounted(() => {
+    // 鼠标拖动监听
+    if (panelHeader.value) {
+      panelHeader.value.addEventListener('mousedown', moveStart)
+      document.addEventListener('mousemove', move)
+      document.addEventListener('mouseup', moveEnd)
+    }
+  })
+  onUnmounted(() => {
+    if (panelHeader.value) {
+      panelHeader.value.removeEventListener('mousedown', moveStart)
+      document.removeEventListener('mousemove', move)
+      document.removeEventListener('mouseup', moveEnd)
+    }
+  })
 </script>
 
 <template>
-  <div v-show="showSettingsPanel" class="w-360px h-100% flex flex-col bg-#FFFFFF z-99" :class="{'top-0 right-0 absolute': !settingsPanelPinned}">
-    <div class="m-4px flex justify-between items-center">
+  <div ref="panel" v-show="showSettingsPanel" class="settings-panel" :class="{'top-0 right-0 absolute b-1px b-solid b-#666': !settingsPanelPinned}">
+    <div ref="panelHeader" class="m-4px flex justify-between items-center" :class="{'cursor-move': !settingsPanelPinned}">
       <n-tooltip>
         <template #trigger>
           <n-icon @click="settingsPanelPinned = !settingsPanelPinned" class="cursor-pointer" size="16">
@@ -55,5 +98,9 @@
 </template>
 
 <style scoped>
-
+.settings-panel {
+  width: 360px;
+  background: #FFF;
+  z-index: 99;
+}
 </style>

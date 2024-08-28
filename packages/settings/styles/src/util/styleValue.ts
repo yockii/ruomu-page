@@ -10,7 +10,7 @@ export const reSelectNode = () => {
 }
 
 
-export const changeStyle = (styleName: string, value: string, cb = reSelectNode) => {
+export const changeStyle = (styleName: string, value: string | null, cb = reSelectNode) => {
   const projectStore = useProjectStore()
   const canvasStore = useCanvasStore()
   const selectState = canvasStore.selectState

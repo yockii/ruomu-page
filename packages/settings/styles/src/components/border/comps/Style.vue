@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import {NPopover, NButton, NDropdown} from 'naive-ui'
-  import { computed, onMounted, ref } from 'vue'
+  import {NButton, NDropdown} from 'naive-ui'
+  import { computed } from 'vue'
   import { changeStyle } from '../../../util'
 
   const props = defineProps({
