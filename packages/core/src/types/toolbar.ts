@@ -16,6 +16,7 @@ export type Plugin = {
   icon?: Component;
   component: Component;
   api?: any;
+  pinned?: boolean;
 }
 
 export type Setting = {

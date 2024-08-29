@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import type { Project, Page, PageSchema, Schema, MaterialComponent } from '../types'
+import { JsMethod } from '../types'
 
 interface projectState {
   project: Project | undefined,
@@ -83,7 +84,10 @@ export const useProjectStore = defineStore("project", {
             innerHTML: 'Hello World'
           },
         }
-      ]
+      ],
+      js: {
+        methods: []
+      }
     }
   }),
   getters: {
@@ -179,6 +183,24 @@ export const useProjectStore = defineStore("project", {
       }
       
       this.moveSchema(schema, targetSchemaId, position)
+    },
+    addNewCustomMethod(m: JsMethod) {
+      if (this.currentPageSchema?.js) {
+        if (this.currentPageSchema.js.methods) {
+          this.currentPageSchema.js.methods.push(m)
+        } else {
+          this.currentPageSchema.js.methods = [m]
+        }
+      } else if (this.currentPageSchema) {
+        this.currentPageSchema.js = {
+          methods: [m]
+        }
+      }
+    },
+    removeCustomMethod(methodId: string) {
+      if (this.currentPageSchema?.js?.methods) {
+        this.currentPageSchema.js.methods = this.currentPageSchema.js.methods.filter(m => m.id !== methodId)
+      }
     },
     parentSchema(schemaId: string) {
       if (this.currentPageSchema) {

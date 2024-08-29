@@ -92,6 +92,6 @@ export type Event = {
 export type Parameter = {
   name: string;
   description: string;
-  type: string;
+  type: 'string' | 'number' | 'boolean' | 'array' | 'object';
   defaultValue?: any;
 }

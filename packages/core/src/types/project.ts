@@ -1,4 +1,4 @@
-import { MaterialLib } from './material'
+import { MaterialLib, Parameter } from './material'
 
 export type Project = {
   id: string; // id
@@ -23,6 +23,24 @@ export type PageSchema = Schema & {
   state: Record<string, any>;
   fileName: string;
   css: string;
+  js: JsBlock;
+}
+
+export type JsBlock = {
+  onMounted?: string;
+  onUnmounted?: string;
+  onUpdated?: string;
+  onBeforeMount?: string;
+  onBeforeUnmount?: string;
+  methods: JsMethod[];
+}
+
+export type JsMethod = {
+  id?: string;
+  name: string;
+  description: string;
+  code: string;
+  params: Parameter[];
 }
 
 export type Schema = {

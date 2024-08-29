@@ -42,7 +42,7 @@
       </template>
     </div>
     <div class="flex flex-col items-center">
-     
+     <!-- bottomPlugins -->
     </div>
   </div>
 </template>

@@ -31,18 +31,18 @@
     <designer-toolbar />
     <div class="flex h-100% relative">
       <designer-plugin-bar @show-plugin-panel="togglePluginPanel"/>
-      <div v-if="showPluginPanel && currentPlugin" class="b-0 b-r-1px b-#999 b-solid z-99 bg-#fff" :class="{'absolute left-40px top-0 bottom-0': !currentPlugin.panelPinned}">
+      <div v-if="showPluginPanel && currentPlugin" class="b-0 b-r-1px b-#999 b-solid z-99 bg-#fff" :class="{'absolute left-40px top-0 bottom-0': !currentPlugin.pinned}">
         <div class="flex justify-between p-4px">
           <span>{{currentPlugin.title}}</span>
           <div class="flex items-center">
             <n-tooltip>
               <template #trigger>
-                <n-icon @click="currentPlugin.panelPinned = !currentPlugin.panelPinned" class="cursor-pointer" size="16">
-                  <PinFilled v-if="currentPlugin.panelPinned" class="-rotate-45" />
+                <n-icon @click="currentPlugin.pinned = !currentPlugin.pinned" class="cursor-pointer" size="16">
+                  <PinFilled v-if="currentPlugin.pinned" class="-rotate-45" />
                   <Pin v-else />
                 </n-icon>
               </template>
-              <span>{{currentPlugin.panelPinned ? '取消固定面板' : '固定面板'}}</span>
+              <span>{{currentPlugin.pinned ? '取消固定面板' : '固定面板'}}</span>
             </n-tooltip>
             <n-tooltip>
               <template #trigger>

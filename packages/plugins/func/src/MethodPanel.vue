@@ -1,0 +1,184 @@
+<script setup lang="ts">
+  import { JsMethod, Parameter } from '@ruomu-ui/core'
+import { computed, onMounted, PropType, ref } from 'vue'
+import { NIcon, NTooltip, NInput, NButtonGroup, NButton, NPopconfirm } from 'naive-ui'
+import { Close } from '@vicons/carbon'
+import { Settings } from '@vicons/tabler'
+import { JsEditor } from '@ruomu-ui/editor'
+  import ParamSettings from './ParamSettings.vue'
+
+const props = defineProps({
+  method: {
+    type: Object as PropType<JsMethod>,
+    required: true
+  }
+})
+const emit = defineEmits(['close', 'confirm', 'remove'])
+
+const showNameInput = ref(false)
+
+const name = ref('')
+const editName = () => {
+  name.value = props.method?.name || ''
+  showNameInput.value = true
+}
+const nameAllowed = (value: string) => {
+  // js方法名只能包含字母、数字、下划线
+  return /^[a-zA-Z_]\w*$/.test(value)
+}
+const confirmName = () => {
+  props.method.name = name.value
+  showNameInput.value = false
+}
+
+const showDescriptionInput = ref(false)
+const description = ref('')
+const editDescription = () => {
+  description.value = props.method?.description || ''
+  showDescriptionInput.value = true
+}
+const confirmDescription = () => {
+  props.method.description = description.value
+  showDescriptionInput.value = false
+}
+
+const codeEditable = computed(() => {
+  return !!props.method.name
+})
+const editableCode = ref('')
+
+onMounted(() => {
+  if(props.method.name === '') {
+    editName()
+  }
+  const params = paramStringArray.value.join(', ')
+  editableCode.value = `function ${props.method.name}(${params}) {\n${props.method.code || ''}\n}`
+})
+
+// 参数设置
+const paramStringArray = computed(() => {
+  // return props.method.params?.map(p => `${p.name}: ${p.type}`) || []
+  return props.method.params?.map(p => `${p.name}`) || []
+})
+
+const params = ref<Parameter[]>([])
+const paramsUpdated = (params: Parameter[]) => {
+  // props.method.params 可能不存在
+  props.method.params = params
+}
+const paramsDialogVisible = ref(false)
+const showParamsDialog = () => {
+    params.value = props.method.params || []
+    paramsDialogVisible.value = true
+  }
+  
+  const confirmAddMethod = () => {
+    emit('confirm')
+  }
+</script>
+
+<template>
+  <div class="method-panel">
+    <div class="flex justify-between items-center mt-4px ml-4px">
+      <div v-if="showNameInput" class="flex">
+        <n-input v-model:value="name" size="small" placeholder="请设置方法名" :allow-input="nameAllowed"/>
+        <n-button-group size="small" class="ml-4px">
+          <n-button type="primary" @click="confirmName">确定</n-button>
+          <n-button @click="showNameInput = false">取消</n-button>
+        </n-button-group>
+      </div>
+      <div v-else class="flex items-center">
+        <span class="mr-4px">方法名:</span>
+        <span>{{ method.name }}</span>
+        <n-tooltip>
+          <template #trigger>          
+            <n-icon size="14" @click="editName" class="ml-8px cursor-pointer">
+              <Settings />
+            </n-icon>
+          </template>
+          <span>设置方法名</span>
+        </n-tooltip>
+      </div>
+      <n-tooltip>
+        <template #trigger>
+          <n-icon class="cursor-pointer ml-8px" size="24" @click="emit('close')">
+            <Close />
+          </n-icon>
+        </template>
+        <span>关闭面板</span>
+      </n-tooltip>
+    </div>
+    
+    <div class="mt-4px mx-4px">
+      <div v-if="showDescriptionInput" class="flex">
+        <n-input v-model:value="description" size="small" placeholder="请设置方法名" />
+        <n-button-group size="small" class="ml-4px">
+          <n-button type="primary" @click="confirmDescription">确定</n-button>
+          <n-button @click="showDescriptionInput = false">取消</n-button>
+        </n-button-group>
+      </div>
+      <div v-else class="flex items-center">
+        <span class="mr-4px">说明:</span>
+        <span>{{ method.description }}</span>
+        <n-tooltip>
+          <template #trigger>
+            <n-icon size="14" @click="editDescription" class="ml-8px cursor-pointer">
+              <Settings />
+            </n-icon>
+          </template>
+          <span>设置方法说明</span>
+        </n-tooltip>
+      </div>
+    </div>
+    <div class="mt-4px mx4px">
+      <n-button size="small" text @click="showParamsDialog">参数设置</n-button>
+    </div>
+    <param-settings v-model:visible="paramsDialogVisible" :params="params" @update:params="paramsUpdated"/>
+    
+    <div class="code-area">
+      <div v-if="!codeEditable" class="text-center text-gray-400 text-12px">请先设置方法名</div>
+      <js-editor v-model:code="editableCode" :method-name="method.name || 'newFunction'" :params="paramStringArray" :editable="codeEditable" />
+    </div>
+    
+    <div class="footer">
+      <div>
+        <n-popconfirm @positive-click="emit('remove')" v-if="method.id">
+          <template #trigger>
+            <n-button size="small" type="error" class="ml-8px">删除</n-button>
+          </template>
+          <span>确定删除该方法？</span>
+        </n-popconfirm>
+      </div>
+      <div>
+        <n-button class="mr-8px" size="small" type="primary" @click="confirmAddMethod">确认</n-button>
+        <n-button class="mr-8px" size="small" text @click="emit('close')">取消</n-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+  .method-panel {
+    width: 480px;
+    height: calc(100vh - 40px);
+    position: absolute;
+    top: -40px;
+    left: 181px;
+    background-color: #FFF;
+    border-right: 1px solid #666;
+    
+    .code-area {
+      margin-top: 8px;
+      height: calc(100% - 160px);
+    }
+    
+    .footer {
+      z-index: 9;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+</style>

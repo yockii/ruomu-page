@@ -9,6 +9,7 @@ const Material: Plugin = {
   align: "top",
   icon: Components,
   component: shallowRef(MaterialComponent),
+  pinned: true,
 }
 
 export default Material

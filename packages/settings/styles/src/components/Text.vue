@@ -127,7 +127,7 @@
       </n-grid>
       <n-grid :cols="24" :x-gap="8">
         <n-form-item-gi :span="12" label="颜色">
-          <n-color-picker :value="styleValue('color')" @confirm="v => changeStyle('color', v)"/>
+          <n-color-picker :value="styleValue('color')" @update:value="v => changeStyle('color', v)"/>
         </n-form-item-gi>
         <n-form-item-gi :span="12" label="对齐">
           <n-select :value="styleValue('textAlign')" :options="[
@@ -146,7 +146,7 @@
       </n-grid>
       <n-divider>线</n-divider>
       <n-form-item label="颜色">
-        <n-color-picker :value="styleValue('textDecorationColor')" @confirm="v => changeStyle('textDecorationColor', v)"/>
+        <n-color-picker :value="styleValue('textDecorationColor')" @update:value="v => changeStyle('textDecorationColor', v)"/>
       </n-form-item>
       <n-form-item label="位置">
         <n-select :value="styleValueArray('textDecorationLine')" multiple clearable :options="[
