@@ -4,23 +4,19 @@
   import { computed, ref } from 'vue'
   import { ChevronDown, ChevronUp, Plus } from '@vicons/tabler'
   import MethodPanel from './MethodPanel.vue'
+  import { usePluginFunctionStore } from './Store.ts'
+  import { storeToRefs } from 'pinia'
 
   const projectStore = useProjectStore()
-  
+  const myStore = usePluginFunctionStore()
   const jsBlock = computed(() => projectStore.currentPageSchema?.js)
-  
   const methods = computed(() => jsBlock.value?.methods)
+  
+  const {showMethodPanel, currentMethod} = storeToRefs(myStore)
   
   const showBuiltInMethods = ref(false)
   const showCustomMethods = ref(false)
   
-  const showMethodPanel = ref(false)
-  const currentMethod = ref<JsMethod>({
-    name: '',
-    description: '',
-    code: '',
-    params: [],
-  })
   const showMethod = (method: JsMethod) => {
     currentMethod.value = method
     showMethodPanel.value = true

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { Plugin  } from '../types'
 
 export const useLayoutStore = defineStore("layout", {
   state: () => ({
@@ -11,6 +12,9 @@ export const useLayoutStore = defineStore("layout", {
     scale: 1.0,
     settingsPanelPinned: true,
     showSettingsPanel: true,
+    
+    showPluginPanel: false,
+    currentPlugin: null as Plugin | null,
   }),
   persistShare: true,
 })

@@ -3,12 +3,11 @@ import { NAutoComplete, NIcon, NH6, NCollapseTransition } from 'naive-ui'
 import { computed, onMounted, ref } from 'vue'
 import { MaterialComponent, MaterialComponentGroup, MaterialLib } from '@ruomu-ui/core/src/types/material.ts'
 import { Search, ChevronDown, ChevronUp } from "@vicons/tabler"
-import { deepClone, httpGet, Paginate, useCanvasStore } from '@ruomu-ui/core'
-import BuiltIn from './builtInLib.ts'
-import { useComponentsStore } from '@ruomu-ui/core/src/store/components.ts'
+import { deepClone, useCanvasStore } from '@ruomu-ui/core'
+import { Group, usePluginMaterialStore } from './Store.ts'
+import { storeToRefs } from 'pinia'
 
 const canvasStore = useCanvasStore()
-const componentsStore = useComponentsStore()
 
 const searchKeyword = ref('')
 const searchAutocompleteResults = computed(() => {
@@ -40,11 +39,9 @@ const groupedAndFilteredComponents = computed(() => {
   })
 })
 
-type Lib = MaterialLib & {groups?: MaterialComponentGroup[], components?: MaterialComponent[]}
-type Group = MaterialComponentGroup & {components?: MaterialComponent[], expanded?: boolean}
+const myStore = usePluginMaterialStore()
+const {componentLibs,  currentLib} = storeToRefs(myStore)
 
-const componentLibs = ref<Lib[]>([])
-const currentLib = ref<Lib | null>(null)
 const components = computed<MaterialComponent[]>(() => {
   return currentLib.value?.components || []
 })
@@ -52,91 +49,14 @@ const groups = computed<Group[]>(() => {
   return currentLib.value?.groups || []
 })
 
-const getLibs = async () => {
-  try {
-    const resp = await httpGet<Paginate<MaterialLib>>('/api/v1/materialLab/list', {offset: -1, limit: -1})
-    if (resp.code === 200) {
-      // 加上 BuiltIn.BuiltInLib
-      // componentLibs.value = resp.data?.items || []
-      componentLibs.value = [BuiltIn.BuiltInLib, ...resp.data?.items || []]
-      
-      componentsStore.addLibs(componentLibs.value)
-      
-      if (currentLib.value === null) {
-        currentLib.value = componentLibs.value[0]
-        checkLibGroups()
-      }
-
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-const checkLibGroups = () => {
-  if (currentLib.value) {
-    if (currentLib.value.groups && currentLib.value.groups.length > 0) {
-      checkComponents()
-    } else {
-      getGroups()
-    }
-  }
-}
-
-const getGroups = async () => {
-  if (!currentLib.value) {
-    return
-  }
-  if (currentLib.value.code === "builtIn") {
-    currentLib.value.groups = BuiltIn.BuiltInComponentGroups
-    checkComponents()
-    return
-  }
-  // TODO get groups from server
-}
-
-const checkComponents = () => {
-  if (currentLib.value) {
-    if (currentLib.value.components && currentLib.value.components.length > 0) {
-      return
-    } else {
-      getComponents()
-    }
-  }
-}
-
-const getComponents = async () => {
-  if (!currentLib.value || !currentLib.value.code) {
-    return
-  }
-  const libCode = currentLib.value.code
-  if (libCode === "builtIn") {
-    currentLib.value.components = BuiltIn.BuiltInComponents
-    componentsStore.addComponents(libCode, BuiltIn.BuiltInComponents)
-    buildGroupComponents()
-    return
-  }
-  // TODO get components from server
-}
-
-const buildGroupComponents = () => {
-  if (currentLib.value) {
-    if (currentLib.value.groups && currentLib.value.groups.length > 0) {
-      currentLib.value.groups.forEach((group) => {
-        group.components = currentLib.value?.components?.filter((component) => {
-          return component.groupId === group.id
-        })
-      })
-    }
-  }
-}
-
 const dragstart = (component: MaterialComponent) => {
   canvasStore.dragStarted(deepClone(component))
 }
 
 onMounted(() => {
-  getLibs()
+  if (componentLibs.value.length === 0) {
+    myStore.getLibs()
+  }
 })
 </script>
 

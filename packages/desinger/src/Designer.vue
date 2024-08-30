@@ -3,26 +3,14 @@
   import DesignerPluginBar from './components/DesignerPluginBar.vue'
   import DesignerSettings from './components/DesignerSettings.vue'
   import DesignerCanvas from './components/DesignerCanvas.vue'
-  import { ref } from 'vue'
-  import type {Plugin} from '@ruomu-ui/core'
+  import { Plugin, useLayoutStore } from '@ruomu-ui/core'
   import {Pin, PinFilled, Close} from "@vicons/carbon"
   import {NIcon, NTooltip} from "naive-ui"
-
-  const showPluginPanel = ref(false)
-  const currentPlugin = ref<Plugin|null>(null)
-  const togglePluginPanel = (plugin: Plugin) => {
-    if (currentPlugin.value) {
-      if (currentPlugin.value.id === plugin.id) {
-        showPluginPanel.value = !showPluginPanel.value
-      } else {
-        currentPlugin.value = plugin
-        showPluginPanel.value = true
-      }
-    } else {
-      currentPlugin.value = plugin
-      showPluginPanel.value = true
-    }
-  }
+  import { storeToRefs } from 'pinia'
+  
+  const layoutStore = useLayoutStore()
+  
+  const { showPluginPanel, currentPlugin } = storeToRefs(layoutStore)
 
 </script>
 
@@ -30,7 +18,7 @@
   <div class="flex flex-col h-100%">
     <designer-toolbar />
     <div class="flex h-100% relative">
-      <designer-plugin-bar @show-plugin-panel="togglePluginPanel"/>
+      <designer-plugin-bar />
       <div v-if="showPluginPanel && currentPlugin" class="b-0 b-r-1px b-#999 b-solid z-99 bg-#fff" :class="{'absolute left-40px top-0 bottom-0': !currentPlugin.pinned}">
         <div class="flex justify-between p-4px">
           <span>{{currentPlugin.title}}</span>

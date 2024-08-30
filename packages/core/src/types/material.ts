@@ -85,8 +85,8 @@ export type Event = {
   name: string;
   description: string;
   params: Parameter[];
-  returnValue: Parameter;
-  defaultValue: string;
+  returnValue?: Parameter;
+  defaultValue?: string;
 }
 
 export type Parameter = {

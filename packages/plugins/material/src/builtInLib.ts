@@ -1,19 +1,22 @@
 import { MaterialComponent } from '@ruomu-ui/core'
 
+export const BuiltInLibVersion = {
+  id: "builtInVersion",
+  version: "0.0.1",
+  pluginUseName: "",
+  cdnJsUrl: "",
+  cdnCssUrl: ""
+}
+
 export const BuiltInLib = {
   id: "builtIn",
   code: "builtIn",
   name: "内置库",
   packageName: "",
   description: "内置库-基础html元素",
-  activeVersionId: "builtInVersion"
-}
-
-export const BuiltInLibVersion = {
-  id: "builtInVersion",
-  version: "0.0.1",
-  cdnJsUrl: "",
-  cdnCssUrl: ""
+  activeVersionId: "builtInVersion",
+  thumbnailUrl:"",
+  activeVersion: BuiltInLibVersion,
 }
 
 export const BuiltInComponentGroups = [
@@ -106,7 +109,23 @@ export const BuiltInComponents:MaterialComponent[] = [
           ]
         }
       ],
-      events: {},
+      events: {
+        onClick: {
+          label: '点击事件',
+          name: 'onClick',
+          description: '点击事件',
+          params: [
+            {
+              name: 'event',
+              description: '事件对象',
+              type: 'object',
+              defaultValue: '{}'
+            }
+          ],
+          returnValue: undefined,
+          defaultValue: 'console.log(event)'
+        }
+      },
       slots: []
     }
   },

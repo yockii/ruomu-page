@@ -1,4 +1,4 @@
-import FunctionComponent from "./src"
+import { Func as FunctionComponent, usePluginFunctionStore } from "./src"
 import type {Plugin} from "@ruomu-ui/core"
 import { MathFunction } from "@vicons/tabler"
 import { shallowRef } from 'vue'
@@ -10,5 +10,7 @@ const Material: Plugin = {
   icon: MathFunction,
   component: shallowRef(FunctionComponent),
 }
+
+export { usePluginFunctionStore }
 
 export default Material

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import type { Plugin } from '@ruomu-ui/core';
+  import { Plugin, useLayoutStore } from '@ruomu-ui/core'
   import addons from "../config/addons"
   import {NIcon, NTooltip} from "naive-ui";
-  import { onMounted } from 'vue'
-  
-  const emit = defineEmits(['showPluginPanel'])
+  import { nextTick, onMounted } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import { usePluginMaterialStore } from '@ruomu-ui/plugin-material/src/Store.ts'
   
   const topPlugins:Plugin[] = []
   const bottomPlugins:Plugin[] = []
@@ -17,13 +17,26 @@
     }
   })
   
-  const showPluginPanel = (plugin: Plugin) => {
-    emit('showPluginPanel', plugin)
+  const togglePluginPanel = (plugin: Plugin) => {
+    if (currentPlugin.value) {
+      if (currentPlugin.value.id === plugin.id) {
+        showPluginPanel.value = !showPluginPanel.value
+      } else {
+        currentPlugin.value = plugin
+        showPluginPanel.value = true
+      }
+    } else {
+      currentPlugin.value = plugin
+      showPluginPanel.value = true
+    }
   }
+
+  const layoutStore = useLayoutStore()
+
+  const { showPluginPanel, currentPlugin } = storeToRefs(layoutStore)
   
   onMounted(() => {
-    // 打开物料插件窗口
-    showPluginPanel(addons.plugins[0])
+    usePluginMaterialStore().getLibs()
   })
 </script>
 
@@ -33,7 +46,7 @@
       <template v-for="item in topPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
-            <n-icon size="24" @click="showPluginPanel(item)" class="cursor-pointer mb-8px">
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-8px">
               <component :is="item.icon" />
             </n-icon>
           </template>
