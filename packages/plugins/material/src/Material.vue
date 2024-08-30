@@ -80,7 +80,7 @@ onMounted(() => {
     </div>
     
     <div class="mt-8px">
-      <template  v-for="group in groups" :key="group.id">
+      <template v-for="group in groups" :key="group.id">
         <div class="bg-#EFEFEF mt-8px px-8px h-36px flex items-center justify-between cursor-pointer" @click="group.expanded = !group.expanded">
           <span>{{group.name}}</span>
           <n-icon size="18">

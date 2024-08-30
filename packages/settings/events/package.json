@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@ruomu-ui/core": "workspace:*",
+    "@ruomu-ui/plugin-function": "workspace:*",
+    
     "vue": "^3.4.37"
   },
   "devDependencies": {

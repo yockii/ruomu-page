@@ -7,3 +7,4 @@ export {
 export * from './http'
 export * from './clone'
 export * from './css'
+export * from './dynamicComponent'

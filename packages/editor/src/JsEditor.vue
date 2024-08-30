@@ -46,6 +46,11 @@
       editorInstance.setValue(result)
     }
   })
+  watch(() => props.code, () => {
+    if (editorInstance) {
+      editorInstance.setValue(props.code)
+    }
+  })
 
   const jsCode = computed({
     get: () => props.code,

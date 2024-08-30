@@ -54,4 +54,11 @@ export type Schema = {
   children?: Schema[];
   // 代码编写的style样式
   style?: string;
+  // 绑定的事件
+  events?: BindEventInfo[]
+}
+
+export type BindEventInfo = {
+  eventName: string;
+  methodId: string;
 }

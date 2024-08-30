@@ -3,7 +3,7 @@
   import DesignerPluginBar from './components/DesignerPluginBar.vue'
   import DesignerSettings from './components/DesignerSettings.vue'
   import DesignerCanvas from './components/DesignerCanvas.vue'
-  import { Plugin, useLayoutStore } from '@ruomu-ui/core'
+  import { resolveComponent, useLayoutStore } from '@ruomu-ui/core'
   import {Pin, PinFilled, Close} from "@vicons/carbon"
   import {NIcon, NTooltip} from "naive-ui"
   import { storeToRefs } from 'pinia'
@@ -42,7 +42,7 @@
             </n-tooltip>
           </div>
         </div>
-        <component :is="currentPlugin.component" />
+        <component :is="resolveComponent(currentPlugin.component)" />
       </div>
       <div class="flex-1">
         <designer-canvas />

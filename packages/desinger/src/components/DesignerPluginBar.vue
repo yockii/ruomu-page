@@ -1,21 +1,15 @@
 <script setup lang="ts">
-  import { Plugin, useLayoutStore } from '@ruomu-ui/core'
+  import { Plugin, useLayoutStore, resolveComponent } from '@ruomu-ui/core'
   import addons from "../config/addons"
   import {NIcon, NTooltip} from "naive-ui";
-  import { nextTick, onMounted } from 'vue'
+  import { onMounted, ref } from 'vue'
   import { storeToRefs } from 'pinia'
-  import { usePluginMaterialStore } from '@ruomu-ui/plugin-material/src/Store.ts'
+  import { usePluginMaterialStore } from '@ruomu-ui/plugin-material'
+  import PluginMaterial from '@ruomu-ui/plugin-material'
   
-  const topPlugins:Plugin[] = []
-  const bottomPlugins:Plugin[] = []
+  const topPlugins = ref<Plugin[]>([])
+  const bottomPlugins = ref<Plugin[]>([])
   
-  addons.plugins.forEach((item:Plugin) => {
-    if (item.align === 'bottom') {
-      bottomPlugins.push(item)
-    } else {
-      topPlugins.push(item)
-    }
-  })
   
   const togglePluginPanel = (plugin: Plugin) => {
     if (currentPlugin.value) {
@@ -36,6 +30,19 @@
   const { showPluginPanel, currentPlugin } = storeToRefs(layoutStore)
   
   onMounted(() => {
+    addons.plugins.forEach((item:Plugin) => {
+      if (item.align === 'bottom') {
+        bottomPlugins.value.push(item)
+      } else {
+        topPlugins.value.push(item)
+      }
+    })
+    
+    // if (!currentPlugin.value) {
+      currentPlugin.value = PluginMaterial
+      showPluginPanel.value = true
+    // }
+    
     usePluginMaterialStore().getLibs()
   })
 </script>
@@ -47,7 +54,7 @@
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
             <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-8px">
-              <component :is="item.icon" />
+              <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>
           {{item.title}}

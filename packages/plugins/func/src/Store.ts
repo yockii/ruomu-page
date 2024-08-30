@@ -15,5 +15,8 @@ export const usePluginFunctionStore = defineStore('pluginFunction', {
       code: '',
       params: []
     }
-  })
+  }),
+  actions: {
+   
+  }
 })

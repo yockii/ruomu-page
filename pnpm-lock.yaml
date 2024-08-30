@@ -307,6 +307,9 @@ importers:
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../../core
+      '@ruomu-ui/plugin-function':
+        specifier: workspace:*
+        version: link:../../plugins/func
       vue:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)

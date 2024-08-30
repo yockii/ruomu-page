@@ -1,8 +1,22 @@
 import { defineStore } from 'pinia'
 import { Plugin  } from '../types'
 
+interface State {
+  device: string;
+  iframeWidth: number;
+  width: number;
+  height: number;
+  maxWidth: number;
+  minWidth: number;
+  scale: number;
+  settingsPanelPinned: boolean;
+  showSettingsPanel: boolean;
+  showPluginPanel: boolean;
+  currentPlugin: Plugin | null;
+}
+
 export const useLayoutStore = defineStore("layout", {
-  state: () => ({
+  state: () :State => ({
     device: 'desktop',
     iframeWidth: 1200,
     width: 1200,
@@ -14,7 +28,7 @@ export const useLayoutStore = defineStore("layout", {
     showSettingsPanel: true,
     
     showPluginPanel: false,
-    currentPlugin: null as Plugin | null,
+    currentPlugin: null,
   }),
   persistShare: true,
 })

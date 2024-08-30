@@ -6,7 +6,7 @@ const Events: Setting = {
   id: "events",
   title: "事件",
   icon: EventNoteFilled,
-  component: EventsComponent,
+  component: () => EventsComponent,
 }
 
 export default Events

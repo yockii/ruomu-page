@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Close, Pin, PinFilled } from '@vicons/carbon'
   import { NIcon, NTooltip, NTabs, NTabPane } from 'naive-ui'
-  import { useLayoutStore, type Setting } from '@ruomu-ui/core'
+  import { useLayoutStore, type Setting, resolveComponent } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
   import addons from "../config/addons"
   import { h, onMounted, onUnmounted, ref } from 'vue'
@@ -9,13 +9,13 @@
   const layoutStore = useLayoutStore()
   const { settingsPanelPinned, showSettingsPanel } = storeToRefs(layoutStore)
   
-  const settings = addons.settings
+  const settings = ref<Setting[]>([])
   
   const tabNode = (s: Setting) => {
     // 带图标
     if (s.icon) {
       return h('div', { class: 'flex items-center' }, [
-        h(NIcon, { size: 20 }, () => [h(s.icon!)]),
+        h(NIcon, { size: 20 }, () => h(resolveComponent(s.icon!), {})),
         h('span', { class: 'ml-4px' },  s.title)
       ])
     }
@@ -50,6 +50,10 @@
   }
   
   onMounted(() => {
+    addons.settings.forEach(s => {
+      settings.value.push(s)
+    })
+    
     // 鼠标拖动监听
     if (panelHeader.value) {
       panelHeader.value.addEventListener('mousedown', moveStart)
@@ -90,7 +94,7 @@
     <div class="my-4px mx-8px">
       <n-tabs type="segment" animated default-value="props">
         <n-tab-pane v-for="s in settings" :key="s.id" :name="s.id" :tab="tabNode(s)">
-          <component :is="s.component" />
+          <component :is="resolveComponent(s.component)" />
         </n-tab-pane>
       </n-tabs>
     </div>

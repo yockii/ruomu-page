@@ -1,52 +1,57 @@
 <script setup lang="ts">
   import { JsMethod, Parameter } from '@ruomu-ui/core'
-import { computed, onMounted, PropType, ref } from 'vue'
-import { NIcon, NTooltip, NInput, NButtonGroup, NButton, NPopconfirm } from 'naive-ui'
-import { Close } from '@vicons/carbon'
-import { Settings } from '@vicons/tabler'
-import { JsEditor } from '@ruomu-ui/editor'
+  import { computed, onMounted, PropType, ref, watch } from 'vue'
+  import { NIcon, NTooltip, NInput, NButtonGroup, NButton, NPopconfirm } from 'naive-ui'
+  import { Close } from '@vicons/carbon'
+  import { Settings } from '@vicons/tabler'
+  import { JsEditor } from '@ruomu-ui/editor'
   import ParamSettings from './ParamSettings.vue'
 
-const props = defineProps({
-  method: {
-    type: Object as PropType<JsMethod>,
-    required: true
+  const props = defineProps({
+    method: {
+      type: Object as PropType<JsMethod>,
+      required: true
+    }
+  })
+  const emit = defineEmits(['close', 'confirm', 'remove'])
+  
+  const showNameInput = ref(false)
+  
+  const name = ref('')
+  const editName = () => {
+    name.value = props.method?.name || ''
+    showNameInput.value = true
   }
-})
-const emit = defineEmits(['close', 'confirm', 'remove'])
+  const nameAllowed = (value: string) => {
+    // js方法名只能包含字母、数字、下划线
+    return /^[a-zA-Z_]\w*$/.test(value)
+  }
+  const confirmName = () => {
+    props.method.name = name.value
+    showNameInput.value = false
+  }
+  
+  const showDescriptionInput = ref(false)
+  const description = ref('')
+  const editDescription = () => {
+    description.value = props.method?.description || ''
+    showDescriptionInput.value = true
+  }
+  const confirmDescription = () => {
+    props.method.description = description.value
+    showDescriptionInput.value = false
+  }
+  
+  const codeEditable = computed(() => {
+    return !!props.method.name
+  })
+  const editableCode = ref('')
 
-const showNameInput = ref(false)
-
-const name = ref('')
-const editName = () => {
-  name.value = props.method?.name || ''
-  showNameInput.value = true
-}
-const nameAllowed = (value: string) => {
-  // js方法名只能包含字母、数字、下划线
-  return /^[a-zA-Z_]\w*$/.test(value)
-}
-const confirmName = () => {
-  props.method.name = name.value
-  showNameInput.value = false
-}
-
-const showDescriptionInput = ref(false)
-const description = ref('')
-const editDescription = () => {
-  description.value = props.method?.description || ''
-  showDescriptionInput.value = true
-}
-const confirmDescription = () => {
-  props.method.description = description.value
-  showDescriptionInput.value = false
-}
-
-const codeEditable = computed(() => {
-  return !!props.method.name
-})
-const editableCode = ref('')
-
+  watch(() => props.method.code, (code) => {
+    editableCode.value = `function ${props.method.name}(${params}) {\n${code || ''}\n}`
+    
+  })
+  
 onMounted(() => {
   if(props.method.name === '') {
     editName()
@@ -56,24 +61,32 @@ onMounted(() => {
 })
 
 // 参数设置
-const paramStringArray = computed(() => {
-  // return props.method.params?.map(p => `${p.name}: ${p.type}`) || []
-  return props.method.params?.map(p => `${p.name}`) || []
-})
-
-const params = ref<Parameter[]>([])
-const paramsUpdated = (params: Parameter[]) => {
-  // props.method.params 可能不存在
-  props.method.params = params
-}
-const paramsDialogVisible = ref(false)
-const showParamsDialog = () => {
+  const paramStringArray = computed(() => {
+    // return props.method.params?.map(p => `${p.name}: ${p.type}`) || []
+    return props.method.params?.map(p => `${p.name}`) || []
+  })
+  
+  const params = ref<Parameter[]>([])
+  const paramsUpdated = (params: Parameter[]) => {
+    // props.method.params 可能不存在
+    props.method.params = params
+  }
+  const paramsDialogVisible = ref(false)
+  const showParamsDialog = () => {
     params.value = props.method.params || []
     paramsDialogVisible.value = true
   }
   
   const confirmAddMethod = () => {
-    emit('confirm')
+    const code = editableCode.value
+    // 去掉首尾行
+    const lines = code.split('\n')
+    lines.shift()
+    lines.pop()
+    emit('confirm', lines.join('\n'))
+  }
+  
+  const showBindRelation = () => {
   }
 </script>
 
@@ -130,8 +143,9 @@ const showParamsDialog = () => {
         </n-tooltip>
       </div>
     </div>
-    <div class="mt-4px mx4px">
+    <div class="mt-4px mx4px flex justify-between">
       <n-button size="small" text @click="showParamsDialog">参数设置</n-button>
+      <n-button size="small" text @click="showBindRelation">绑定关系</n-button>
     </div>
     <param-settings v-model:visible="paramsDialogVisible" :params="params" @update:params="paramsUpdated"/>
     

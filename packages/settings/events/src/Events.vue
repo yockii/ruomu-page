@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NButton, NDropdown } from 'naive-ui'
 import { computed, ref } from 'vue'
-import { Event, useCanvasStore, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
+import { BindEventInfo, Event, useCanvasStore, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
 import { storeToRefs } from 'pinia'
 import BindDialog from './BindDialog.vue'
 
@@ -12,6 +12,7 @@ const {selectState} = storeToRefs(canvasStore)
 const currentSchema = computed(() => projectStore.findSchemaSegment(selectState.value.id))
 const currentComponent = computed(() => componentsStore.findComponentById(currentSchema.value?.componentId))
 
+const bindedEventInfoList = computed(() => currentSchema.value?.events)
 
 const events = computed(() => {
   const componentEvents = currentComponent.value?.metaInfo.events
@@ -21,6 +22,14 @@ const events = computed(() => {
 
 const dropdownOptions = computed(() => {
   return events.value.map(event => {
+    // 是否被绑定
+    if (bindedEventInfoList.value?.find((item:BindEventInfo) => item.eventName === event.name)) {
+      return {
+        label: event.label + '(已绑定)',
+        key: event.name,
+      }
+    }
+    
     return {
       label: event.label,
       key: event.name
@@ -46,7 +55,7 @@ const handleSelectEvent = (eventName: string) => {
       </n-dropdown> 
     </div>
     
-    <bind-dialog v-model:visible="showBindDialog" :event="currentEvent!"/>
+    <bind-dialog v-if="showBindDialog" v-model:visible="showBindDialog" :event="currentEvent"/>
   </div>
 </template>
 

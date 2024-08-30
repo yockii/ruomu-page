@@ -4,8 +4,8 @@ export type Toolbar = {
   id: string;
   title?: string;
   align: 'left' | 'center' | 'right';
-  icon?: Component;
-  component: Component;
+  icon?: Component | (() => Component);
+  component: Component | (() => Component);
 }
 
 export type Plugin = {
@@ -13,8 +13,8 @@ export type Plugin = {
   title?: string;
   align: 'top' | 'bottom';
   panelPinned?: boolean;
-  icon?: Component;
-  component: Component;
+  icon?: Component | (() => Component);
+  component: Component | (() => Component);
   api?: any;
   pinned?: boolean;
 }
@@ -22,6 +22,6 @@ export type Plugin = {
 export type Setting = {
   id: string;
   title: string;
-  icon?: Component;
-  component: Component;
+  icon?: Component | (() => Component);
+  component: Component | (() => Component);
 }

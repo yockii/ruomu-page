@@ -1,4 +1,7 @@
 import Material from "./Material.vue"
+import { usePluginMaterialStore } from "./Store.ts"
 
-export {Material}
-export default Material
+export {
+  Material, 
+  usePluginMaterialStore,
+}

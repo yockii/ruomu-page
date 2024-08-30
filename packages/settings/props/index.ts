@@ -6,7 +6,7 @@ const Props: Setting = {
   id: "props",
   title: "属性",
   icon: SettingsEthernetFilled,
-  component: PropsComponent,
+  component: () => PropsComponent,
 }
 
 export default Props

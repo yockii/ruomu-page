@@ -15,14 +15,15 @@
   const {showMethodPanel, currentMethod} = storeToRefs(myStore)
   
   const showBuiltInMethods = ref(false)
-  const showCustomMethods = ref(false)
+  const showCustomMethods = ref(true)
   
   const showMethod = (method: JsMethod) => {
     currentMethod.value = method
     showMethodPanel.value = true
   }
-  const addNewMethod = () => {
+  const addNewMethod = (code: string) => {
     // 如果有id,则不理会，否则新增
+    currentMethod.value.code = code
     if (!currentMethod.value.id) {
       currentMethod.value.id = Date.now() + ''
       projectStore.addNewCustomMethod(currentMethod.value)

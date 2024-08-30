@@ -4,7 +4,7 @@ import type {Toolbar} from "@ruomu-ui/core"
 const Breadcrumb: Toolbar = {
   id: "breadcrumb",
   align: "left",
-  component: BreadcrumbComponent,
+  component: () => BreadcrumbComponent,
 }
 
 export default Breadcrumb

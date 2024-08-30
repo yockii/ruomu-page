@@ -6,7 +6,7 @@ const Styles: Setting = {
   id: "styles",
   title: "样式",
   icon: CssFilled,
-  component: StylesComponent,
+  component: () => StylesComponent,
 }
 
 export default Styles
