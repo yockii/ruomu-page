@@ -48,7 +48,7 @@
 </script>
 
 <template>
-  <div class="w-40px h-100% bg-red flex flex-col justify-between">
+  <div class="w-40px h-100% bg-red flex flex-col justify-between z-99">
     <div class="flex flex-col items-center mt-8px">
       <template v-for="item in topPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">

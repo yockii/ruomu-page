@@ -6,6 +6,7 @@
   import { Settings } from '@vicons/tabler'
   import { JsEditor } from '@ruomu-ui/editor'
   import ParamSettings from './ParamSettings.vue'
+  import BindRelation from './BindRelation.vue'
 
   const props = defineProps({
     method: {
@@ -86,8 +87,7 @@ onMounted(() => {
     emit('confirm', lines.join('\n'))
   }
   
-  const showBindRelation = () => {
-  }
+  const showBindRelation = ref(false)
 </script>
 
 <template>
@@ -145,9 +145,10 @@ onMounted(() => {
     </div>
     <div class="mt-4px mx4px flex justify-between">
       <n-button size="small" text @click="showParamsDialog">参数设置</n-button>
-      <n-button size="small" text @click="showBindRelation">绑定关系</n-button>
+      <n-button size="small" text @click="showBindRelation = true">绑定关系</n-button>
     </div>
     <param-settings v-model:visible="paramsDialogVisible" :params="params" @update:params="paramsUpdated"/>
+    <bind-relation v-if="method.id && showBindRelation" v-model:visible="showBindRelation" :method-id="method.id" />
     
     <div class="code-area">
       <div v-if="!codeEditable" class="text-center text-gray-400 text-12px">请先设置方法名</div>
