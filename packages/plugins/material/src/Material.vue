@@ -58,12 +58,16 @@ onMounted(() => {
     myStore.getLibs()
   }
 })
+
+const changeCurrentLib = (lib: MaterialLib) => {
+  currentLib.value = lib
+}
 </script>
 
 <template>
   <div class="w-270px relative">
     <div class="absolute -right-80px w-80px">
-      <div v-for="lib in componentLibs" :key="lib.id" class="mb-8px b-1px b-#999 b-solid pr-8px cursor-pointer pl-10px" >
+      <div v-for="lib in componentLibs" :key="lib.id" class="mb-8px b-1px b-#999 b-solid pr-8px cursor-pointer pl-10px" @click="changeCurrentLib(lib)">
         <n-h6 :prefix="(currentLib && currentLib.id === lib.id)?'bar':''" class="m-0" align-text>
           {{ lib.name }}
         </n-h6>

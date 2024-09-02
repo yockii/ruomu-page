@@ -34,13 +34,15 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
 
           useComponentsStore().addLibs(this.componentLibs)
 
-          if (this.currentLib === null) {
-            this.currentLib = this.componentLibs[0]
-            this.checkLibGroups()
-          }
         }
       } catch (error) {
         console.error(error)
+        this.componentLibs = [BuiltIn.BuiltInLib || []]
+      }
+
+      if (this.currentLib === null && this.componentLibs.length > 0) {
+        this.currentLib = this.componentLibs[0]
+        this.checkLibGroups()
       }
     },
     checkLibGroups() {
