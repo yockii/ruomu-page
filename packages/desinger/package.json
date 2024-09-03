@@ -18,6 +18,7 @@
     "@ruomu-ui/setting-props": "workspace:*",
     "@ruomu-ui/setting-styles": "workspace:*",
     "@ruomu-ui/setting-events": "workspace:*",
+    "@ruomu-ui/setting-slots": "workspace:*",
 
     "@ruomu-ui/toolbar-breadcrumb": "workspace:*",
     "@ruomu-ui/toolbar-fullscreen": "workspace:*",

@@ -128,6 +128,9 @@ importers:
       '@ruomu-ui/setting-props':
         specifier: workspace:*
         version: link:../settings/props
+      '@ruomu-ui/setting-slots':
+        specifier: workspace:*
+        version: link:../settings/slots
       '@ruomu-ui/setting-styles':
         specifier: workspace:*
         version: link:../settings/styles
@@ -344,6 +347,40 @@ importers:
       '@vicons/tabler':
         specifier: ^0.12.0
         version: 0.12.0
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.38(typescript@5.5.4)
+    devDependencies:
+      '@vicons/material':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.1(@types/node@20.14.12)(less@4.2.0))(vue@3.4.38(typescript@5.5.4))
+      naive-ui:
+        specifier: ^2.39.0
+        version: 2.39.0(vue@3.4.38(typescript@5.5.4))
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+      vue-tsc:
+        specifier: ^2.0.29
+        version: 2.0.29(typescript@5.5.4)
+
+  packages/settings/slots:
+    dependencies:
+      '@ruomu-ui/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@ruomu-ui/plugin-function':
+        specifier: workspace:*
+        version: link:../../plugins/func
       vue:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)

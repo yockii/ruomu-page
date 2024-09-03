@@ -11,6 +11,7 @@ import Func from '@ruomu-ui/plugin-function'
 import Props from "@ruomu-ui/setting-props"
 import Styles from "@ruomu-ui/setting-styles"
 import Events from "@ruomu-ui/setting-events"
+import Slots from "@ruomu-ui/setting-slots"
 
 const addons: {
     plugins:Plugin[],
@@ -35,6 +36,7 @@ const addons: {
       Props,
       Styles,
       Events,
+      Slots,
     ],
 }
 
