@@ -63,11 +63,20 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
         this.checkComponents()
         return
       }
-      // TODO get groups from server
+      try {
+        const resp = await httpGet<Paginate<MaterialComponentGroup>>('/api/v1/materialLabGroup/list', {libCode: this.currentLib.code})
+        if (resp.code === 200) {
+          this.currentLib.groups = resp.data?.items || []
+          this.checkComponents()
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
     checkComponents() {
       if (this.currentLib) {
         if (this.currentLib.components && this.currentLib.components.length > 0) {
+          this.buildGroupComponents()
           return
         } else {
           this.getComponents()
@@ -85,7 +94,16 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
         this.buildGroupComponents()
         return
       }
-      // TODO get components from server
+      try {
+        const resp = await httpGet<Paginate<MaterialComponent>>('/api/v1/materialLabComponent/list', {libVersionId: this.currentLib.activeVersionId})
+        if (resp.code === 200) {
+          this.currentLib.components = resp.data?.items || []
+          useComponentsStore().addComponents(libCode, this.currentLib.components)
+          this.buildGroupComponents()
+        }
+      } catch (error) {
+        console.error(error)
+      }
     },
     buildGroupComponents() {
       if (this.currentLib) {

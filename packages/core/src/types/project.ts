@@ -45,7 +45,7 @@ export type JsMethod = {
 
 export type Schema = {
   id: string;
-  libId?: string;
+  libVersionId?: string;
   componentId: string;
   componentName: string;
   isContainer?: boolean;

@@ -6,7 +6,7 @@
     useProjectStore,
   } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
-  import { computed } from 'vue'
+  import { computed, ref, Ref } from 'vue'
   import { NCollapseTransition, NIcon } from 'naive-ui'
   import { ChevronDown, ChevronUp } from "@vicons/tabler"
   import SingleProperty from './SingleProperty.vue'
@@ -20,11 +20,11 @@
     return projectStore.findSchemaSegment(selectState.value.id)
   })
   const currentComponent = computed(() => {
-    if (currentSchema.value?.componentId) return componentsStore.findComponentById(currentSchema.value?.componentId)
+    if (currentSchema.value?.componentId) return componentsStore.findComponentById(currentSchema.value?.componentId, currentSchema.value?.libVersionId)
     return null
   })
   type Group = PropertyGroup & {
-    expanded?: boolean;
+    expanded: Ref<boolean>;
   }
   const groups = computed<Group[]>(() => {
     const result = []
@@ -32,18 +32,22 @@
       for (const group of currentComponent.value.metaInfo.props) {
         result.push({
           ...group,
-          expanded: true
+          expanded: ref(true)
         })
       }
     }
     return result
   })
+  
+  const toggleExpanded = (group: Group) => {
+    group.expanded.value = !group.expanded.value
+  }
 </script>
 
 <template>
   <div class="panel">
     <template v-for="group in groups">
-      <div class="bg-#EFEFEF flex mt-8px px-8px h-36px items-center justify-between cursor-pointer" @click="group.expanded = !group.expanded">
+      <div class="bg-#EFEFEF flex mt-8px px-8px h-36px items-center justify-between cursor-pointer" @click="toggleExpanded(group)">
         <span>{{group.groupName}}</span>
         <n-icon size="18">
           <ChevronUp v-if="group.expanded"/>
@@ -51,7 +55,7 @@
         </n-icon>
       </div>
 
-      <n-collapse-transition :show="group.expanded">
+      <n-collapse-transition :show="group.expanded?.value">
           <single-property v-for="property in group.properties" :key="property.name" :property="property" />
       </n-collapse-transition>
     </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Property, useCanvasStore, useProjectStore } from '@ruomu-ui/core'
   import { computed, PropType } from 'vue'
-  import { NIcon, NTooltip, NInput } from 'naive-ui';
+  import { NIcon, NTooltip, NInput, NSwitch, NColorPicker, NSlider, NSelect } from 'naive-ui';
   import { CodeFilled } from '@vicons/material'
   import { storeToRefs } from 'pinia'
 
@@ -25,6 +25,12 @@
 
   const updateValue = (v: string) => {
     projectStore.updateSchemaPropValue(currentSchema.value.id, props.property.name, v)
+    
+    if(props.property?.widget.component === 'select') {
+      setTimeout(() => {
+        canvasStore.selectNodeById(selectState.value.id)
+      }, 100)
+    }
   }
 </script>
 
@@ -42,7 +48,15 @@
       </n-tooltip>
     </div>
     <!-- input --> 
-    <n-input :value="value" @update:value="updateValue" />
+    <n-input v-if="property.widget.component === 'input'" :value="value" @update:value="updateValue" clearable/>
+    <!-- color -->
+    <n-color-picker v-if="property.widget.component === 'color'" :value="value" @update:value="updateValue" :actions="['clear']"/>
+    <!-- select -->
+    <n-select v-if="property.widget.component === 'select'" :value="value" @update:value="updateValue" clearable :options="property.widget.props.options" />
+    <!-- switch -->
+    <n-switch v-if="property.widget.component === 'switch'" :value="value" @update:value="updateValue" />
+    <!-- slider -->
+    <n-slider v-if="property.widget.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip />
   </div>
 </template>
 

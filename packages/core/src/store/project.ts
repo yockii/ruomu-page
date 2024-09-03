@@ -164,6 +164,7 @@ export const useProjectStore = defineStore("project", {
       const schema: Schema = {
         id: `${Date.now()}`,
         componentId: data.id!,
+        libVersionId: data.libVersionId,
         componentName: data.name,
         tagName: data.tagName,
         props: {},

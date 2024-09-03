@@ -13,6 +13,13 @@ export default defineConfig ({
   },
   server: {
     port: 3000,
+    // /canvas代理到8080端口
+    proxy: {
+      '/canvas': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      }
+    }
   },
   build: {
     chunkSizeWarningLimit: 1024,
