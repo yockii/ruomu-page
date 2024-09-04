@@ -3,13 +3,12 @@ import type {
   MaterialComponent,
   MaterialComponentGroup,
   MaterialLib,
-  Paginate
 } from '@ruomu-ui/types'
 import {
-  httpGet,
   useComponentsStore,
 } from '@ruomu-ui/core'
 import BuiltIn from './builtInLib.ts'
+import { MaterialComponentApi, MaterialComponentGroupApi, MaterialLibApi } from '@ruomu-ui/api'
 
 
 export type Lib = MaterialLib & {groups?: MaterialComponentGroup[], components?: MaterialComponent[]}
@@ -28,7 +27,7 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
   actions: {
     async getLibs() {
       try {
-        const resp = await httpGet<Paginate<MaterialLib>>('/api/v1/materialLib/list', {offset: -1, limit: -1})
+        const resp = await MaterialLibApi.list({offset: -1, limit: -1})
         if (resp.code === 200) {
           // 加上 BuiltIn.BuiltInLib
           // componentLibs.value = resp.data?.items || []
@@ -66,7 +65,7 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
         return
       }
       try {
-        const resp = await httpGet<Paginate<MaterialComponentGroup>>('/api/v1/materialLibGroup/list', {libCode: this.currentLib.code})
+        const resp = await MaterialComponentGroupApi.list({libCode: this.currentLib.code})
         if (resp.code === 200) {
           this.currentLib.groups = resp.data?.items || []
           this.checkComponents()
@@ -97,7 +96,7 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
         return
       }
       try {
-        const resp = await httpGet<Paginate<MaterialComponent>>('/api/v1/materialLibComponent/list', {libVersionId: this.currentLib.activeVersionId})
+        const resp = await MaterialComponentApi.list({libVersionId: this.currentLib.activeVersionId})
         if (resp.code === 200) {
           this.currentLib.components = resp.data?.items || []
           useComponentsStore().addComponents(libCode, this.currentLib.components)

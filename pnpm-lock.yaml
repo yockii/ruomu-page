@@ -71,6 +71,19 @@ importers:
         specifier: ^2.0.24
         version: 2.0.29(typescript@5.5.4)
 
+  packages/api:
+    dependencies:
+      vite:
+        specifier: ^5.3.5
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+    devDependencies:
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../types
+      axios:
+        specifier: ^1.7.4
+        version: 1.7.4
+
   packages/core:
     dependencies:
       pinia:
@@ -101,6 +114,9 @@ importers:
       '@babel/traverse':
         specifier: ^7.25.3
         version: 7.25.3
+      '@ruomu-ui/api':
+        specifier: workspace:*
+        version: link:../api
       '@ruomu-ui/types':
         specifier: workspace:*
         version: link:../types
@@ -254,6 +270,9 @@ importers:
 
   packages/plugins/material:
     dependencies:
+      '@ruomu-ui/api':
+        specifier: workspace:*
+        version: link:../../api
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../../core

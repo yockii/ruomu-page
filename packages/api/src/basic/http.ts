@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import type { Response } from "@ruomu-ui/types";
 
 const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_BASE_URL || "http://192.168.1.100:4523/m1/5018611-4678324-default",
+  baseURL: import.meta.env.VITE_APP_API_BASE_URL || "http://192.168.1.100:4523/m1/5018611-4678324-default/api/v1",
   timeout: 5000,
   //   withCredentials: true,
   headers: {
@@ -22,6 +22,6 @@ async function Post<T>(url: string, data?: Record<string, any>): Promise<Respons
 
 export { 
   instance as http,
-  Get as httpGet,
-  Post as httpPost,
+  Get ,
+  Post ,
 };
