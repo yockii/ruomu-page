@@ -16,7 +16,7 @@
 
 <template>
   <div class="mt-4px">
-    <slot-info v-for="slot in componentSlots" :key="slot" :slot="slot" :schema="currentSchema"/>
+    <slot-info v-for="slotName in componentSlots" :key="slotName" :slot-name="slotName" :schema="currentSchema"/>
   </div>
 </template>
 

@@ -31,14 +31,36 @@ const iframeReady = () => {
       const {clientX, clientY} = event
       const element = innerDocument?.elementFromPoint(clientX, clientY)
       if (!element) return
-      const rmNodeEle = element.closest('.rm-node')
+      
+      let isSlot = false
+      let rmNodeEle: HTMLElement | null = null
+      // 先判断是否是插槽
+      if (element.closest('.rm-slot')) {
+        rmNodeEle = element.closest('.rm-slot')
+        isSlot = true
+      } else {
+        rmNodeEle = element.closest('.rm-node')
+      }
+      
       let childEl 
       const tempLineState = {
         id: "",
-        width: 0, height: 0, top: 0, left: 0, position: "in", forbidden: false,
+        width: 0, height: 0, top: 0, left: 0, position: "in", forbidden: false, slotName: null as string|null
       }
       if (rmNodeEle) {
-        const componentId = rmNodeEle.getAttribute('data-component-id')
+        let componentId: string | null = null
+        let slotName: string | null = null
+        if (isSlot) {
+          const slotInfo = rmNodeEle.getAttribute('data-component-slot')
+          if (slotInfo) {
+            const cIdSName = slotInfo.split('.')
+            componentId = cIdSName[0]
+            slotName = cIdSName[1]
+          }
+        } else {
+          componentId = rmNodeEle.getAttribute('data-component-id')
+        }
+        
         const schemaSegment = projectStore.findSchemaSegment(componentId!)
         const rect = rmNodeEle.getBoundingClientRect()
         const {top, left, width, height} = rect
@@ -50,6 +72,7 @@ const iframeReady = () => {
           componentName: schemaSegment?.componentName,
           configure: null, //TODO
           schema: schemaSegment,
+          slotName
         }
 
         childEl = rmNodeEle
@@ -58,26 +81,32 @@ const iframeReady = () => {
         tempLineState.height = height
         tempLineState.top = top
         tempLineState.left = left
+        tempLineState.slotName = slotName
+        tempLineState.forbidden = isSlot ? false : (!schemaSegment.isContainer)
         
-        // 检查鼠标位置，判断是在元素上下左右 20px或者1/4 位置来确定插入位置
-        const xAbs = Math.min(20, width / 4)
-        const yAbs = Math.min(20, height / 4)
-        if (clientX - left < xAbs) {
-          tempLineState.position = "left"
-        } else if (left + width - clientX < xAbs) {
-          tempLineState.position = "right"
-        } else if (clientY - top < yAbs) {
-          tempLineState.position = "top"
-        } else if (top + height - clientY < yAbs) {
-          tempLineState.position = "bottom"
-        } else if (schemaSegment.isContainer) {
-          // TODO 另外要考虑某些容器只允许特殊的物料插入
+        if (isSlot) {
           tempLineState.position = "in"
         } else {
-          tempLineState.position = "bottom"
+          // 检查鼠标位置，判断是在元素上下左右 20px或者1/4 位置来确定插入位置
+          const xAbs = Math.min(20, width / 4)
+          const yAbs = Math.min(20, height / 4)
+          if (clientX - left < xAbs) {
+            tempLineState.position = 'left'
+          } else if (left + width - clientX < xAbs) {
+            tempLineState.position = 'right'
+          } else if (clientY - top < yAbs) {
+            tempLineState.position = 'top'
+          } else if (top + height - clientY < yAbs) {
+            tempLineState.position = 'bottom'
+          } else if (schemaSegment.isContainer) {
+            // TODO 另外要考虑某些容器只允许特殊的物料插入
+            tempLineState.position = 'in'
+          } else {
+            tempLineState.position = 'bottom'
+          }
         }
         
-      } else if (element.nodeName === 'BODY') {
+      } else if (element.nodeName === 'BODY' || element.nodeName === 'HTML') {
         tempLineState.id = "BODY"
         tempLineState.position = "in"
         const children = currentPageSchema.value?.children || []
@@ -114,7 +143,17 @@ const iframeReady = () => {
       event.preventDefault()
       const et = innerDocument?.elementFromPoint(event.clientX, event.clientY)
       if (et) {
-        const rmNodeEle = et.closest('.rm-node')
+        // 先判断是否slot  class="rm-slot"
+        let rmNodeEle = et.closest('.rm-slot')
+        if (rmNodeEle) {
+          const slotInfo = rmNodeEle.getAttribute('data-component-slot')
+          if (slotInfo) {
+            const cIdSName = slotInfo.split('.')
+            canvasStore.hoverNodeById(cIdSName[0], cIdSName[1])
+            return
+          }
+        }
+        rmNodeEle = et.closest('.rm-node')
         if (rmNodeEle) {
           const id = rmNodeEle.getAttribute('data-component-id')
           if (id) {

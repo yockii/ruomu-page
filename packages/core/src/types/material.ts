@@ -65,7 +65,7 @@ export type PropertyGroup = {
 
 export type PropertyWidget = {
   component: 'input' | 'color' | 'select' | 'switch' | 'slider' | 'upload' | 'json-editor';
-  inline: boolean, // 是否行内显示
+  inline?: boolean, // 是否行内显示
   props: Record<string, any>;
 }
 
@@ -77,7 +77,7 @@ export type Property = {
   type: string;
   required: boolean;
   defaultValue: any;
-  widget: PropertyWidget,
+  widget?: PropertyWidget,
   rules: Record<string, any>;
 }
 

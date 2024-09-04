@@ -117,7 +117,7 @@ export const useProjectStore = defineStore("project", {
       }
       return null
     } ,
-    moveSchema(schema: Schema, targetSchemaId: string, position: string) {
+    moveSchema(schema: Schema, targetSchemaId: string, position: string, slotName: string | undefined) {
       if (!schema || !targetSchemaId || !position || !this.currentPageSchema) {
         return
       }
@@ -133,10 +133,32 @@ export const useProjectStore = defineStore("project", {
         } else {
           const targetSchema = findSchemaSegment(targetSchemaId, this.currentPageSchema)
           if (targetSchema) {
-            if (targetSchema.children) {
-              targetSchema.children.push(schema)
+            if (slotName) {
+              if (targetSchema.slots) {
+                // 检查，如果有则替换
+                const slot = targetSchema.slots.find(s => s.name === slotName)
+                if (slot) {
+                  // 替换
+                  slot.children = [schema]
+                } else {
+                  // 添加
+                  targetSchema.slots.push({
+                    name: slotName,
+                    children: [schema]
+                  })
+                }
+              } else {
+                targetSchema.slots = [{
+                  name: slotName,
+                  children: [schema]
+                }]
+              }
             } else {
-              targetSchema.children = [schema]
+              if (targetSchema.children) {
+                targetSchema.children.push(schema)
+              } else {
+                targetSchema.children = [schema]
+              }
             }
           }
         }
@@ -159,7 +181,7 @@ export const useProjectStore = defineStore("project", {
         }
       }
     }  ,
-    addComponent(data: MaterialComponent, targetSchemaId: string, position: string) {
+    addComponent(data: MaterialComponent, targetSchemaId: string, position: string, slotName: string | undefined) {
       // 生成一个新的schema
       const schema: Schema = {
         id: `${Date.now()}`,
@@ -171,6 +193,15 @@ export const useProjectStore = defineStore("project", {
         children: [],
         isContainer: data.metaInfo.isContainer,
       }
+      
+      // props给默认值
+      data?.metaInfo.props.forEach(group => {
+        group.properties.forEach(prop => {
+          if (prop.defaultValue) {
+            schema.props[prop.name] = prop.defaultValue
+          }
+        })
+      })
 
       // 如果没有style或者style.padding,则添加默认值
       const defaultStyle = {
@@ -183,7 +214,7 @@ export const useProjectStore = defineStore("project", {
         schema.props.style = defaultStyle
       }
       
-      this.moveSchema(schema, targetSchemaId, position)
+      this.moveSchema(schema, targetSchemaId, position, slotName)
     },
     addNewCustomMethod(m: JsMethod) {
       if (this.currentPageSchema?.js) {

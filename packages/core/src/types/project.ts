@@ -56,6 +56,13 @@ export type Schema = {
   style?: string;
   // 绑定的事件
   events?: BindEventInfo[]
+  // 插槽
+  slots?: SlotInfo[];
+}
+
+export type SlotInfo = {
+  name: string;
+  children?: Schema[] | string;
 }
 
 export type BindEventInfo = {

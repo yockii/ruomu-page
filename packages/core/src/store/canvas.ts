@@ -17,6 +17,8 @@ type RectState = {
 type LineState = {
   // 组件的id, 用于标识组件，在组件的上下左右或内部等位置显示
   id?: string;
+  // 插槽名称，用于标识插槽
+  slotName?: string;
   config?: any;
   doc?: any;
   width?: number;
@@ -34,7 +36,7 @@ interface CanvasState {
     schema?: Schema | null;
   },
   // 鼠标悬浮状态的矩形框
-  hoverState: RectState,
+  hoverState: RectState & {slotName?: string},
   // 选中的节点
   selectState: RectState,
   // 节点的拖拽状态
@@ -96,15 +98,20 @@ export const useCanvasStore = defineStore('canvas', {
       this.clearHoverState()
       useLayoutStore().showSettingsPanel = true
     },
-    hoverNodeById(id: string) {
+    hoverNodeById(id: string, slotName: string = '') {
       if (!id || !this.iframe || (id === this.selectState?.id)) return
       const doc = this.iframe.contentDocument
       if (!doc) return
       const schemaSegment = useProjectStore().findSchemaSegment(id)
       if (!schemaSegment) return
       const dataComponentId = schemaSegment?.id
-      // data-component-id
-      const element = doc.querySelector(`[data-component-id="${dataComponentId}"]`)
+      
+      let element: HTMLElement|null = null
+      if (slotName) {
+        element = doc.querySelector(`[data-component-slot="${dataComponentId}.${slotName}"]`)
+      }  else {
+        element = doc.querySelector(`[data-component-id="${dataComponentId}"]`)
+      }
       if (!element) return
       const rect = element.getBoundingClientRect()
       this.hoverState = {
@@ -112,9 +119,10 @@ export const useCanvasStore = defineStore('canvas', {
         left: rect.left,
         width: rect.width,
         height: rect.height,
-        componentName: schemaSegment.componentName,
+        componentName: schemaSegment.componentName + (slotName ? `#${slotName}` : ''),
         configure: null, // TODO
-        schema: schemaSegment
+        schema: schemaSegment,
+        slotName: slotName,
       }
     },
     
@@ -173,7 +181,7 @@ export const useCanvasStore = defineStore('canvas', {
     
     dragEnd() {
       const {data, schema} = this.dragState
-      const {position, forbidden, id} = this.lineState
+      const {position, forbidden, id, slotName} = this.lineState
       if (!forbidden && id && position) {
         // 给schema默认值
         if (schema) {
@@ -188,10 +196,10 @@ export const useCanvasStore = defineStore('canvas', {
         
         if (schema) {
           // 有schema,则是拖拽已有的组件
-          useProjectStore().moveSchema(schema, id, position)
+          useProjectStore().moveSchema(schema, id, position, slotName)
         } else {
           // 新的组件
-          useProjectStore().addComponent(data!, id, position)
+          useProjectStore().addComponent(data!, id, position, slotName)
         }
       }
       this.clearDragState()

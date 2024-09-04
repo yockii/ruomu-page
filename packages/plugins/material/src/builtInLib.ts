@@ -145,6 +145,15 @@ export const BuiltInComponents:MaterialComponent[] = [
           collapse: false,
           properties: [
             {
+              label: '',
+              description: 'innerHTML',
+              name: 'innerHTML',
+              type: 'string',
+              required: false,
+              defaultValue: 'span',
+              rules: {}
+            },
+            {
               label: 'id',
               description: 'id',
               name: 'id',
