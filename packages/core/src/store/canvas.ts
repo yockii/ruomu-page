@@ -30,7 +30,7 @@ type LineState = {
 }
 
 interface CanvasState {
-  iframe: HTMLIFrameElement | null
+  iframeDom: HTMLIFrameElement | null
   dragState: {
     data?: MaterialComponent | null;
     schema?: Schema | null;
@@ -45,7 +45,7 @@ interface CanvasState {
 
 export const useCanvasStore = defineStore('canvas', {
   state: (): CanvasState => ({
-    iframe: null,
+    iframeDom: null,
     dragState: {},
     hoverState: {},
     selectState: {},
@@ -75,8 +75,8 @@ export const useCanvasStore = defineStore('canvas', {
   },
   actions: {
     selectNodeById(id: string) {
-      if (!id || !this.iframe) return
-      const doc = this.iframe.contentDocument
+      if (!id || !this.iframeDom) return
+      const doc = this.iframeDom.contentDocument
       if (!doc) return
       const schemaSegment = useProjectStore().findSchemaSegment(id)
       if (!schemaSegment) return
@@ -99,8 +99,8 @@ export const useCanvasStore = defineStore('canvas', {
       useLayoutStore().showSettingsPanel = true
     },
     hoverNodeById(id: string, slotName: string = '') {
-      if (!id || !this.iframe || (id === this.selectState?.id)) return
-      const doc = this.iframe.contentDocument
+      if (!id || !this.iframeDom || (id === this.selectState?.id)) return
+      const doc = this.iframeDom.contentDocument
       if (!doc) return
       const schemaSegment = useProjectStore().findSchemaSegment(id)
       if (!schemaSegment) return

@@ -21,7 +21,7 @@ const canvasSrc = computed(() => {
 
 const iframeReady = () => {
   if (iframe.value) {
-    canvasStore.iframe = iframe.value
+    canvasStore.iframeDom = iframe.value
     
     const innerWindow = iframe.value.contentWindow
     const innerDocument = iframe.value.contentDocument

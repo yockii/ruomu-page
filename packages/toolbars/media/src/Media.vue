@@ -1,12 +1,12 @@
 <script lang="ts" setup>
   import { computed, ref, shallowRef } from 'vue'
   import { Screen, Laptop, TabletLandscape, Tablet, MobileLandscape, Mobile } from '@vicons/carbon'
-  import { NTooltip, NIcon } from 'naive-ui'
+  import { NTooltip, NIcon, NSlider } from 'naive-ui'
   import { useLayoutStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
 
   const layoutStore = useLayoutStore()
-  const {width, maxWidth, minWidth, device } = storeToRefs(layoutStore)
+  const {width, maxWidth, minWidth, device, scale } = storeToRefs(layoutStore)
 
   type Media = {
     name: string
@@ -91,7 +91,7 @@
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex items-center">
     <div v-for="media in mediaList" :key="media.name" class="ml-8px cursor-pointer" @click="changeMedia(media)">
       <n-tooltip trigger="hover">
         <template #trigger>
@@ -103,6 +103,16 @@
           <p>{{ media.title }}</p>
           <p>{{ media.description }}</p>
         </div>
+      </n-tooltip>
+    </div>
+    <div class="flex ml-8px cursor-pointer">
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <div class="w-80px">
+            <n-slider v-model:value="scale" :step="0.01" :min="0.1" :max="1" :tooltip="false" />
+          </div>
+        </template>
+          缩放倍数{{scale}}
       </n-tooltip>
     </div>
   </div>
