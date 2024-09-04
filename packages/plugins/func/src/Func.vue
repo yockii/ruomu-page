@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { NList, NListItem, NThing, NButton, NIcon, NCollapseTransition } from 'naive-ui'
-  import { JsMethod, useProjectStore } from '@ruomu-ui/core'
+  import type { JsMethod } from '@ruomu-ui/types'
+  import { useProjectStore } from '@ruomu-ui/core'
   import { computed, ref } from 'vue'
   import { ChevronDown, ChevronUp, Plus } from '@vicons/tabler'
   import MethodPanel from './MethodPanel.vue'

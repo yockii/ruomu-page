@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { NModal, NH1, NTag, NButton } from 'naive-ui'
-  import { computed, PropType, h, ref, onMounted, watch } from 'vue'
-  import { BindEventInfo, Event, useCanvasStore, useLayoutStore, useProjectStore } from '@ruomu-ui/core'
+  import { computed, PropType, h, ref, onMounted } from 'vue'
+  import type { BindEventInfo, Event } from "@ruomu-ui/types"
+  import { useCanvasStore, useLayoutStore, useProjectStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
   import Func, { usePluginFunctionStore } from '@ruomu-ui/plugin-function'
   const props = defineProps({

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { JsMethod, Parameter } from '@ruomu-ui/core'
+  import type { JsMethod, Parameter } from '@ruomu-ui/types'
   import { computed, onMounted, PropType, ref, watch } from 'vue'
   import { NIcon, NTooltip, NInput, NButtonGroup, NButton, NPopconfirm } from 'naive-ui'
   import { Close } from '@vicons/carbon'

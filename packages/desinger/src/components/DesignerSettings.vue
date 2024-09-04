@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { Close, Pin, PinFilled } from '@vicons/carbon'
   import { NIcon, NTooltip, NTabs, NTabPane } from 'naive-ui'
-  import { useLayoutStore, type Setting, resolveComponent } from '@ruomu-ui/core'
+  import type {Setting} from '@ruomu-ui/types'
+  import { useLayoutStore, resolveComponent } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
   import addons from "../config/addons"
   import { h, onMounted, onUnmounted, ref } from 'vue'

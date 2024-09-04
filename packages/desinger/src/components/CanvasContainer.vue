@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
-import { storeToRefs } from 'pinia'
-import CanvasAction from './CanvasAction.vue'
+  import { storeToRefs } from 'pinia'
+  import CanvasAction from './CanvasAction.vue'
   import CanvasResize from './CanvasResize.vue'
 // import CanvasResizeBorder from '@/components/CanvasResizeBorder.vue'
 // import CanvasDivider from '@/components/CanvasDivider.vue'

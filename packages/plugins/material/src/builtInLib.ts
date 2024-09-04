@@ -1,4 +1,4 @@
-import { MaterialComponent } from '@ruomu-ui/core'
+import type { MaterialComponent } from '@ruomu-ui/types'
 
 export const BuiltInLibVersion = {
   id: "builtInVersion",

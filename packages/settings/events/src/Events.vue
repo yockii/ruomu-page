@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { NButton, NDropdown } from 'naive-ui'
 import { computed, ref } from 'vue'
-import { BindEventInfo, Event, useCanvasStore, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
+import type { BindEventInfo, Event } from "@ruomu-ui/types"
+import { useCanvasStore, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
 import { storeToRefs } from 'pinia'
 import BindDialog from './BindDialog.vue'
 

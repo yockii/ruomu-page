@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ruomu-ui/types": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
     "@ruomu-ui/plugin-function": "workspace:*",
     

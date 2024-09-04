@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useCanvasStore, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
-  import { computed, ref } from 'vue'
+  import { computed } from 'vue'
   import SlotInfo from './SlotInfo.vue'
   
   const projectStore = useProjectStore()

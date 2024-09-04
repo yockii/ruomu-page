@@ -1,5 +1,5 @@
 import { Func as FunctionComponent, usePluginFunctionStore } from "./src"
-import type {Plugin} from "@ruomu-ui/core"
+import type {Plugin} from "@ruomu-ui/types"
 import { MathFunction } from "@vicons/tabler"
 
 const Func: Plugin = {

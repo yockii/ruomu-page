@@ -1,5 +1,5 @@
 import FullscreenComponent from "./src"
-import type {Toolbar} from "@ruomu-ui/core"
+import type {Toolbar} from "@ruomu-ui/types"
 
 const Fullscreen: Toolbar = {
   id: "fullscreen",

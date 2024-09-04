@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { Plugin  } from '../types'
+import type { Plugin  } from '@ruomu-ui/types'
 
 interface State {
   device: string;

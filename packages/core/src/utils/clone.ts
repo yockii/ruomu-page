@@ -1,4 +1,4 @@
-export function deepClone(value, cache = new WeakMap()) {
+export function deepClone(value: any, cache = new WeakMap()) {
   // 派出原始类型，函数也满足此条件
   if (typeof value !== "object" || value === null) {
     return value;

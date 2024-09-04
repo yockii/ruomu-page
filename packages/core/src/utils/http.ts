@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { Response } from "../types";
+import type { Response } from "@ruomu-ui/types";
 
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_API_BASE_URL || "http://192.168.1.100:4523/m1/5018611-4678324-default",

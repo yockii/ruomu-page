@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { useCanvasStore, useLayoutStore } from '@ruomu-ui/core'
-import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
-import CanvasContainer from './CanvasContainer.vue'
-import FooterBar from './CanvasFooterBar.vue'
+  import { storeToRefs } from 'pinia'
+  import { computed } from 'vue'
+  import CanvasContainer from './CanvasContainer.vue'
+  import FooterBar from './CanvasFooterBar.vue'
 
 const layoutStore = useLayoutStore()
 const {scale, width} = storeToRefs(layoutStore)

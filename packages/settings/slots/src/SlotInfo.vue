@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import {NSwitch} from "naive-ui";
   import { computed, PropType } from 'vue'
-  import { Schema } from '@ruomu-ui/core'
+  import type { Schema } from '@ruomu-ui/types'
   
   const props = defineProps({
     slotName: {

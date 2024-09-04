@@ -1,5 +1,5 @@
 import LogoComponent from "./src"
-import type {Toolbar} from "@ruomu-ui/core"
+import type {Toolbar} from "@ruomu-ui/types"
 
 const Logo: Toolbar = {
   id: "logo",

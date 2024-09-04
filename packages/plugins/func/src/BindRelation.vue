@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { NModal, NButton, NIcon, NTooltip } from 'naive-ui'
-
+  import { NModal, NButton } from 'naive-ui'
+  import type {Schema} from '@ruomu-ui/types'
   import { computed } from 'vue'
-  import { Schema, useCanvasStore, useProjectStore } from '@ruomu-ui/core'
+  import {  useCanvasStore, useProjectStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
 
   const props = defineProps({

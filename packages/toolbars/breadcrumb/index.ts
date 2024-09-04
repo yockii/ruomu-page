@@ -1,5 +1,5 @@
 import BreadcrumbComponent from "./src"
-import type {Toolbar} from "@ruomu-ui/core"
+import type {Toolbar} from "@ruomu-ui/types"
 
 const Breadcrumb: Toolbar = {
   id: "breadcrumb",

@@ -1,45 +1,45 @@
 <script setup lang="ts">
   import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
-import { storeToRefs } from 'pinia'
-import {NIcon, NTooltip} from 'naive-ui'
-import {FolderParent,ArrowUp,ArrowDown, Delete} from '@vicons/carbon'
+  import { storeToRefs } from 'pinia'
+  import {NIcon, NTooltip} from 'naive-ui'
+  import {FolderParent,ArrowUp,ArrowDown, Delete} from '@vicons/carbon'
 
-const canvasStore = useCanvasStore()
-const projectStore = useProjectStore()
-const {hoverState, selectState, lineState} = storeToRefs(canvasStore)
-
-const selectParent = () => {
-  const currentId = selectState.value?.id
-  if (!currentId) return
-  const parent = projectStore.parentSchema(currentId)
-  if(parent && parent.id) {
-    canvasStore.selectNodeById(parent.id)
-  }
-}
-
-const move = (after: boolean = false) => {
-  const current = selectState.value
-  if (!current) return
-  const parent = projectStore.parentSchema(current.id)
-  if (!parent) return
-  const index = parent.children?.findIndex((item) => item.id === current.id)
-  if (index === 0 && !after) return
-  if (index === parent.children.length - 1 && after) return
+  const canvasStore = useCanvasStore()
+  const projectStore = useProjectStore()
+  const {hoverState, selectState, lineState} = storeToRefs(canvasStore)
   
-  canvasStore.clearSelectState()
-  const target = parent.children[after ? index + 1 : index - 1]
-  const currentSchema = projectStore.findSchemaSegment(current.id)
-  projectStore.moveSchema(currentSchema, target.id, after ? 'bottom' : 'top')
-  setTimeout(() => {
-    canvasStore.selectNodeById(currentSchema.id)
-  }, 100)
-}
-const remove = () => {
-  const current = selectState.value
-  if (!current) return
-  canvasStore.clearSelectState()
-  projectStore.removeSchema(current.id)
-}
+  const selectParent = () => {
+    const currentId = selectState.value?.id
+    if (!currentId) return
+    const parent = projectStore.parentSchema(currentId)
+    if(parent && parent.id) {
+      canvasStore.selectNodeById(parent.id)
+    }
+  }
+  
+  const move = (after: boolean = false) => {
+    const current = selectState.value
+    if (!current) return
+    const parent = projectStore.parentSchema(current.id)
+    if (!parent) return
+    const index = parent.children?.findIndex((item) => item.id === current.id)
+    if (index === 0 && !after) return
+    if (index === parent.children.length - 1 && after) return
+    
+    canvasStore.clearSelectState()
+    const target = parent.children[after ? index + 1 : index - 1]
+    const currentSchema = projectStore.findSchemaSegment(current.id)
+    projectStore.moveSchema(currentSchema, target.id, after ? 'bottom' : 'top')
+    setTimeout(() => {
+      canvasStore.selectNodeById(currentSchema.id)
+    }, 100)
+  }
+  const remove = () => {
+    const current = selectState.value
+    if (!current) return
+    canvasStore.clearSelectState()
+    projectStore.removeSchema(current.id)
+  }
 </script>
 
 <template>

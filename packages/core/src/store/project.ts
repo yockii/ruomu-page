@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
-import type { Project, Page, PageSchema, Schema, MaterialComponent } from '../types'
-import { JsMethod } from '../types'
+import type { JsMethod, Project, Page, PageSchema, Schema, MaterialComponent } from '@ruomu-ui/types'
 
 interface projectState {
   project: Project | undefined,

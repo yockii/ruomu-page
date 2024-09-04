@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { Property, useCanvasStore, useProjectStore } from '@ruomu-ui/core'
+  import type { Property } from "@ruomu-ui/types"
+  import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
   import { computed, PropType } from 'vue'
   import { NIcon, NTooltip, NInput, NSwitch, NColorPicker, NSlider, NSelect } from 'naive-ui';
   import { CodeFilled } from '@vicons/material'

@@ -1,5 +1,5 @@
 import EventsComponent from "./src"
-import type {Setting} from "@ruomu-ui/core"
+import type {Setting} from "@ruomu-ui/types"
 import {EventNoteFilled} from "@vicons/material"
 
 const Events: Setting = {

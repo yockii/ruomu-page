@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { JsMethod } from '@ruomu-ui/core'
+import type { JsMethod } from '@ruomu-ui/types'
 
 interface pluginFunctionState {
   showMethodPanel: boolean;

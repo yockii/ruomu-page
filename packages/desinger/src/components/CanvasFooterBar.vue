@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useCanvasStore } from '@ruomu-ui/core'
-import {NBreadcrumb, NBreadcrumbItem} from 'naive-ui'
+  import {NBreadcrumb, NBreadcrumbItem} from 'naive-ui'
   import { storeToRefs } from 'pinia'
 
 const canvasStore = useCanvasStore()

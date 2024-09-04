@@ -1,5 +1,5 @@
 import SlotsComponent from "./src"
-import type {Setting} from "@ruomu-ui/core"
+import type {Setting} from "@ruomu-ui/types"
 import {BrandingWatermarkOutlined} from "@vicons/material"
 
 const Slots: Setting = {

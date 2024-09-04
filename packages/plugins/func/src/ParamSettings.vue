@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NModal, NButton, NButtonGroup, NIcon, NTooltip, NInput, NDataTable, NSelect } from 'naive-ui'
 import { computed, PropType, ref, h, onMounted } from 'vue'
-import { Parameter } from '@ruomu-ui/core'
+import type { Parameter } from '@ruomu-ui/types'
 import { ChevronDown, ChevronUp, Plus, Trash } from '@vicons/tabler'
 import type { DataTableColumns } from 'naive-ui'
 

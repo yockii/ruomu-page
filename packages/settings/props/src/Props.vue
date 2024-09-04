@@ -1,6 +1,7 @@
 <script setup lang="ts">
+  import type {
+    PropertyGroup} from "@ruomu-ui/types"
   import {
-    PropertyGroup,
     useCanvasStore,
     useComponentsStore,
     useProjectStore,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NAutoComplete, NIcon, NH6, NCollapseTransition } from 'naive-ui'
 import { computed, onMounted, ref } from 'vue'
-import { MaterialComponent, MaterialComponentGroup, MaterialLib } from '@ruomu-ui/core/src/types/material.ts'
+import type { MaterialComponent, MaterialComponentGroup, MaterialLib } from '@ruomu-ui/types'
 import { Search, ChevronDown, ChevronUp } from "@vicons/tabler"
 import { deepClone, useCanvasStore } from '@ruomu-ui/core'
 import { Group, usePluginMaterialStore } from './Store.ts'

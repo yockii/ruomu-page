@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { MaterialComponent, MaterialLib, Paginate } from '../types'
+import type { MaterialComponent, MaterialLib, Paginate } from '@ruomu-ui/types'
 import { httpGet } from '../utils'
 
 type Lib = MaterialLib & {
@@ -57,7 +57,7 @@ export const useComponentsStore = defineStore("components", {
         return
       }
       try {
-        const resp = await httpGet<Paginate<MaterialComponent>>('/api/v1/materialLabComponent/list', {libVersionId: lib.activeVersionId})
+        const resp = await httpGet<Paginate<MaterialComponent>>('/api/v1/materialLibComponent/list', {libVersionId: lib.activeVersionId})
         this.addComponents(libCode, resp.data?.items || [])
       } catch (error) {
         console.error(error)

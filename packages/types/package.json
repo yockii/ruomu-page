@@ -1,0 +1,11 @@
+{
+  "name": "@ruomu-ui/types",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "index.ts",
+  "peerDependencies": {
+  },
+  "devDependencies": {
+  }
+}

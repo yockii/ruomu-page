@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { Plugin, useLayoutStore, resolveComponent } from '@ruomu-ui/core'
+  import type { Plugin } from '@ruomu-ui/types'
+  import { useLayoutStore, resolveComponent } from '@ruomu-ui/core'
   import addons from "../config/addons"
   import {NIcon, NTooltip} from "naive-ui";
   import { onMounted, ref } from 'vue'

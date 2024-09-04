@@ -1,5 +1,5 @@
 import { Material as MaterialComponent, usePluginMaterialStore } from "./src"
-import type {Plugin} from "@ruomu-ui/core"
+import type {Plugin} from "@ruomu-ui/types"
 import {Components} from "@vicons/tabler"
 
 const Material: Plugin = {

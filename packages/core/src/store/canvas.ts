@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { MaterialComponent, MaterialComponentMetaInfo, Node, Schema } from '../types'
+import type { MaterialComponent, MaterialComponentMetaInfo, Node, Schema } from '@ruomu-ui/types'
 import { useProjectStore } from './project'
 import { useLayoutStore } from './layout'
 

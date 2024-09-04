@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {Toolbar} from "@ruomu-ui/core";
+import type {Toolbar} from "@ruomu-ui/types";
 import addons from "../config/addons"
 import { onMounted, ref } from 'vue'
 import {resolveComponent} from "@ruomu-ui/core"

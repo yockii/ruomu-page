@@ -1,5 +1,5 @@
 import StylesComponent from "./src"
-import type {Setting} from "@ruomu-ui/core"
+import type {Setting} from "@ruomu-ui/types"
 import {CssFilled} from "@vicons/material"
 
 const Styles: Setting = {
