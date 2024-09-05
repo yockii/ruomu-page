@@ -3,18 +3,18 @@ import { Get, Post } from '../basic/http'
 
 export const MaterialLibApi = {
   list: (params?: Record<string, any>): Promise<Response<Paginate<MaterialLib>>> => {
-    return Get<Paginate<MaterialLib>>("/materialLibComponent/list", params);
+    return Get<Paginate<MaterialLib>>("/materialLib/list", params);
   },
   instance: (id: string): Promise<Response<MaterialLib>> => {
-    return Get<MaterialLib>('/materialLibComponent/instance', {id});
+    return Get<MaterialLib>('/materialLib/instance', {id});
   },
   add: (data: MaterialLib): Promise<Response<MaterialLib>> => {
-    return Post<MaterialLib>('/materialLibComponent/add', data);
+    return Post<MaterialLib>('/materialLib/add', data);
   },
   update: (data: MaterialLib): Promise<Response<MaterialLib>> => {
-    return Post<MaterialLib>('/materialLibComponent/update', data);
+    return Post<MaterialLib>('/materialLib/update', data);
   },
   remove: (id: string): Promise<Response<Boolean>> => {
-    return Post<Boolean>('/materialLibComponent/delete', {id});
+    return Post<Boolean>('/materialLib/delete', {id});
   },
 }

@@ -8,6 +8,13 @@
   import {NIcon, NTooltip} from "naive-ui"
   import { storeToRefs } from 'pinia'
   
+  defineProps({
+    runtimeSrc: { 
+      type: String,
+      default: 'canvas.html'
+    },
+  })
+  
   const layoutStore = useLayoutStore()
   
   const { showPluginPanel, currentPlugin } = storeToRefs(layoutStore)
@@ -45,7 +52,7 @@
         <component :is="resolveComponent(currentPlugin.component)" />
       </div>
       <div class="flex-1">
-        <designer-canvas />
+        <designer-canvas :runtime-src="runtimeSrc" />
       </div>
       <div class="settings">
         <designer-settings />

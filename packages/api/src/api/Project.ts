@@ -1,5 +1,5 @@
 import { Paginate, Project, Response } from '@ruomu-ui/types'
-import { Post } from '../basic/http'
+import { Get, Post } from '../basic/http'
 
 export const ProjectApi = {
   add: (data: Project): Promise<Response<Project>> => {
@@ -12,9 +12,9 @@ export const ProjectApi = {
     return Post('/project/update', data)
   },
   instance: (id: string): Promise<Response<Project>> => {
-    return Post('/project/instance', { id })
+    return Get('/project/instance', { id })
   },
   list: (params?: Record<string, any>): Promise<Response<Paginate<Project>>> => {
-    return Post('/project/list', params)
+    return Get('/project/list', params)
   }
 }

@@ -1,5 +1,5 @@
 import { Paginate, MaterialComponentGroup, Response } from '@ruomu-ui/types'
-import { Post } from '../basic/http'
+import { Get, Post } from '../basic/http'
 
 export const MaterialComponentGroupApi = {
   add: (data: MaterialComponentGroup): Promise<Response<MaterialComponentGroup>> => {
@@ -12,9 +12,9 @@ export const MaterialComponentGroupApi = {
     return Post('/materialComponentGroup/update', data)
   },
   instance: (id: string): Promise<Response<MaterialComponentGroup>> => {
-    return Post('/materialComponentGroup/instance', { id })
+    return Get('/materialComponentGroup/instance', { id })
   },
   list: (params?: Record<string, any>): Promise<Response<Paginate<MaterialComponentGroup>>> => {
-    return Post('/materialComponentGroup/list', params)
+    return Get('/materialComponentGroup/list', params)
   }
 }
