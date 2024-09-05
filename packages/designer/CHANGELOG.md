@@ -1,5 +1,13 @@
 # @ruomu-ui/designer
 
+## 1.0.1
+
+### Patch Changes
+
+- fix api and add runtime url param
+  - @ruomu-ui/core@1.0.0
+  - @ruomu-ui/plugin-material@2.0.1
+
 ## 1.0.0
 
 ### Major Changes
