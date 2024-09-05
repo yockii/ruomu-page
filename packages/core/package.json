@@ -1,7 +1,6 @@
 {
   "name": "@ruomu-ui/core",
-  "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "index.ts",
   "peerDependencies": {
@@ -20,5 +19,8 @@
     "@babel/traverse": "^7.25.3",
     "prettier": "^3.3.3",
     "axios": "^1.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

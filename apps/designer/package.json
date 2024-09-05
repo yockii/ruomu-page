@@ -1,7 +1,7 @@
 {
   "name": "@ruomu-ui/app",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "",
   "scripts": {
@@ -11,9 +11,7 @@
   },
   "dependencies": {
     "@ruomu-ui/core": "workspace:*",
-    "@ruomu-ui/desinger": "workspace:*",
-
-    
+    "@ruomu-ui/designer": "workspace:*",
     "vue": "^3.4.34",
     "vue-router": "^4.4.0"
   },

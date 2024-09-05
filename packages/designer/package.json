@@ -1,7 +1,6 @@
 {
-  "name": "@ruomu-ui/desinger",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@ruomu-ui/designer",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,23 +10,19 @@
   "dependencies": {
     "@ruomu-ui/types": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
-
     "@ruomu-ui/plugin-material": "workspace:*",
     "@ruomu-ui/plugin-tree": "workspace:*",
     "@ruomu-ui/plugin-function": "workspace:*",
-
     "@ruomu-ui/setting-props": "workspace:*",
     "@ruomu-ui/setting-styles": "workspace:*",
     "@ruomu-ui/setting-events": "workspace:*",
     "@ruomu-ui/setting-slots": "workspace:*",
-
     "@ruomu-ui/toolbar-breadcrumb": "workspace:*",
     "@ruomu-ui/toolbar-fullscreen": "workspace:*",
     "@ruomu-ui/toolbar-logo": "workspace:*",
     "@ruomu-ui/toolbar-media": "workspace:*",
     "@vicons/carbon": "^0.12.0",
     "@vicons/material": "^0.12.0",
-    
     "vue": "^3.4.37"
   },
   "devDependencies": {
@@ -39,5 +34,8 @@
     "unocss": "^0.61.5",
     "vite": "^5.4.1",
     "vue-tsc": "^2.0.29"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -7,12 +7,18 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "dev": "pnpm --filter @ruomu-ui/desinger run dev"
+    "dev": "pnpm --filter @ruomu-ui/designer run dev",
+    "changeset": "changeset add",
+    "version": "changeset version",
+    "version:snapshot": "changeset version --snapshot dev",
+    "release": "changeset publish",
+    "release:snapshot": "changeset publish --snapshot --no-git-tag --tag dev"
   },
   "dependencies": {
     "vue": "^3.4.34"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.8",
     "@types/node": "^20.14.12",
     "@vue/tsconfig": "^0.5.1",
     "typescript": "^5.5.4",

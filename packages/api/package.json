@@ -1,7 +1,6 @@
 {
   "name": "@ruomu-ui/api",
-  "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "index.ts",
   "peerDependencies": {
@@ -10,5 +9,8 @@
   "devDependencies": {
     "@ruomu-ui/types": "workspace:*",
     "axios": "^1.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

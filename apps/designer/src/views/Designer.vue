@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import Designer from "@ruomu-ui/desinger"
+  import Designer from "../../../../packages/designer"
 </script>
 
 <template>
