@@ -5,7 +5,7 @@ import type {
   MaterialLib,
 } from '@ruomu-ui/types'
 import {
-  useComponentsStore,
+  useComponentsStore, useProjectStore,
 } from '@ruomu-ui/core'
 import BuiltIn from './builtInLib.ts'
 import { MaterialComponentApi, MaterialComponentGroupApi, MaterialLibApi } from '@ruomu-ui/api'
@@ -27,8 +27,8 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
   actions: {
     async getLibs() {
       try {
-        const resp = await MaterialLibApi.list({offset: -1, limit: -1})
-        if (resp.code === 200) {
+        const resp = await MaterialLibApi.list({offset: -1, limit: -1, projectId: useProjectStore().project?.id})
+        if (resp.code === 0) {
           // 加上 BuiltIn.BuiltInLib
           // componentLibs.value = resp.data?.items || []
           this.componentLibs = [BuiltIn.BuiltInLib, ...resp.data?.items || []]
@@ -66,7 +66,7 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
       }
       try {
         const resp = await MaterialComponentGroupApi.list({libCode: this.currentLib.code})
-        if (resp.code === 200) {
+        if (resp.code === 0) {
           this.currentLib.groups = resp.data?.items || []
           this.checkComponents()
         }
@@ -97,7 +97,7 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
       }
       try {
         const resp = await MaterialComponentApi.list({libVersionId: this.currentLib.activeVersionId})
-        if (resp.code === 200) {
+        if (resp.code === 0) {
           this.currentLib.components = resp.data?.items || []
           useComponentsStore().addComponents(libCode, this.currentLib.components)
           this.buildGroupComponents()

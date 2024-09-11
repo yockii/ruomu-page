@@ -20,8 +20,20 @@ async function Post<T>(url: string, data?: Record<string, any>): Promise<Respons
   return res.data;
 }
 
+async function Put<T>(url: string, data?: Record<string, any>): Promise<Response<T>> {
+  const res = await instance.post(url, data);
+  return res.data;
+}
+
+async function Delete<T>(url: string, params?: Record<string, any>): Promise<Response<T>> {
+  const res = await instance.delete(url, { params });
+  return res.data;
+}
+
 export { 
   instance as http,
   Get ,
   Post ,
+  Put ,
+  Delete
 };

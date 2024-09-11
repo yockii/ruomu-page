@@ -30,12 +30,18 @@ importers:
 
   apps/designer:
     dependencies:
+      '@ruomu-ui/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../../packages/core
       '@ruomu-ui/designer':
         specifier: workspace:*
         version: link:../../packages/designer
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       vue:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)

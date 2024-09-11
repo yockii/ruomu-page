@@ -7,12 +7,14 @@
   import {Pin, PinFilled, Close} from "@vicons/carbon"
   import {NIcon, NTooltip} from "naive-ui"
   import { storeToRefs } from 'pinia'
+  import { Project } from '@ruomu-ui/types'
+  import { PropType } from 'vue'
   
   defineProps({
     runtimeSrc: { 
       type: String,
       default: 'canvas.html'
-    },
+    }
   })
   
   const layoutStore = useLayoutStore()

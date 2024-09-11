@@ -1,5 +1,11 @@
 # @ruomu-ui/api
 
+## 1.0.2
+
+### Patch Changes
+
+- export http api
+
 ## 1.0.1
 
 ### Patch Changes

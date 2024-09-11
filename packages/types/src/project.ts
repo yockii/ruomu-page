@@ -1,13 +1,13 @@
 import { MaterialLib, Parameter } from './material'
 
 export type Project = {
-  id: string; // id
-  name: string; // 应用名称
-  description: string; // 描述
-  homePageId: string; // 首页页面ID
-  status: number; // 状态
+  id?: string; // id
+  name?: string; // 应用名称
+  description?: string; // 描述
+  homePageId?: string; // 首页页面ID
+  status?: number; // 状态
   
-  usedMaterialLib: MaterialLib[];
+  usedMaterialLib?: MaterialLib[];
 }
 
 export type Page = {

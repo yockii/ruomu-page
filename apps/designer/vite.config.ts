@@ -16,8 +16,13 @@ export default defineConfig ({
     // /canvas代理到8080端口
     proxy: {
       '/canvas': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8888',
         changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost:8888',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
   },
