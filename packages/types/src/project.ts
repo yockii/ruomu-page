@@ -1,4 +1,5 @@
 import type { MaterialLib, Parameter } from './material'
+import type { Variable } from './variable'
 
 export type Project = {
   id?: string; // id
@@ -20,7 +21,7 @@ export type Page = {
 }
 
 export type PageSchema = Schema & {
-  state: Record<string, any>;
+  state: Variable[];
   fileName: string;
   css: string;
   js: JsBlock;

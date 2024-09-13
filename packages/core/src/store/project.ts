@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import type { JsMethod, Project, Page, PageSchema, Schema, MaterialComponent } from '@ruomu-ui/types'
+import type { JsMethod, Project, Page, PageSchema, Schema, MaterialComponent, Variable } from '@ruomu-ui/types'
 
 interface projectState {
   project: Project | undefined,
@@ -113,7 +113,7 @@ export const useProjectStore = defineStore("project", {
     pages: [],
     currentPageSchema: {
       id: '1',
-      state: {},
+      state: [],
       fileName: 'index.vue',
       componentId: 'page',
       componentName: 'page',
@@ -146,6 +146,20 @@ export const useProjectStore = defineStore("project", {
     }
   },
   actions: {
+    addNewState(v:Variable) {
+      if (!v || !this.currentPageSchema) return
+      if (!this.currentPageSchema.state || !this.currentPageSchema.state.length) {
+        this.currentPageSchema.state = [v]
+      } else {
+        // 如果name相同，则替换
+        const index = this.currentPageSchema.state.findIndex(s => s.name === v.name)
+        if (index !== -1) {
+          this.currentPageSchema.state[index] = v
+        } else {
+          this.currentPageSchema.state.push(v)
+        }
+      } 
+    },
     findSchemaSegment(id:string) {
       if (this.currentPageSchema && id) {
         // 从children中查找(递归)

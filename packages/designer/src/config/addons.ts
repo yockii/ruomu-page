@@ -1,4 +1,4 @@
-import type { Plugin, Toolbar, Setting } from "@ruomu-ui/core";
+import type { Plugin, Toolbar, Setting } from "@ruomu-ui/types";
 import Logo from "@ruomu-ui/toolbar-logo";
 import Breadcrumb from "@ruomu-ui/toolbar-breadcrumb";
 import Media from "@ruomu-ui/toolbar-media";
@@ -7,6 +7,7 @@ import Fullscreen from "@ruomu-ui/toolbar-fullscreen";
 import Material from "@ruomu-ui/plugin-material"
 import Tree from "@ruomu-ui/plugin-tree"
 import Func from '@ruomu-ui/plugin-function'
+import State from '@ruomu-ui/plugin-state'
 import Schema from "@ruomu-ui/plugin-schema"
 
 import Props from "@ruomu-ui/setting-props"
@@ -23,6 +24,7 @@ const addons: {
       Material,
       Tree,
       Func,
+      State,
       
       Schema
     ],
