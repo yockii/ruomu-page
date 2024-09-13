@@ -49,6 +49,9 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(vue@3.4.34(typescript@5.5.4))
     devDependencies:
+      '@monaco-editor/loader':
+        specifier: ^1.4.0
+        version: 1.4.0(monaco-editor@0.51.0)
       '@types/node':
         specifier: ^20.14.12
         version: 20.14.12
@@ -58,6 +61,9 @@ importers:
       less:
         specifier: ^4.2.0
         version: 4.2.0
+      monaco-editor:
+        specifier: ^0.51.0
+        version: 0.51.0
       naive-ui:
         specifier: ^2.39.0
         version: 2.39.0(vue@3.4.34(typescript@5.5.4))
@@ -147,6 +153,9 @@ importers:
       '@ruomu-ui/plugin-material':
         specifier: workspace:*
         version: link:../plugins/material
+      '@ruomu-ui/plugin-schema':
+        specifier: workspace:*
+        version: link:../plugins/schema
       '@ruomu-ui/plugin-tree':
         specifier: workspace:*
         version: link:../plugins/tree
@@ -314,6 +323,46 @@ importers:
         specifier: ^2.0.29
         version: 2.0.29(typescript@5.5.4)
 
+  packages/plugins/schema:
+    dependencies:
+      '@ruomu-ui/core':
+        specifier: workspace:*
+        version: link:../../core
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.38(typescript@5.5.4)
+    devDependencies:
+      '@ruomu-ui/editor':
+        specifier: workspace:*
+        version: link:../../editor
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@vicons/carbon':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vicons/material':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.1(@types/node@20.14.12)(less@4.2.0))(vue@3.4.38(typescript@5.5.4))
+      naive-ui:
+        specifier: ^2.39.0
+        version: 2.39.0(vue@3.4.38(typescript@5.5.4))
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+      vue-tsc:
+        specifier: ^2.0.29
+        version: 2.0.29(typescript@5.5.4)
+
   packages/plugins/tree:
     dependencies:
       '@ruomu-ui/core':
@@ -323,6 +372,9 @@ importers:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)
     devDependencies:
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../types
       '@vicons/carbon':
         specifier: ^0.12.0
         version: 0.12.0
@@ -430,6 +482,9 @@ importers:
       '@ruomu-ui/types':
         specifier: workspace:*
         version: link:../../types
+      '@vicons/tabler':
+        specifier: ^0.12.0
+        version: 0.12.0
       vue:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)

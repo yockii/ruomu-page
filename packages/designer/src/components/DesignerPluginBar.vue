@@ -64,6 +64,16 @@
     </div>
     <div class="flex flex-col items-center">
      <!-- bottomPlugins -->
+      <template v-for="item in bottomPlugins" :key="item.id">
+        <n-tooltip placement="right" trigger="hover">
+          <template #trigger>
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-8px">
+              <component :is="resolveComponent(item.icon!)" />
+            </n-icon>
+          </template>
+          {{item.title}}
+        </n-tooltip>
+      </template>
     </div>
   </div>
 </template>

@@ -19,6 +19,20 @@ function findSchemaSegment(id: string, schema: Schema | null) : Schema | null {
       }
     }
   }
+  // slot 中也要查找
+  if (schema.slots) {
+    for (const slot of schema.slots) {
+      const slotChildren = slot.children
+      if (slotChildren && typeof slotChildren !== 'string' && slotChildren.length > 0) {
+        for (const slotChild of slotChildren) {
+          const result = findSchemaSegment(id, slotChild)
+          if (result) {
+            return result
+          }
+        }
+      } 
+    }
+  } 
   return null
 }
 
@@ -26,14 +40,30 @@ function findAndRemoveSchemaSegment(id: string, schema: Schema | string | null) 
   if (typeof schema === 'string') {
     return
   }
-  if (schema && schema.children) {
-    for (let i = 0; i < schema.children.length; i++) {
-      const child = schema.children[i]
-      if (child.id === id) {
-        schema.children.splice(i, 1)
-        return
+  if (schema) {
+    if (schema.children) {
+      for (let i = 0; i < schema.children.length; i++) {
+        const child = schema.children[i]
+        if (child.id === id) {
+          schema.children.splice(i, 1)
+          return
+        }
+        findAndRemoveSchemaSegment(id, child)
       }
-      findAndRemoveSchemaSegment(id, child)
+    }
+    if (schema.slots) {
+      for (const slot of schema.slots) {
+        const slotChildren = slot.children
+        if (slotChildren && typeof slotChildren !== 'string' && slotChildren.length > 0) {
+          for (const slotChild of slotChildren) {
+            if (slotChild.id === id) {
+              slotChildren.splice(slotChildren.indexOf(slotChild), 1)
+              return
+            }
+            findAndRemoveSchemaSegment(id, slotChild)
+          }
+        } 
+     }
     }
   }
 }
@@ -48,6 +78,23 @@ function findSchemaSegmentParent(id: string, schema: Schema) : Schema | null {
       if (result) {
         return result
       }
+    }
+  }
+  // slots
+  if (schema.slots) {
+    for (const slot of schema.slots) {
+      const slotChildren = slot.children
+      if (slotChildren && typeof slotChildren !== 'string' && slotChildren.length > 0) {
+        for (const slotChild of slotChildren) {
+          if (slotChild.id === id) {
+            return schema
+          }
+          const result = findSchemaSegmentParent(id, slotChild)
+          if (result) {
+            return result
+          }
+        }
+      } 
     }
   }
   return null

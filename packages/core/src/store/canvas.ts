@@ -36,7 +36,7 @@ interface CanvasState {
     schema?: Schema | null;
   },
   // 鼠标悬浮状态的矩形框
-  hoverState: RectState & {slotName?: string},
+  hoverState: RectState & {slotName?: string, inSlotName?: string},
   // 选中的节点
   selectState: RectState,
   // 节点的拖拽状态
@@ -98,7 +98,7 @@ export const useCanvasStore = defineStore('canvas', {
       this.clearHoverState()
       useLayoutStore().showSettingsPanel = true
     },
-    hoverNodeById(id: string, slotName: string = '') {
+    hoverNodeById(id: string, slotName = '', inSlotName = "") {
       if (!id || !this.iframeDom || (id === this.selectState?.id)) return
       const doc = this.iframeDom.contentDocument
       if (!doc) return
@@ -123,6 +123,7 @@ export const useCanvasStore = defineStore('canvas', {
         configure: null, // TODO
         schema: schemaSegment,
         slotName: slotName,
+        inSlotName: inSlotName,
       }
     },
     
@@ -182,7 +183,15 @@ export const useCanvasStore = defineStore('canvas', {
     dragEnd() {
       const {data, schema} = this.dragState
       const {position, forbidden, id, slotName} = this.lineState
-      if (!forbidden && id && position) {
+
+      let targetId = id
+      let targetPosition = position
+      if (!targetId && !targetPosition) {
+        targetId = "BODY"
+        targetPosition = "in"
+      }
+      
+      if (!forbidden && targetId && targetPosition) {
         // 给schema默认值
         if (schema) {
           data?.metaInfo.props.forEach(group => {
@@ -194,16 +203,23 @@ export const useCanvasStore = defineStore('canvas', {
           })
         }
         
+        
         if (schema) {
           // 有schema,则是拖拽已有的组件
-          useProjectStore().moveSchema(schema, id, position, slotName)
+          useProjectStore().moveSchema(schema, targetId, targetPosition, slotName)
         } else {
           // 新的组件
-          useProjectStore().addComponent(data!, id, position, slotName)
+          useProjectStore().addComponent(data!, targetId, targetPosition, slotName)
         }
       }
       this.clearDragState()
       this.clearLineState()
+    },
+    slotDragEnd(schemaId?: string, slotName?: string) {
+      if (!schemaId || !slotName) return 
+      const {data} = this.dragState
+      if (!data) return
+      useProjectStore().addComponent(data, schemaId, "in", slotName)
     }
   },
   persistShare: true,

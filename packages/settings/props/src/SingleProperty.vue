@@ -5,6 +5,7 @@
   import { NIcon, NTooltip, NInput, NSwitch, NColorPicker, NSlider, NSelect } from 'naive-ui';
   import { CodeFilled } from '@vicons/material'
   import { storeToRefs } from 'pinia'
+  import PropertyValue from './PropertyValue.vue'
 
   const props = defineProps({
     property: {
@@ -40,22 +41,14 @@
 </script>
 
 <template>
-  <div class="flex mt-8px" :class="{'flex-row justify-between': inline, 'flex-col': !inline}">
+  <div class="flex mt-8px items-center min-h-36px" :class="{'flex-row justify-between': inline, 'flex-col': !inline}">
     <template v-if="inline">
-      <div class="property-name">{{ property.name }}</div>
-      <div class="property-value">
-        <!-- input -->
-        <n-input v-if="property.widget.component === 'input'" :value="value" @update:value="updateValue" clearable/>
-        <!-- color -->
-        <n-color-picker v-if="property.widget.component === 'color'" :value="value" @update:value="updateValue" :actions="['clear']"/>
-        <!-- select -->
-        <n-select v-if="property.widget.component === 'select'" :value="value" @update:value="updateValue" clearable :options="property.widget.props.options" />
-        <!-- switch -->
-        <n-switch v-if="property.widget.component === 'switch'" :value="value" @update:value="updateValue" />
-        <!-- slider -->
-        <n-slider v-if="property.widget.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip />
-      </div>
-      <div class="property-bind">
+      <div class="property-name">{{ property.label }}</div>
+      <div class="flex items-center">
+        <div class="mr-8px">
+          <property-value :property="property" inline />
+        </div>
+        <div class="property-bind">
         <n-tooltip>
           <template #trigger>
             <n-icon class="cursor-pointer" size="18">
@@ -64,6 +57,7 @@
           </template>
           <span>关联变量</span>
         </n-tooltip>
+      </div>
       </div>
     </template>
     <template v-else>
@@ -81,16 +75,7 @@
         </div>
       </div>
       <div class="property-value">
-        <!-- input -->
-        <n-input v-if="property.widget.component === 'input'" :value="value" @update:value="updateValue" clearable/>
-        <!-- color -->
-        <n-color-picker v-if="property.widget.component === 'color'" :value="value" @update:value="updateValue" :actions="['clear']"/>
-        <!-- select -->
-        <n-select v-if="property.widget.component === 'select'" :value="value" @update:value="updateValue" clearable :options="property.widget.props.options" />
-        <!-- switch -->
-        <n-switch v-if="property.widget.component === 'switch'" :value="value" @update:value="updateValue" />
-        <!-- slider -->
-        <n-slider v-if="property.widget.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip />
+        <property-value :property="property" />
       </div>
     </template>
 

@@ -1,5 +1,5 @@
 {
-  "name": "@ruomu-ui/plugin-tree",
+  "name": "@ruomu-ui/plugin-schema",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -13,8 +13,10 @@
   },
   "devDependencies": {
     "@ruomu-ui/types": "workspace:*",
+    "@vicons/material": "^0.12.0",
     "@vicons/carbon": "^0.12.0",
     "@vitejs/plugin-vue": "^5.1.2",
+    "@ruomu-ui/editor": "workspace:*",
     "naive-ui": "^2.39.0",
     "pinia": "^2.1.7",
     "typescript": "^5.5.3",

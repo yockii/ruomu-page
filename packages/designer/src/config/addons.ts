@@ -7,6 +7,7 @@ import Fullscreen from "@ruomu-ui/toolbar-fullscreen";
 import Material from "@ruomu-ui/plugin-material"
 import Tree from "@ruomu-ui/plugin-tree"
 import Func from '@ruomu-ui/plugin-function'
+import Schema from "@ruomu-ui/plugin-schema"
 
 import Props from "@ruomu-ui/setting-props"
 import Styles from "@ruomu-ui/setting-styles"
@@ -21,8 +22,9 @@ const addons: {
     plugins: [
       Material,
       Tree,
-      
       Func,
+      
+      Schema
     ],
     toolbars: [
         Logo,

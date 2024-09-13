@@ -11,7 +11,7 @@
   const currentSchema = computed(() => projectStore.findSchemaSegment(selectState.value.id))
   const currentComponent = computed(() => componentsStore.findComponentById(currentSchema.value?.componentId))
 
-  const componentSlots = computed(() => currentComponent.value?.metaInfo.slots || [])
+  const componentSlots = computed(() => (currentComponent.value?.metaInfo.slots || []).filter(s => s !== "default"))
 </script>
 
 <template>

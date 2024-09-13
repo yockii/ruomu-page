@@ -1,5 +1,5 @@
 import CompTreeComponent from "./src"
-import type {Plugin} from "@ruomu-ui/core"
+import type {Plugin} from "@ruomu-ui/types"
 import {TreeView} from "@vicons/carbon"
 
 const Tree: Plugin = {

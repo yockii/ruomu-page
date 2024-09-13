@@ -161,7 +161,9 @@
           if (rmNodeEle) {
             const id = rmNodeEle.getAttribute('data-component-id')
             if (id) {
-              canvasStore.hoverNodeById(id)
+              // 检查父元素有没有存在 data-component-slot
+              const inSlotName = rmNodeEle.getAttribute('data-component-in-slot')
+              canvasStore.hoverNodeById(id, "", inSlotName)
               return
             }
           }

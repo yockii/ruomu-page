@@ -196,7 +196,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h1',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -211,7 +229,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h2',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -226,7 +262,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h3',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -241,7 +295,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h4',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -256,7 +328,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h5',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -271,7 +361,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'h6',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }
@@ -286,7 +394,25 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [{
+        groupName: '基础属性',
+        collapse: false,
+        properties: [
+          {
+            label: '内容',
+            description: 'innerHTML',
+            name: 'innerHTML',
+            type: 'string',
+            defaultValue: 'p',
+            required: false,
+            widget: {
+              component: 'input',
+              props: {}
+            },
+            rules: {}
+          }
+        ]
+      }],
       events: {},
       slots: []
     }

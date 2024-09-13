@@ -1,4 +1,4 @@
-import { MaterialLib, Parameter } from './material'
+import type { MaterialLib, Parameter } from './material'
 
 export type Project = {
   id?: string; // id
@@ -16,7 +16,7 @@ export type Page = {
   name: string;
   parentId?: string;
   route: string;
-  
+  schema?: PageSchema;
 }
 
 export type PageSchema = Schema & {
