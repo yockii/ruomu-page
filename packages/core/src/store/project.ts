@@ -292,6 +292,27 @@ export const useProjectStore = defineStore("project", {
     removeCustomMethod(methodId: string) {
       if (this.currentPageSchema?.js?.methods) {
         this.currentPageSchema.js.methods = this.currentPageSchema.js.methods.filter(m => m.id !== methodId)
+        this.removeSchemaMethod(methodId, this.currentPageSchema)
+      }
+    },
+    removeSchemaMethod(methodId: string, schema: Schema) {
+      if (schema.events) {
+        schema.events = schema.events.filter(event => event.methodId !== methodId)
+      }
+      if (schema.children) {
+        schema.children.forEach((child) => {
+          this.removeSchemaMethod(methodId, child)
+        })
+      }
+      if (schema.slots) {
+        schema.slots.forEach(slot => {
+          if (slot.children) {
+            if (typeof slot.children === 'string') return
+            slot.children.forEach((child) => {
+              this.removeSchemaMethod(methodId, child)
+            })
+          }
+        })
       }
     },
     parentSchema(schemaId: string) {

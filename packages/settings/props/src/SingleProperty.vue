@@ -26,6 +26,9 @@
     return !!props.property.widget?.inline
   })
   
+  const openRelatePropDialog = () => {
+    alert(1)
+  }
 </script>
 
 <template>
@@ -39,7 +42,7 @@
         <div class="property-bind">
         <n-tooltip>
           <template #trigger>
-            <n-icon class="cursor-pointer" size="18">
+            <n-icon class="cursor-pointer" size="18" @click.stop="openRelatePropDialog">
               <CodeFilled />
             </n-icon>
           </template>

@@ -46,11 +46,11 @@
       editorInstance.setValue(result)
     }
   })
-  watch(() => props.code, () => {
-    if (editorInstance) {
-      editorInstance.setValue(props.code)
-    }
-  })
+  // watch(() => props.code, () => {
+  //   if (editorInstance) {
+  //     editorInstance.setValue(props.code)
+  //   }
+  // })
 
   const jsCode = computed({
     get: () => props.code,
@@ -96,7 +96,6 @@
     } else {
       editorInstance?.updateOptions({readOnly: false})
     }
-
   }
 
   const editorInit = async () => {

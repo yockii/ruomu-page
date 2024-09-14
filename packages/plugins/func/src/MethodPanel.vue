@@ -64,7 +64,8 @@ onMounted(() => {
 // 参数设置
   const paramStringArray = computed(() => {
     // return props.method.params?.map(p => `${p.name}: ${p.type}`) || []
-    return props.method.params?.map(p => `${p.name}`) || []
+    // return props.method.params?.map(p => `${p.name}`) || []
+    return props.method.params || []
   })
   
   const params = ref<Parameter[]>([])
@@ -149,6 +150,8 @@ onMounted(() => {
     </div>
     <param-settings v-model:visible="paramsDialogVisible" :params="params" @update:params="paramsUpdated"/>
     <bind-relation v-if="method.id && showBindRelation" v-model:visible="showBindRelation" :method-id="method.id" />
+    
+    <p class="text-12px p-8px">说明：可直接使用state变量，作为页面数据的引用。如页面数据中定义了一个 variable1,则代码中可以直接使用state.variable1 获取其值</p>
     
     <div class="code-area">
       <div v-if="!codeEditable" class="text-center text-gray-400 text-12px">请先设置方法名</div>
