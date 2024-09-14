@@ -57,7 +57,7 @@
 
       <n-collapse-transition :show="group.expanded?.value">
         <template v-for="property in group.properties" :key="property.name">
-          <single-property v-if="property.widget" :property="property" />
+          <single-property v-if="property.widget" :property="property" :related-props="currentSchema.relatedProps?.[property.name]" />
         </template>
       </n-collapse-transition>
     </template>

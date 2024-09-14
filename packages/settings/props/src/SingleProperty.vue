@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import type { Property } from "@ruomu-ui/types"
+  import type { Property, RelatedProperty } from '@ruomu-ui/types'
   import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
   import { computed, PropType } from 'vue'
-  import { NIcon, NTooltip, NInput, NSwitch, NColorPicker, NSlider, NSelect } from 'naive-ui';
+  import { NIcon, NTooltip } from 'naive-ui';
   import { CodeFilled } from '@vicons/material'
   import { storeToRefs } from 'pinia'
   import PropertyValue from './PropertyValue.vue'
@@ -11,33 +11,21 @@
     property: {
       type: Object as PropType<Property>,
       required: true
-    }
+    },
+    relatedProp: {
+      type: Object as PropType<RelatedProperty>,
+      required: false,
+    },
   })
 
   const canvasStore = useCanvasStore()
   const projectStore = useProjectStore()
   const {selectState} = storeToRefs(canvasStore)
-  const currentSchema = computed(() => {
-    return projectStore.findSchemaSegment(selectState.value.id)
-  })
   
   const inline = computed(() => {
-    return !!props.property.widget.inline
+    return !!props.property.widget?.inline
   })
   
-  const value = computed(() => {
-     return currentSchema.value?.props[props.property.name] || ""
-  })
-
-  const updateValue = (v: any) => {
-    projectStore.updateSchemaPropValue(currentSchema.value.id, props.property.name, v)
-    
-    if(props.property?.widget.component !== 'color' || props.property?.widget.component !== 'input') {
-      setTimeout(() => {
-        canvasStore.selectNodeById(selectState.value.id)
-      }, 100)
-    }
-  }
 </script>
 
 <template>
@@ -46,7 +34,7 @@
       <div class="property-name">{{ property.label }}</div>
       <div class="flex items-center">
         <div class="mr-8px">
-          <property-value :property="property" inline />
+          <property-value :property="property" inline :readonly="relatedProp && relatedProp.varName" />
         </div>
         <div class="property-bind">
         <n-tooltip>
@@ -61,7 +49,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="flex justify-between">
+      <div class="flex justify-between w-100%">
         <div class="property-name">{{ property.name }}</div>
         <div class="property-bind">
           <n-tooltip>
@@ -74,7 +62,7 @@
           </n-tooltip>
         </div>
       </div>
-      <div class="property-value">
+      <div class="property-value w-100%">
         <property-value :property="property" />
       </div>
     </template>

@@ -1,5 +1,5 @@
 import type { MaterialLib, Parameter } from './material'
-import type { Variable } from './variable'
+import type { RelatedProperty, Variable } from './variable'
 
 export type Project = {
   id?: string; // id
@@ -52,6 +52,7 @@ export type Schema = {
   isContainer?: boolean;
   tagName: string;
   props: Record<string, any>;
+  relatedProps?: Record<string, RelatedProperty>;
   children?: Schema[];
   // 代码编写的style样式
   style?: string;

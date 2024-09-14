@@ -4,3 +4,8 @@ export type Variable = {
   defaultValue?: any;
   props?: Variable[];
 }
+
+export type RelatedProperty = {
+  name: string;
+  varName: string;
+}
