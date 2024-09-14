@@ -42,6 +42,7 @@ export const useComponentsStore = defineStore("components", {
         if (libVersionId && lib.activeVersionId !== libVersionId) {
           continue
         }
+        
         const component = lib.components.find(item => item.id === componentId)
         if (component) {
           return component

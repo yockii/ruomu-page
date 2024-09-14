@@ -46,7 +46,7 @@
 </script>
 
 <template>
-  <div class="w-180px relative">
+  <div class="w-220px relative">
     <div class="bg-#EFEFEF mt-8px px-8px h-36px flex items-center justify-between cursor-pointer" @click="showBuiltInMethods= !showBuiltInMethods">
       <div class="flex items-center">
         <n-icon size="18">

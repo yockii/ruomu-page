@@ -61,7 +61,7 @@ onMounted(() => {
 
 const changeCurrentLib = (lib: MaterialLib) => {
   currentLib.value = lib
-  myStore.checkLibGroups()
+  myStore.checkLibGroups(lib)
 }
 </script>
 

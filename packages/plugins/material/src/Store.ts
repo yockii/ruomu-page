@@ -17,6 +17,7 @@ export type Group = MaterialComponentGroup & {components?: MaterialComponent[], 
 interface State {
   currentLib: Lib | null;
   componentLibs: Lib[];
+  fetching?: boolean;
 }
 
 export const usePluginMaterialStore = defineStore('pluginMaterial', {
@@ -26,6 +27,10 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
   }),
   actions: {
     async getLibs() {
+      if (this.fetching) {
+        return
+      }
+      this.fetching = true
       try {
         const resp = await MaterialLibApi.list({offset: -1, limit: -1, projectId: useProjectStore().project?.id})
         if (resp.code === 0) {
@@ -34,83 +39,87 @@ export const usePluginMaterialStore = defineStore('pluginMaterial', {
           this.componentLibs = [BuiltIn.BuiltInLib, ...resp.data?.items || []]
 
           useComponentsStore().addLibs(this.componentLibs)
-
+          
+          for (const lib of resp.data?.items || []) {
+            this.checkLibGroups(lib)
+          }
         }
       } catch (error) {
         console.error(error)
         this.componentLibs = [BuiltIn.BuiltInLib || []]
+      } finally {
+        this.fetching = false
       }
 
       if (this.currentLib === null && this.componentLibs.length > 0) {
         this.currentLib = this.componentLibs[0]
-        this.checkLibGroups()
+        this.checkLibGroups(this.currentLib)
       }
     },
-    checkLibGroups() {
-      if (this.currentLib) {
-        if (this.currentLib.groups && this.currentLib.groups.length > 0) {
-          this.checkComponents()
+    checkLibGroups(lib: Lib) {
+      if (lib) {
+        if (lib.groups && lib.groups.length > 0) {
+          this.checkComponents(lib)
         } else {
-          this.getGroups()
+          this.getGroups(lib)
         }
       }
     },
-    async getGroups() {
-      if (!this.currentLib) {
+    async getGroups(lib: Lib) {
+      if (!lib) {
         return
       }
-      if (this.currentLib.code === "builtIn") {
-        this.currentLib.groups = BuiltIn.BuiltInComponentGroups
-        this.checkComponents()
+      if (lib.code === "builtIn") {
+        lib.groups = BuiltIn.BuiltInComponentGroups
+        this.checkComponents(lib)
         return
       }
       try {
-        const resp = await MaterialComponentGroupApi.list({libCode: this.currentLib.code})
+        const resp = await MaterialComponentGroupApi.list({libCode: lib.code})
         if (resp.code === 0) {
-          this.currentLib.groups = resp.data?.items || []
-          this.checkComponents()
+          lib.groups = resp.data?.items || []
+          this.checkComponents(lib)
         }
       } catch (error) {
         console.error(error)
       }
     },
-    checkComponents() {
-      if (this.currentLib) {
-        if (this.currentLib.components && this.currentLib.components.length > 0) {
-          this.buildGroupComponents()
+    checkComponents(lib: Lib) {
+      if (lib) {
+        if (lib.components && lib.components.length > 0) {
+          this.buildGroupComponents(lib)
           return
         } else {
-          this.getComponents()
+          if (lib && lib.code) {
+            this.getComponents(lib)
+          }
         }
       }
     },
-    async getComponents() {
-      if (!this.currentLib || !this.currentLib.code) {
-        return
-      }
-      const libCode = this.currentLib.code
+    async getComponents(lib: Lib) {
+      const libCode = lib.code
       if (libCode === "builtIn") {
-        this.currentLib.components = BuiltIn.BuiltInComponents
+        lib.components = BuiltIn.BuiltInComponents
         useComponentsStore().addComponents(libCode, BuiltIn.BuiltInComponents)
-        this.buildGroupComponents()
+        this.buildGroupComponents(lib)
         return
       }
       try {
-        const resp = await MaterialComponentApi.list({libVersionId: this.currentLib.activeVersionId})
+        const resp = await MaterialComponentApi.list({libVersionId: lib.activeVersionId})
         if (resp.code === 0) {
-          this.currentLib.components = resp.data?.items || []
-          useComponentsStore().addComponents(libCode, this.currentLib.components)
-          this.buildGroupComponents()
+          lib.components = resp.data?.items || []
+          useComponentsStore().addComponents(libCode, lib.components)
+          this.buildGroupComponents(lib)
         }
       } catch (error) {
         console.error(error)
       }
     },
-    buildGroupComponents() {
-      if (this.currentLib) {
-        if (this.currentLib.groups && this.currentLib.groups.length > 0) {
-          this.currentLib.groups.forEach((group: Group) => {
-            group.components = this.currentLib?.components?.filter((component) => {
+    buildGroupComponents(lib: Lib) {
+      if (lib) {
+        if (lib.groups && lib.groups.length > 0) {
+          lib.groups.forEach((group: Group) => {
+            group.components = lib.components?.filter((component) => {
               return component.groupId === group.id
             })
           })
