@@ -11,6 +11,14 @@ export function deepClone(value: any, cache = new WeakMap()) {
   }
   
   // 克隆结果：1.数组 2.对象
+  
+  
+  
+  
+  
+  
+  
+  
   const result = Array.isArray(value) ? [] : {};
   // 设置结果原型链为value的原型链
   Object.setPrototypeOf(result, Object.getPrototypeOf(value));
@@ -19,7 +27,7 @@ export function deepClone(value: any, cache = new WeakMap()) {
   // 递归克隆
   for(let key in value) {
     if (value.hasOwnProperty(key)) {
-      result[key] = deepClone(value[key], cache);
+      (result as { [key: string]: any })[key] = deepClone(value[key], cache);
     }
   }
   
