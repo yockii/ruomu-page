@@ -1,20 +1,64 @@
 <script setup lang="ts">
-import { PropType } from 'vue'
-import { Variable } from '@ruomu-ui/types'
-import { NTooltip } from 'naive-ui'
-defineProps({
-  variable: {
-    type: Object as PropType<Variable>,
-    required: true
+  import { PropType, ref } from 'vue'
+  import { Variable } from '@ruomu-ui/types'
+  import { NTooltip } from 'naive-ui'
+  import { deepClone, useProjectStore } from '@ruomu-ui/core'
+  import EditVariable from './editVariable.vue'
+  import { storeToRefs } from 'pinia'
+  
+  const props = defineProps({
+    variable: {
+      type: Object as PropType<Variable>,
+      required: true
+    }
+  })
+  
+  const projectStore = useProjectStore()
+  const {currentPageSchema} = storeToRefs(projectStore)
+  
+  const editVariable = ref(false)
+  const currentState = ref<Variable | null>(null)
+  const toggleEdit = () => {
+    if( editVariable.value) {
+      editVariable.value = false
+    } else {
+      currentState.value = deepClone(props.variable)
+      editVariable.value = true
+    }
   }
-})
+  const cancel = () => {
+    currentState.value = null
+    editVariable.value = false
+  }
+  const update = () => {
+    editVariable.value = false
+    if (currentPageSchema.value.state) {
+      const idx = currentPageSchema.value.state.findIndex((item: Variable) => item.name === props.variable.name)
+      if (idx > -1) {
+        currentPageSchema.value.state[idx] = currentState.value
+      } else {
+        currentPageSchema.value.state.push(currentState.value)
+      }
+    }
+    currentState.value = null
+  }
+  const doDel = () => {
+    currentState.value = null
+    editVariable.value = false
+    if (currentPageSchema.value.state) {
+      const idx = currentPageSchema.value.state.findIndex((item: Variable) => item.name === props.variable.name)
+      if (idx > -1) {
+        currentPageSchema.value.state.splice(idx, 1)
+      }
+    }
+  }
 </script>
 
 <template>
   <div class="mt-8px">
     <n-tooltip placement="right">
       <template #trigger>
-        <div class="tag">{{ variable.name }}</div>
+        <div class="tag" @click="toggleEdit">{{ variable.name }}</div>
       </template>
       <div>
         <template v-if="variable.type === 'object'">
@@ -38,6 +82,8 @@ defineProps({
         </template>
       </div>
     </n-tooltip>
+    
+    <edit-variable v-if="editVariable && currentState" need-delete :current-state="currentState" @cancel="cancel" @confirm="update" @del="doDel"/>
   </div>
 </template>
 

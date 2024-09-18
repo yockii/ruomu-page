@@ -2,12 +2,13 @@
   import { NButton, NForm, NFormItem, NIcon, NInput, NSelect, NModal, NTag, type FormInst } from 'naive-ui'
   import { Plus } from '@vicons/tabler'
   import type { Variable } from '@ruomu-ui/types'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
 
-  const emit = defineEmits(['cancel', 'confirm'])
+  const emit = defineEmits(['cancel', 'confirm', 'del'])
 
   const props = defineProps<{
-    currentState: Variable
+    currentState: Variable,
+    needDelete?: boolean,
   }>()
 
   const rules = {
@@ -78,6 +79,17 @@
       showAddPropDialog.value = false
     })
   }
+  
+  const hasProp = computed(() => props.currentState.props?.findIndex(item => item.name === currentProp.value?.name) > -1)
+  const delProp = () => {
+    // 从属性列表删除
+    const index = props.currentState.props!.findIndex(prop => prop.name === currentProp.value!.name)
+    if (index !== -1) {
+      props.currentState.props!.splice(index, 1)
+    }
+    currentProp.value = null
+    showAddPropDialog.value = false
+  }
 </script>
 
 <template>
@@ -130,10 +142,13 @@
       </div>
     </n-form>
     <div class="mt-8px flex justify-around">
-      <div class="w-140px">
+      <div class="flex-1">
+        <n-button v-if="needDelete" type="error" @click="emit('del')">删除</n-button>
+      </div>
+      <div class="flex-1">
         <n-button block :focusable="false" @click.stop="emit('cancel')">取消</n-button>
       </div>
-      <div class="w-140px">
+      <div class="flex-1 ml-8px">
         <n-button block :focusable="false" type="primary" @click.stop="confirmAddNewVariable">确定</n-button>
       </div>
     </div>
@@ -142,10 +157,10 @@
   <n-modal v-model:show="showAddPropDialog" preset="card" class="w-320px" @after-leave="currentProp = null">
     <n-form ref="propForm" :model="currentProp!" :rules="rules" label-placement="left" label-align="left" label-width="60">
       <n-form-item label="名称" path="name">
-        <n-input v-model:value="currentProp!.name" placeholder="请输入名称" />
+        <n-input v-if="currentProp" v-model:value="currentProp!.name" placeholder="请输入名称" />
       </n-form-item>
       <n-form-item label="类型" path="type">
-        <n-select v-model:value="currentProp!.type" :options="[
+        <n-select v-if="currentProp" v-model:value="currentProp!.type" :options="[
             {
               label: '字符串',
               value: 'string'
@@ -173,15 +188,20 @@
           ]" />
       </n-form-item>
       <n-form-item
-        v-if="currentProp!.type !== 'array' && currentProp!.type !== 'object' && currentProp!.type !== 'any'"
+        v-if="currentProp && (currentProp!.type === 'string' || currentProp!.type === 'number' || currentProp!.type === 'boolean')"
         label="默认值" path="defaultValue">
         <n-input v-model:value="currentProp!.defaultValue" placeholder="请输入默认值" />
       </n-form-item>
     </n-form>
     <template #footer>
-      <div class="flex justify-end">
-        <n-button @click="cancel">取消</n-button>
-        <n-button class="ml-8px" type="primary" @click="confirm">确定</n-button>
+      <div class="flex justify-between">
+        <div>
+          <n-button v-if="hasProp" @click="delProp" type="error">删除</n-button>
+        </div>
+        <div class="flex">
+          <n-button @click="cancel">取消</n-button>
+          <n-button class="ml-8px" type="primary" @click="confirm">确定</n-button>
+        </div>
       </div>
     </template>
   </n-modal>

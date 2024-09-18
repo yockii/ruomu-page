@@ -5,7 +5,7 @@
   import { NButton, NIcon, NDivider } from 'naive-ui'
   import { Plus } from '@vicons/tabler'
   import {Variable} from '@ruomu-ui/types'
-  import NewVariable from './newVariable.vue'
+  import NewVariable from './editVariable.vue'
   import VariableItem from './variableItem.vue'
 
   const projectStore = useProjectStore()
@@ -45,7 +45,7 @@
             <Plus />
           </n-icon>
         </template>
-        新增数据变量
+        新增页面变量
       </n-button>
     </div>
     <new-variable v-if="currentState" :current-state="currentState" @cancel="currentState = null" @confirm="addNewState"/>

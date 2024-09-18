@@ -9,4 +9,5 @@ export type RelatedProperty = {
   name: string;
   varName: string;
   syncUpdate: boolean;
+  storage?: 'sessionStorage' | 'localStorage'
 }
