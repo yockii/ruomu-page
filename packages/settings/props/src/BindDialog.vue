@@ -58,24 +58,25 @@
     if (ns.length <= 1) {
       return ''
     }
-    const w = ns.pop()
+    const w = ns.shift()
     if (w === 'state') {
-      let nextP = ns.pop()
+      let nextP = ns.shift()
       let p = currentPageSchema.value.state.find((v:Variable) => v.name === nextP)
-      nextP = ns.pop()
+      nextP = ns.shift()
       while (nextP) {
         p = p?.props?.find((v:Variable) => v.name === nextP)
-        nextP = ns.pop()
+        nextP = ns.shift()
       }
       return p?.type || ''
     } else if (w === 'store') {
-      let nextP = ns.pop()
+      let nextP = ns.shift()
       let p = project.value?.store?.find((v:Variable) => v.name === nextP)
-      nextP = ns.pop()
+      nextP = ns.shift()
       while (nextP) {
         p = p?.props?.find((v:Variable) => v.name === nextP)
-       nextP = ns.pop()
+       nextP = ns.shift()
       }
+      return p?.type || ''
     }
     return ''
   }
