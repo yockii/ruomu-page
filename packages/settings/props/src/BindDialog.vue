@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import type { Property } from '@ruomu-ui/types'
+  import type { Property, Variable } from '@ruomu-ui/types'
   import { ref, computed, PropType, onMounted } from 'vue'
-  import { NModal, NInput, NDivider, NButton, NCheckbox, NGrid, NGridItem, NTag, NTooltip } from 'naive-ui'
+  import { NModal, NInput, NDivider, NButton, NCheckbox, NGrid, NGridItem, NTag, NTooltip, useDialog } from 'naive-ui'
   import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
   
@@ -53,10 +53,35 @@
   
   const syncUpdate = ref(false)
   
-  const confirmBind = () => {
-    if (!relatedPropFullName.value) {
-      return
+  const getRelatedPropType = (fullName: string) => {
+    const ns = fullName.split('.')
+    if (ns.length <= 1) {
+      return ''
     }
+    const w = ns.pop()
+    if (w === 'state') {
+      let nextP = ns.pop()
+      let p = currentPageSchema.value.state.find((v:Variable) => v.name === nextP)
+      nextP = ns.pop()
+      while (nextP) {
+        p = p?.props?.find((v:Variable) => v.name === nextP)
+        nextP = ns.pop()
+      }
+      return p?.type || ''
+    } else if (w === 'store') {
+      let nextP = ns.pop()
+      let p = project.value?.store?.find((v:Variable) => v.name === nextP)
+      nextP = ns.pop()
+      while (nextP) {
+        p = p?.props?.find((v:Variable) => v.name === nextP)
+       nextP = ns.pop()
+      }
+    }
+    return ''
+  }
+  
+  const dialog = useDialog()
+  const doConfirmBind = () => {
     if (currentSchema.value?.relatedProps) {
       currentSchema.value.relatedProps[props.property.name] = {
         name: props.property.name,
@@ -72,8 +97,29 @@
         }
       }
     }
-    
+
     emit('update:visible', false)
+  }
+  const confirmBind = () => {
+    if (!relatedPropFullName.value) {
+      return
+    }
+    
+    let relatedPropType = getRelatedPropType(relatedPropFullName.value)
+    let propType = props.property.type
+    if (propType !== relatedPropType) {
+      dialog.warning({
+        title: '提示',
+        content: `${props.property.name} 的类型与 ${relatedPropFullName.value} 不一致，请确认是否提交！`,
+        positiveText: '确定',
+        negativeText: '取消',
+        onPositiveClick: () => {
+          doConfirmBind()
+        }
+      })
+      return
+    }
+    doConfirmBind()
   }
   
   const deleteBind = () => {
