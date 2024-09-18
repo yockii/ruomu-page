@@ -146,6 +146,20 @@ export const useProjectStore = defineStore("project", {
     }
   },
   actions: {
+    addNewProjectVariable(v:Variable) {
+      if (!v || !this.project) return
+      if (!this.project.store || !this.project.store.length) {
+        this.project.store = [v]
+      } else {
+        // 如果name相同，则替换
+        const index = this.project.store.findIndex(s => s.name === v.name)
+        if (index !== -1) {
+          this.project.store[index] = v
+        } else {
+          this.project.store.push(v)
+        }
+      }
+    },
     addNewState(v:Variable) {
       if (!v || !this.currentPageSchema) return
       if (!this.currentPageSchema.state || !this.currentPageSchema.state.length) {

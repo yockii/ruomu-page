@@ -9,6 +9,7 @@ import Material from '@ruomu-ui/plugin-material'
 import Tree from '@ruomu-ui/plugin-tree'
 import Func from '@ruomu-ui/plugin-function'
 import State from '@ruomu-ui/plugin-state'
+import Store from '@ruomu-ui/plugin-store'
 import Schema from '@ruomu-ui/plugin-schema'
 
 import Props from '@ruomu-ui/setting-props'
@@ -26,6 +27,7 @@ const addons: {
     Tree,
     Func,
     State,
+    Store,
 
     Schema,
   ],

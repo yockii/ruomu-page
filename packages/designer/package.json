@@ -14,6 +14,7 @@
     "@ruomu-ui/plugin-tree": "workspace:*",
     "@ruomu-ui/plugin-function": "workspace:*",
     "@ruomu-ui/plugin-state": "workspace:*",
+    "@ruomu-ui/plugin-store": "workspace:*",
     "@ruomu-ui/plugin-schema": "workspace:*",
     "@ruomu-ui/setting-props": "workspace:*",
     "@ruomu-ui/setting-styles": "workspace:*",
