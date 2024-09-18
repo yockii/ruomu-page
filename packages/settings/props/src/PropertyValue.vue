@@ -10,10 +10,6 @@
       type: Object as PropType<Property>,
       required: true,
     },
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
     inline: {
       type: Boolean,
       default: false,
@@ -45,20 +41,17 @@
 <template>
   <div>
     <!-- input -->
-    <n-input v-if="property.widget?.component === 'input'" :value="value" @update:value="updateValue" clearable
-             :readonly="readonly" />
+    <n-input v-if="property.widget?.component === 'input'" :value="value" @update:value="updateValue" clearable />
     <!-- color -->
     <n-color-picker style="width: 48px;" v-if="property.widget?.component === 'color'" :value="value"
-                    @update:value="updateValue" :actions="['clear']" :disabled="readonly" />
+                    @update:value="updateValue" :actions="['clear']" />
     <!-- select -->
     <n-select v-if="property.widget?.component === 'select'" :value="value" @update:value="updateValue" clearable
-              :options="property.widget?.props.options" :disabled="readonly" />
+              :options="property.widget?.props.options" />
     <!-- switch -->
-    <n-switch v-if="property.widget?.component === 'switch'" :value="value" @update:value="updateValue"
-              :disabled="readonly" />
+    <n-switch v-if="property.widget?.component === 'switch'" :value="value" @update:value="updateValue" />
     <!-- slider -->
-    <n-slider v-if="property.widget?.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip
-              :disabled="readonly" />
+    <n-slider v-if="property.widget?.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip />
     <!-- number / function -->
 
   </div>

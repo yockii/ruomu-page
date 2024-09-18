@@ -9,6 +9,7 @@ export type Project = {
   status?: number; // 状态
   
   usedMaterialLib?: MaterialLib[];
+  store?: Variable[]
 }
 
 export type Page = {

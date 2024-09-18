@@ -26,5 +26,3 @@
 3. 所有绘制的组件都带上class="rm-node"，方便后续操作，并附加 data-component-id 属性，用于标识并快速查找schema中对应的组件。
 4. 所有插槽节点都带上 class="rm-slot"，方便后续操作，并附加 data-component-slot 属性，用于标识并快速查找schema中对应的插槽。
 
-## TODO List：
--[ ] 绘制画布前，动态生成canvas.html，其中将项目要使用的组件库url都加载进去，并生成Vue的use基础代码
