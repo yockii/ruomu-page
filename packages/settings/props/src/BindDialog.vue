@@ -39,16 +39,20 @@
   const title = computed(() => {
     return props.property ? props.property.name : ''
   })
-  
+  const useTemplateSymbol = ref(false)
   const relatedPropFullName = ref('')
   const propNameAllowed = (v : string) => {
-    if (v.length <= 6) {
-      // 只能是state或store两种输入
-      return 'state.'.startsWith(v) || 'store.'.startsWith(v)
+    if (useTemplateSymbol.value) {
+      return true
+    } else {
+      if (v.length <= 6) {
+        // 只能是state或store两种输入
+        return 'state.'.startsWith(v) || 'store.'.startsWith(v)
+      }
+
+      // 只允许 [state|store].xxxx(.xxx) 的形式
+      return /^(state|store)[.a-zA-Z0-9_]+$/.test(v)
     }
-    
-    // 只允许 [state|store].xxxx(.xxx) 的形式
-    return /^(state|store)[.a-zA-Z0-9_]+$/.test(v)
   }
   
   const syncUpdate = ref(false)
@@ -106,19 +110,35 @@
       return
     }
     
-    let relatedPropType = getRelatedPropType(relatedPropFullName.value)
-    let propType = props.property.type
-    if (propType !== relatedPropType) {
-      dialog.warning({
-        title: '提示',
-        content: `${props.property.name} 的类型与 ${relatedPropFullName.value} 不一致，请确认是否提交！`,
-        positiveText: '确定',
-        negativeText: '取消',
-        onPositiveClick: () => {
-          doConfirmBind()
-        }
+    if (useTemplateSymbol.value) {
+      // 判断所有{{}}包裹的内容是否都是以 state 或 store 开始，否则提示错误
+      let all = relatedPropFullName.value.match(/\{\{(.*?)\}\}/g) || []
+      let allValid = all.every((v:string) => {
+        let vv = v.replace('{{', '').replace('}}', '')
+        return vv.startsWith('state.') || vv.startsWith('store.')
       })
-      return
+      if (!allValid) {
+        dialog.error({
+          title: '错误',
+          content: '变量非法，请确认变量：必须从state/store中获取',
+        })
+        return
+      }
+    } else {
+      let relatedPropType = getRelatedPropType(relatedPropFullName.value)
+      let propType = props.property.type
+      if (propType !== relatedPropType) {
+        dialog.warning({
+          title: '提示',
+          content: `${props.property.name} 的类型与 ${relatedPropFullName.value} 不一致，请确认是否提交！`,
+          positiveText: '确定',
+          negativeText: '取消',
+          onPositiveClick: () => {
+            doConfirmBind()
+          },
+        })
+        return
+      }
     }
     doConfirmBind()
   }
@@ -134,6 +154,7 @@
   onMounted(() => {
     relatedPropFullName.value = relatedProp.value?.varName || ''
     syncUpdate.value = relatedProp.value?.syncUpdate || false
+    useTemplateSymbol.value = relatedPropFullName.value.includes('{{')
   })
 </script>
 
@@ -142,11 +163,12 @@
     <div class="text-12px">
       规则：只能是state或store下创建的变量，以点分割，如：state.name 或 store.name.age
     </div>
+    <div class="flex">
+      <n-checkbox v-model:checked="useTemplateSymbol">使用模板语法</n-checkbox>
+      <n-checkbox v-model:checked="syncUpdate">同步更新</n-checkbox>
+    </div>
     <div class="flex items-center">
       <n-input type="text" v-model:value="relatedPropFullName" :allow-input="propNameAllowed"/>
-      <div class="ml-8px w-120px">
-        <n-checkbox v-model:checked="syncUpdate">同步更新</n-checkbox>
-      </div>
     </div>
     <n-divider />
     <div class="flex">
@@ -183,7 +205,7 @@
           </n-grid-item>
         </n-grid>
       </div>
-      <n-divider vertical />
+      <div style="border:1px solid #EEEEEE;" class="mx-32px"></div>
       <div class="flex-1">
         <div class="text-center">Store 全局变量</div>
         <n-grid :x-gap="8" :y-gap="8" :cols="3">
