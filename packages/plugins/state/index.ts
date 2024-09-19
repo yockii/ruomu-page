@@ -4,7 +4,7 @@ import {DataObjectFilled} from "@vicons/material"
 
 const State: Plugin = {
   id: "state",
-  title: "页面数据",
+  title: "页面变量",
   align: "top",
   icon: () => DataObjectFilled,
   component: () => CompStateComponent,

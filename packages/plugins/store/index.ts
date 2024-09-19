@@ -4,7 +4,7 @@ import {ObjectStorage} from "@vicons/carbon"
 
 const Store: Plugin = {
   id: "store",
-  title: "项目数据",
+  title: "项目变量",
   align: "top",
   icon: () => ObjectStorage,
   component: () => CompStoreComponent,
