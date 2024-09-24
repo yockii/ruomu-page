@@ -103,6 +103,8 @@
       }
     }
 
+    projectStore.pageDirt = true
+    
     emit('update:visible', false)
   }
   const confirmBind = () => {

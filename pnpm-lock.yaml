@@ -147,6 +147,9 @@ importers:
 
   packages/designer:
     dependencies:
+      '@ruomu-ui/api':
+        specifier: workspace:*
+        version: link:../api
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../core
@@ -156,6 +159,9 @@ importers:
       '@ruomu-ui/plugin-material':
         specifier: workspace:*
         version: link:../plugins/material
+      '@ruomu-ui/plugin-page':
+        specifier: workspace:*
+        version: link:../plugins/page
       '@ruomu-ui/plugin-schema':
         specifier: workspace:*
         version: link:../plugins/schema
@@ -195,6 +201,9 @@ importers:
       '@ruomu-ui/toolbar-preview':
         specifier: workspace:*
         version: link:../toolbars/preview
+      '@ruomu-ui/toolbar-save':
+        specifier: workspace:*
+        version: link:../toolbars/save
       '@ruomu-ui/types':
         specifier: workspace:*
         version: link:../types
@@ -214,6 +223,9 @@ importers:
       less:
         specifier: ^4.2.0
         version: 4.2.0
+      monaco-editor:
+        specifier: ^0.51.0
+        version: 0.51.0
       naive-ui:
         specifier: ^2.39.0
         version: 2.39.0(vue@3.4.38(typescript@5.5.4))
@@ -313,6 +325,46 @@ importers:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)
     devDependencies:
+      '@vicons/tabler':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.1(@types/node@20.14.12)(less@4.2.0))(vue@3.4.38(typescript@5.5.4))
+      naive-ui:
+        specifier: ^2.39.0
+        version: 2.39.0(vue@3.4.38(typescript@5.5.4))
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+      vue-tsc:
+        specifier: ^2.0.29
+        version: 2.0.29(typescript@5.5.4)
+
+  packages/plugins/page:
+    dependencies:
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.38(typescript@5.5.4)
+    devDependencies:
+      '@ruomu-ui/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@vicons/carbon':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vicons/material':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vicons/tabler':
         specifier: ^0.12.0
         version: 0.12.0
@@ -774,6 +826,40 @@ importers:
         version: 3.4.38(typescript@5.5.4)
     devDependencies:
       '@vicons/material':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.1(@types/node@20.14.12)(less@4.2.0))(vue@3.4.38(typescript@5.5.4))
+      naive-ui:
+        specifier: ^2.39.0
+        version: 2.39.0(vue@3.4.38(typescript@5.5.4))
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+      vue-tsc:
+        specifier: ^2.0.29
+        version: 2.0.29(typescript@5.5.4)
+
+  packages/toolbars/save:
+    dependencies:
+      '@ruomu-ui/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../types
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.38(typescript@5.5.4)
+    devDependencies:
+      '@vicons/fluent':
         specifier: ^0.12.0
         version: 0.12.0
       '@vitejs/plugin-vue':
@@ -1930,6 +2016,9 @@ packages:
 
   '@vicons/carbon@0.12.0':
     resolution: {integrity: sha512-kCOgr/ZOhZzoiFLJ8pwxMa2TMxrkCUOA22qExPabus35F4+USqzcsxaPoYtqRd9ROOYiHrSqwapak/ywF0D9bg==}
+
+  '@vicons/fluent@0.12.0':
+    resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
 
   '@vicons/material@0.12.0':
     resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==}
@@ -4666,6 +4755,8 @@ snapshots:
       - rollup
 
   '@vicons/carbon@0.12.0': {}
+
+  '@vicons/fluent@0.12.0': {}
 
   '@vicons/material@0.12.0': {}
 

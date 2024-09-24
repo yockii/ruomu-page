@@ -29,6 +29,7 @@
     } else {
       props.schema.slots = props.schema.slots?.filter(s => s.name !== props.slotName)
     }
+    projectStore.pageDirt = true
   }
 
   const expanded = ref(false)
@@ -46,6 +47,7 @@
   const ondrop = (e: DragEvent) => {
     e.preventDefault()
     canvasStore.slotDragEnd(props.schema?.id, props.slotName)
+    projectStore.pageDirt = true
   }
   
   const dragover = ref(false)

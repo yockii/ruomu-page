@@ -52,6 +52,8 @@
       default:
         currentTabName.value = 'nonePersistent'
     }
+    
+    projectStore.projectDirt = true
   }
 </script>
 

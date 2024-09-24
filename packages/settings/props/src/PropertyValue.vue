@@ -29,6 +29,8 @@
 
   const updateValue = (v: any) => {
     projectStore.updateSchemaPropValue(currentSchema.value.id, props.property.name, v)
+    projectStore.pageDirt = true
+    
 
     if (props.property?.widget?.component !== 'color' && props.property?.widget?.component !== 'input') {
       setTimeout(() => {

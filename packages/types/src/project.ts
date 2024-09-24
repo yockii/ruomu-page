@@ -13,11 +13,11 @@ export type Project = {
 }
 
 export type Page = {
-  id: string;
-  projectId: string;
-  name: string;
+  id?: string;
+  projectId?: string;
+  name?: string;
   parentId?: string;
-  route: string;
+  route?: string;
   schema?: PageSchema;
 }
 

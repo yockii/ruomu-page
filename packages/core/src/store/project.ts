@@ -1,10 +1,13 @@
 import {defineStore} from "pinia";
 import type { JsMethod, Project, Page, PageSchema, Schema, MaterialComponent, Variable } from '@ruomu-ui/types'
+import { PageApi, ProjectApi } from '@ruomu-ui/api'
 
 interface projectState {
   project: Project | undefined,
   pages: Page[],
-  currentPageSchema: PageSchema | null
+  currentPageSchema: PageSchema | null,
+  projectDirt: boolean,
+  pageDirt: boolean,
 }
 
 function findSchemaSegment(id: string, schema: Schema | null) : Schema | null {
@@ -109,6 +112,7 @@ export const useProjectStore = defineStore("project", {
       homePageId: "",
       status: 1,
       usedMaterialLib: [],
+      store: []
     },
     pages: [],
     currentPageSchema: {
@@ -134,7 +138,9 @@ export const useProjectStore = defineStore("project", {
       js: {
         methods: []
       }
-    }
+    },
+    projectDirt: false,
+    pageDirt: false,
   }),
   getters: {
     styleValue: (state) => (schemaId: string, styleName: string) => {
@@ -146,6 +152,82 @@ export const useProjectStore = defineStore("project", {
     }
   },
   actions: {
+    async saveProject() {
+      if (this.project) {
+        try {
+          const response = await ProjectApi.updateFrontend(this.project)
+          if (response.code === 0) {
+            this.projectDirt = false
+          }
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    },
+    async savePage() {
+      if (this.currentPageSchema) {
+        try {
+          const response = await PageApi.update({ id: this.currentPageSchema.id, schema: this.currentPageSchema })
+          if (response.code === 0) {
+            this.pageDirt = false
+          }
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    },
+    save() {
+      if (this.projectDirt) {
+        this.saveProject()
+      }
+      if (this.pageDirt) {
+        this.savePage()
+      }
+    },
+    async initProject() {
+      if (!this.project?.id) {return}
+      try {
+        const response = await PageApi.list({
+          projectId: this.project.id, offset:-1,limit:-1,
+        })
+        if (response.code === 0 && response.data) {
+          this.pages = response.data.items || []
+          if (this.pages.length > 0) {
+            if (this.project.homePageId) {
+              const homePage = this.pages.find(p => p.id === this.project!.homePageId)
+              if (homePage && homePage.id) {
+                this.getPageSchema(homePage.id)
+                return
+              }
+            }
+            if (this.pages[0].id) {
+              this.getPageSchema(this.pages[0].id)
+            }
+          }
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    async getPageSchema(pageId: string) {
+      const page = this.pages.find(p => p.id === pageId)
+      if (!page) return
+      if (page.schema) {
+        this.currentPageSchema = page.schema
+        return
+      }
+      
+      try {
+        const response = await PageApi.schema(pageId)
+        if (response.code === 0 && response.data) {
+          page.schema = response.data
+          this.currentPageSchema = response.data
+          this.currentPageSchema.id = pageId
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
     addNewProjectVariable(v:Variable) {
       if (!v || !this.project) return
       if (!this.project.store || !this.project.store.length) {

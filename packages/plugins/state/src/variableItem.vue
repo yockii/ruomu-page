@@ -41,6 +41,7 @@
       }
     }
     currentState.value = null
+    projectStore.pageDirt = true
   }
   const doDel = () => {
     currentState.value = null
@@ -49,6 +50,7 @@
       const idx = currentPageSchema.value.state.findIndex((item: Variable) => item.name === props.variable.name)
       if (idx > -1) {
         currentPageSchema.value.state.splice(idx, 1)
+        projectStore.pageDirt = true
       }
     }
   }

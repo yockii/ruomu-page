@@ -15,5 +15,6 @@ export const changeStyle = (styleName: string, value: string | null, cb = reSele
   const canvasStore = useCanvasStore()
   const selectState = canvasStore.selectState
   projectStore.addSchemaPropStyleValue(selectState.id, styleName, value)
+  projectStore.pageDirt = true
   cb()
 }

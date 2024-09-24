@@ -102,6 +102,7 @@
       currentSchema.value.events = [bindInfo]
     }
     
+    projectStore.pageDirt = true
     emit('update:visible', false)
   }
     

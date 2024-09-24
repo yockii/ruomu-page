@@ -3,12 +3,11 @@
   import DesignerPluginBar from './components/DesignerPluginBar.vue'
   import DesignerSettings from './components/DesignerSettings.vue'
   import DesignerCanvas from './components/DesignerCanvas.vue'
-  import { resolveComponent, useLayoutStore } from '@ruomu-ui/core'
+  import { resolveComponent, useLayoutStore, useProjectStore } from '@ruomu-ui/core'
   import {Pin, PinFilled, Close} from "@vicons/carbon"
   import {NIcon, NTooltip} from "naive-ui"
   import { storeToRefs } from 'pinia'
-  import { Project } from '@ruomu-ui/types'
-  import { PropType } from 'vue'
+  import { onMounted } from 'vue'
   
   defineProps({
     runtimeSrc: { 
@@ -18,9 +17,12 @@
   })
   
   const layoutStore = useLayoutStore()
-  
   const { showPluginPanel, currentPlugin } = storeToRefs(layoutStore)
-
+  const projectStore = useProjectStore()
+  
+  onMounted(() => {
+    projectStore.initProject()
+  })
 </script>
 
 <template>

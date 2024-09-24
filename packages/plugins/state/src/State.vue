@@ -33,6 +33,7 @@
     }
     projectStore.addNewState(currentState.value)
     currentState.value = null
+    projectStore.pageDirt = true
   }
 </script>
 

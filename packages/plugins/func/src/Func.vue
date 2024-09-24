@@ -30,6 +30,7 @@
       projectStore.addNewCustomMethod(currentMethod.value)
     }
     showMethodPanel.value = false
+    projectStore.pageDirt = true
   }
   const removeMethod = () => {
     if (currentMethod.value.id) {
@@ -41,6 +42,7 @@
         params: [],
       }
       showMethodPanel.value = false
+      projectStore.pageDirt = true
     }
   }
 </script>

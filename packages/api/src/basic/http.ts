@@ -21,7 +21,7 @@ async function Post<T>(url: string, data?: Record<string, any>): Promise<Respons
 }
 
 async function Put<T>(url: string, data?: Record<string, any>): Promise<Response<T>> {
-  const res = await instance.post(url, data);
+  const res = await instance.put(url, data);
   return res.data;
 }
 

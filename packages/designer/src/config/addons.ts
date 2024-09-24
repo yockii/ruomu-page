@@ -3,6 +3,7 @@ import Logo from '@ruomu-ui/toolbar-logo'
 import Breadcrumb from '@ruomu-ui/toolbar-breadcrumb'
 import Media from '@ruomu-ui/toolbar-media'
 import Fullscreen from '@ruomu-ui/toolbar-fullscreen'
+import Save from '@ruomu-ui/toolbar-save'
 import Preview from '@ruomu-ui/toolbar-preview'
 
 import Material from '@ruomu-ui/plugin-material'
@@ -10,6 +11,7 @@ import Tree from '@ruomu-ui/plugin-tree'
 import Func from '@ruomu-ui/plugin-function'
 import State from '@ruomu-ui/plugin-state'
 import Store from '@ruomu-ui/plugin-store'
+import Page from '@ruomu-ui/plugin-page'
 import Schema from '@ruomu-ui/plugin-schema'
 
 import Props from '@ruomu-ui/setting-props'
@@ -28,6 +30,7 @@ const addons: {
     Func,
     State,
     Store,
+    Page,
 
     Schema,
   ],
@@ -36,6 +39,7 @@ const addons: {
     Breadcrumb,
     Media,
 
+    Save,
     Preview,
     Fullscreen,
   ],
