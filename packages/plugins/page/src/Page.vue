@@ -48,8 +48,27 @@
       // 替换pages中对应的
       const idx = pages.value.findIndex((p:Page) => p.id === currentPage.value.id)
       if (idx > -1) {
+        // 比对是否有更新
+        const old = pages.value[idx]
+        if (
+          old.name !== currentPage.value.name || 
+          old.route !== currentPage.value.route ||
+          old.fileName !== currentPage.value.fileName ||
+          old.description !== currentPage.value.description
+        ) {
+          // 更新
+          const resp = await PageApi.update(currentPage.value)
+          if (resp.code === 0) {
+            pages.value[idx] = currentPage.value
+          } else {
+            message.error('更新页面失败：' + resp.msg)
+          }
+        }
+        
+        
         pages.value[idx] = currentPage.value
         needAdd = false
+        
       }
     }
     

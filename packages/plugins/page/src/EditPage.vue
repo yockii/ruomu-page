@@ -2,7 +2,7 @@
   import type { Page } from '@ruomu-ui/types'
   import { PropType, ref } from 'vue'
   import {
-    FormInst,
+    type FormInst,
     NButton,
     NForm,
     NFormItem,
@@ -11,6 +11,7 @@
     NInput,
     NModal,
     NPopconfirm,
+    NSwitch,
     useMessage,
   } from 'naive-ui'
   import { useProjectStore } from '@ruomu-ui/core'
@@ -108,9 +109,14 @@
             <n-input v-model:value="page.fileName" placeholder="请输入页面文件名" />
           </n-form-item-gi>
         </n-grid>
-        <n-form-item label="页面路由" path="route">
-          <n-input v-model:value="page.route" placeholder="请输入页面路由" />
-        </n-form-item>
+        <n-grid :cols="5" :x-gap="16">
+          <n-form-item-gi :span="4" label="页面路由" path="route">
+            <n-input v-model:value="page.route" placeholder="请输入页面路由" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="1" label="设为首页" path="setDefault">
+            <n-switch v-model:value="page.setDefault" />
+          </n-form-item-gi>
+        </n-grid>
         <n-form-item label="页面描述">
           <n-input v-model:value="page.description" placeholder="请输入页面描述" />
         </n-form-item>
