@@ -36,6 +36,7 @@ export type MaterialComponentGroup = {
 
 export type MaterialComponent = {
   id?: string;
+  libId?: string;
   libVersionId: string;
   groupId: string;
   // 组件名称

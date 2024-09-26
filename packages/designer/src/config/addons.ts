@@ -13,6 +13,7 @@ import State from '@ruomu-ui/plugin-state'
 import Store from '@ruomu-ui/plugin-store'
 import Api from '@ruomu-ui/plugin-api'
 import Page from '@ruomu-ui/plugin-page'
+import Code from '@ruomu-ui/plugin-code'
 import Schema from '@ruomu-ui/plugin-schema'
 
 import Props from '@ruomu-ui/setting-props'
@@ -34,6 +35,7 @@ const addons: {
     Api,
     Page,
 
+    Code,
     Schema,
   ],
   toolbars: [

@@ -18,6 +18,7 @@
     "@ruomu-ui/plugin-store": "workspace:*",
     "@ruomu-ui/plugin-api": "workspace:*",
     "@ruomu-ui/plugin-page": "workspace:*",
+    "@ruomu-ui/plugin-code": "workspace:*",
     "@ruomu-ui/plugin-schema": "workspace:*",
     "@ruomu-ui/setting-props": "workspace:*",
     "@ruomu-ui/setting-styles": "workspace:*",

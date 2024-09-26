@@ -140,6 +140,9 @@ importers:
       '@ruomu-ui/plugin-api':
         specifier: workspace:*
         version: link:../plugins/api
+      '@ruomu-ui/plugin-code':
+        specifier: workspace:*
+        version: link:../plugins/code
       '@ruomu-ui/plugin-function':
         specifier: workspace:*
         version: link:../plugins/func
@@ -275,6 +278,43 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@vicons/tabler':
+        specifier: ^0.12.0
+        version: 0.12.0
+      naive-ui:
+        specifier: ^2.39.0
+        version: 2.39.0(vue@3.4.38(typescript@5.5.4))
+      pinia:
+        specifier: ^2.1.7
+        version: 2.1.7(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.38(typescript@5.5.4)
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.1.2
+        version: 5.1.2(vite@5.4.1(@types/node@20.14.12)(less@4.2.0))(vue@3.4.38(typescript@5.5.4))
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.4
+      vite:
+        specifier: ^5.4.1
+        version: 5.4.1(@types/node@20.14.12)(less@4.2.0)
+      vue-tsc:
+        specifier: ^2.0.29
+        version: 2.0.29(typescript@5.5.4)
+
+  packages/plugins/code:
+    dependencies:
+      '@ruomu-ui/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@ruomu-ui/editor':
+        specifier: workspace:*
+        version: link:../../editor
+      '@ruomu-ui/types':
+        specifier: workspace:*
+        version: link:../../types
+      '@vicons/ionicons5':
         specifier: ^0.12.0
         version: 0.12.0
       naive-ui:
@@ -2049,6 +2089,9 @@ packages:
 
   '@vicons/fluent@0.12.0':
     resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
+
+  '@vicons/ionicons5@0.12.0':
+    resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}
 
   '@vicons/material@0.12.0':
     resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==}
@@ -4787,6 +4830,8 @@ snapshots:
   '@vicons/carbon@0.12.0': {}
 
   '@vicons/fluent@0.12.0': {}
+
+  '@vicons/ionicons5@0.12.0': {}
 
   '@vicons/material@0.12.0': {}
 

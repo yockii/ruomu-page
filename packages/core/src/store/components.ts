@@ -15,6 +15,9 @@ export const useComponentsStore = defineStore("components", {
     libs: []
   }),
   actions: {
+    getLibByActiveLibId(alId:string) {
+      return this.libs.find(lib => lib.activeVersionId === alId)
+    },
     addLibs(libs: MaterialLib[]) {
       // 注意重复的不添加
       libs.forEach(lib => {
@@ -37,7 +40,7 @@ export const useComponentsStore = defineStore("components", {
         })
       }
     },
-    findComponentById(componentId: string, libVersionId: string) {
+    findComponentById(componentId: string, libVersionId?: string) {
       for (const lib of this.libs) {
         if (libVersionId && lib.activeVersionId !== libVersionId) {
           continue
