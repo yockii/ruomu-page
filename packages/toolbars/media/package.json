@@ -1,6 +1,6 @@
 {
   "name": "@ruomu-ui/toolbar-media",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.ts",
   "scripts": {
     "dev": "vite",
@@ -10,16 +10,18 @@
   "dependencies": {
     "@ruomu-ui/types": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
-    "pinia": "^2.1.7",
+    "@vicons/carbon": "^0.12.0",
     "vue": "^3.4.37"
   },
   "devDependencies": {
-    "@vicons/carbon": "^0.12.0",
     "@vitejs/plugin-vue": "^5.1.2",
-    "naive-ui": "^2.39.0",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",
     "vue-tsc": "^2.0.29"
+  },
+  "peerDependencies": {
+    "naive-ui": "^2.39.0",
+    "pinia": "^2.1.7"
   },
   "publishConfig": {
     "access": "public"

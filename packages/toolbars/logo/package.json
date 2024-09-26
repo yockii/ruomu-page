@@ -1,6 +1,6 @@
 {
   "name": "@ruomu-ui/toolbar-logo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.ts",
   "scripts": {
     "dev": "vite",
@@ -17,6 +17,9 @@
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vue-tsc": "^2.0.29"
+  },
+  "peerDependencies": {
+    
   },
   "publishConfig": {
     "access": "public"

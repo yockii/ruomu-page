@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { JsMethod, Parameter } from '@ruomu-ui/types'
-  import { computed, onMounted, PropType, ref, watch } from 'vue'
+  import { computed, nextTick, onMounted, PropType, ref, watch } from 'vue'
   import { NIcon, NTooltip, NInput, NButtonGroup, NButton, NPopconfirm } from 'naive-ui'
   import { Close } from '@vicons/carbon'
   import { Settings } from '@vicons/tabler'
@@ -15,6 +15,7 @@
     }
   })
   const emit = defineEmits(['close', 'confirm', 'remove'])
+  
   
   const showNameInput = ref(false)
   
@@ -48,18 +49,26 @@
   })
   const editableCode = ref('')
 
-  watch(() => props.method.code, (code) => {
-    editableCode.value = `function ${props.method.name}(${params}) {\n${code || ''}\n}`
-    
+  const showEditor = ref(true)
+  
+  // watch(() => props.method.code, () => {
+  //   editableCode.value = `function ${props.method.name}(${params}) {\n${props.method.code || ''}\n}`
+  // })
+  watch(() => props.method.id, () => {
+    showEditor.value = false
+    nextTick(() => {
+      editableCode.value = `function ${props.method.name}(${paramStringArray.value.join(', ')}) {\n${props.method.code || ''}\n}`
+      showEditor.value = true
+    })
   })
   
-onMounted(() => {
-  if(props.method.name === '') {
-    editName()
-  }
-  const params = paramStringArray.value.join(', ')
-  editableCode.value = `function ${props.method.name}(${params}) {\n${props.method.code || ''}\n}`
-})
+  onMounted(() => {
+    if(props.method.name === '') {
+      editName()
+    }
+    const params = paramStringArray.value.join(', ')
+    editableCode.value = `function ${props.method.name}(${params}) {\n${props.method.code || ''}\n}`
+  })
 
 // 参数设置
   const paramStringArray = computed(() => {
@@ -151,11 +160,11 @@ onMounted(() => {
     <param-settings v-model:visible="paramsDialogVisible" :params="params" @update:params="paramsUpdated"/>
     <bind-relation v-if="method.id && showBindRelation" v-model:visible="showBindRelation" :method-id="method.id" />
     
-    <p class="text-12px p-8px">说明：可直接使用state变量，作为页面数据的引用。如页面数据中定义了一个 variable1,则代码中可以直接使用state.variable1 获取其值</p>
+    <p class="text-12px p-8px">说明：可直接使用state变量，作为页面数据的引用。如页面数据中定义了一个 variable1,则代码中可以直接使用state.variable1 获取其值; 项目级的store同理，可以直接引用并使用; api接口使用api引入，如定义了调用名为login的api,则可以写：api.login(config).then(res => {...})</p>
     
     <div class="code-area">
       <div v-if="!codeEditable" class="text-center text-gray-400 text-12px">请先设置方法名</div>
-      <js-editor v-model:code="editableCode" :method-name="method.name || 'newFunction'" :params="paramStringArray" :editable="codeEditable" />
+      <js-editor v-if="showEditor" v-model:code="editableCode" :method-name="method.name || 'newFunction'" :params="paramStringArray" :editable="codeEditable" />
     </div>
     
     <div class="footer">

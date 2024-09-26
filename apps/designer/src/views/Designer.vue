@@ -1,9 +1,8 @@
 <script setup lang="ts">
   import Designer from "@ruomu-ui/designer"
+  import type {Project} from "@ruomu-ui/designer"
   import { onMounted, ref } from 'vue'
-  import type { Project } from '@ruomu-ui/types'
-  import {ProjectApi} from "@ruomu-ui/api"
-  import { useProjectStore } from '@ruomu-ui/core'
+  import {ProjectApi, useProjectStore} from "@ruomu-ui/designer"
   import { storeToRefs } from 'pinia'
   
   const projectStore = useProjectStore()

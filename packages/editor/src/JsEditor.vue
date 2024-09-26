@@ -48,13 +48,22 @@
   })
   // watch(() => props.code, () => {
   //   if (editorInstance) {
-  //     editorInstance.setValue(props.code)
+  //     editorInstance.setValue(satisfyCode.value)
   //   }
   // })
 
   const jsCode = computed({
     get: () => props.code,
-     set: (v) => emit('update:code', v),
+    set: (v) => {
+      // 如果只有2行，则2行的中间加一个空行
+      if (v.split('\n').length === 2) {
+        const vs = v.split('\n')
+        const newV = [vs[0], '', vs[1]].join('\n')
+        emit('update:code', newV)
+      } else {
+        emit('update:code', v)
+      }
+    },
   })
 
   const allowedRange = () => {
@@ -97,11 +106,41 @@
       editorInstance?.updateOptions({readOnly: false})
     }
   }
+  
+  const satisfyCode = computed(() => {
+    let editorCode = jsCode.value
+    // 检查jsCode，如果只有2行，则2行的中间加一个空行
+    const vs = jsCode.value.split('\n')
+    if (vs.length === 2) {
+      editorCode = [vs[0], '', vs[1]].join('\n')
+    } else if (vs.length === 1) {
+      // 如果有 function *** () {} 这种情况，则在{}中添加一个空行
+      const v = vs[0]
+      const reg = /function\s+\w+\s*\(.*\)\s*\{\s*}/
+      if (reg.test(v)) {
+        editorCode = v.replace(/\{\s*}\s*$/, '{\n\n}')
+      } else {
+        // 检查是否有 function *** () 这种情况，有则后面增加 {\n\n}
+        const reg2 = /function\s+\w+\s*\(.*\)/
+        if (reg2.test(v)) {
+          editorCode = v.replace(/\s*$/, ' {\n\n}')
+        } else {
+          // 尝试包裹一层function ${methodName}(params) {\n ${vs} \n}
+          const params = props.params.join(', ')
+          editorCode = `function ${methodName.value}(${params}) {\n ${vs.join('\n')} \n}`
+        }
+      }
+    }
+    return editorCode
+  })
 
   const editorInit = async () => {
     const m = await loader.init()
+    
+    let editorCode = satisfyCode.value
+    
     editorInstance = m.editor.create(editorContainer.value!, {
-      value: jsCode.value,
+      value: editorCode,
       language: 'javascript',
     })
 

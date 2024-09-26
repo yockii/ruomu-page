@@ -11,6 +11,7 @@ import Tree from '@ruomu-ui/plugin-tree'
 import Func from '@ruomu-ui/plugin-function'
 import State from '@ruomu-ui/plugin-state'
 import Store from '@ruomu-ui/plugin-store'
+import Api from '@ruomu-ui/plugin-api'
 import Page from '@ruomu-ui/plugin-page'
 import Schema from '@ruomu-ui/plugin-schema'
 
@@ -30,6 +31,7 @@ const addons: {
     Func,
     State,
     Store,
+    Api,
     Page,
 
     Schema,

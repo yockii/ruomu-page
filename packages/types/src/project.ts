@@ -1,5 +1,6 @@
 import type { MaterialLib, Parameter } from './material'
 import type { RelatedProperty, Variable } from './variable'
+import type { ApiInfo } from './api'
 
 export type Project = {
   id?: string; // id
@@ -10,6 +11,7 @@ export type Project = {
   
   usedMaterialLib?: MaterialLib[];
   store?: Variable[]
+  api?: ApiInfo
 }
 
 export type Page = {

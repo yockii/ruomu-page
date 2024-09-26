@@ -1,6 +1,6 @@
 {
   "name": "@ruomu-ui/designer",
-  "version": "1.0.2",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,7 @@
     "@ruomu-ui/plugin-function": "workspace:*",
     "@ruomu-ui/plugin-state": "workspace:*",
     "@ruomu-ui/plugin-store": "workspace:*",
+    "@ruomu-ui/plugin-api": "workspace:*",
     "@ruomu-ui/plugin-page": "workspace:*",
     "@ruomu-ui/plugin-schema": "workspace:*",
     "@ruomu-ui/setting-props": "workspace:*",
@@ -30,16 +31,16 @@
     "@ruomu-ui/toolbar-preview": "workspace:*",
     "@vicons/carbon": "^0.12.0",
     "@vicons/material": "^0.12.0",
-    "vue": "^3.4.37"
-  },
-  "devDependencies": {
     "monaco-editor": "^0.51.0",
-    "@vitejs/plugin-vue": "^5.1.2",
-    "typescript": "^5.5.3",
-    "less": "^4.2.0",
     "naive-ui": "^2.39.0",
     "pinia": "^2.1.7",
     "unocss": "^0.61.5",
+    "vue": "^3.4.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "typescript": "^5.5.3",
+    "less": "^4.2.0",
     "vite": "^5.4.1",
     "vue-tsc": "^2.0.29"
   },

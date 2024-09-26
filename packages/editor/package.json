@@ -1,6 +1,6 @@
 {
   "name": "@ruomu-ui/editor",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -8,11 +8,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@monaco-editor/loader": "^1.4.0",
     "monaco-editor": "^0.51.0",
     "vue": "^3.4.37"
   },
   "devDependencies": {
-    "@monaco-editor/loader": "^1.4.0",
     "@vitejs/plugin-vue": "^5.1.2",
     "typescript": "^5.5.3",
     "vite": "^5.4.1",

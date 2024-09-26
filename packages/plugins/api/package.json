@@ -1,7 +1,7 @@
 {
-  "name": "@ruomu-ui/toolbar-fullscreen",
+  "name": "@ruomu-ui/plugin-api",
   "version": "2.0.1",
-  "main": "index.ts",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -10,7 +10,9 @@
   "dependencies": {
     "@ruomu-ui/types": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
-    "@vicons/material": "^0.12.0",
+    "@ruomu-ui/editor": "workspace:*",
+    "@ruomu-ui/api": "workspace:*",
+    "@vicons/tabler": "^0.12.0",
     "vue": "^3.4.37"
   },
   "devDependencies": {
@@ -20,6 +22,7 @@
     "vue-tsc": "^2.0.29"
   },
   "peerDependencies": {
+    "pinia": "^2.1.7",
     "naive-ui": "^2.39.0"
   },
   "publishConfig": {

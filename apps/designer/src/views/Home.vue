@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Post } from '@ruomu-ui/api'
+import { Post } from '@ruomu-ui/designer'
 import { useRouter } from 'vue-router'
 import {NCard, NForm, NFormItem, NInput, NButton} from 'naive-ui'
 

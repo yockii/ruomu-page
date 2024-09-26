@@ -49,12 +49,12 @@
 </script>
 
 <template>
-  <div class="w-40px h-100% bg-red flex flex-col justify-between z-99">
+  <div class="w-40px h-100% flex flex-col justify-between z-99 b-r-1px b-r-solid b-#CCC">
     <div class="flex flex-col items-center mt-8px">
       <template v-for="item in topPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
-            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-8px">
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px">
               <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>
@@ -67,7 +67,7 @@
       <template v-for="item in bottomPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
-            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-8px">
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px">
               <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>

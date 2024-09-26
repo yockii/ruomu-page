@@ -1,6 +1,6 @@
 {
   "name": "@ruomu-ui/toolbar-breadcrumb",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.ts",
   "scripts": {
     "dev": "vite",

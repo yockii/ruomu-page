@@ -1,4 +1,4 @@
-import {http} from "@ruomu-ui/api"
+import {http} from "@ruomu-ui/designer"
 
 export default () => {
   http.interceptors.request.use((config) => {
