@@ -1,12 +1,12 @@
 import { Paginate, Page, Response, PageSchema } from '@ruomu-ui/types'
-import { Get, Post, Put } from '../basic/http'
+import { Delete, Get, Post, Put } from '../basic/http'
 
 export const PageApi = {
   add: (data: Page): Promise<Response<Page>> => {
     return Post('/page/add', data)
   },
   remove: (id: string): Promise<Response<Boolean>> => {
-    return Post('/page/delete', { id })
+    return Delete('/page/delete', { id })
   },
   update: (data: Page): Promise<Response<Page>> => {
     return Put('/page/update', data)

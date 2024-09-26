@@ -18,9 +18,13 @@ export type Page = {
   id?: string;
   projectId?: string;
   name?: string;
+  description?: string;
   parentId?: string;
   route?: string;
+  fileName?: string;
   schema?: PageSchema;
+  
+  setDefault?: boolean; // 临时额外添加的属性，用于标识是否为设置为默认首页
 }
 
 export type PageSchema = Schema & {

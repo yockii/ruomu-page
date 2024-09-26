@@ -9,7 +9,7 @@
   import ApiModal from './ApiModal.vue'
 
   const projectStore = useProjectStore()
-  const { project } = storeToRefs(projectStore)
+  const { project, projectDirt } = storeToRefs(projectStore)
   const apiList = computed(() => project.value?.api?.apiList || [])
   
   const isPreAction = ref(false)
@@ -92,6 +92,7 @@
         project.value.api.apiList[index] = currentApi.value
       }
     }
+    projectDirt.value = true
   }
 </script>
 
@@ -147,7 +148,6 @@
     flex-direction: column;
     gap: 8px;
     scrollbar-width: thin;
-    scrollbar-color: #18A058 #18A05850;
   }
   .get-api {
     cursor: pointer;

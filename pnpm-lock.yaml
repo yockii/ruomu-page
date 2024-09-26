@@ -197,6 +197,9 @@ importers:
       '@vicons/carbon':
         specifier: ^0.12.0
         version: 0.12.0
+      '@vicons/fluent':
+        specifier: ^0.12.0
+        version: 0.12.0
       '@vicons/material':
         specifier: ^0.12.0
         version: 0.12.0
@@ -376,6 +379,9 @@ importers:
 
   packages/plugins/page:
     dependencies:
+      '@ruomu-ui/api':
+        specifier: workspace:*
+        version: link:../../api
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../../core
@@ -383,6 +389,9 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@vicons/carbon':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vicons/fluent':
         specifier: ^0.12.0
         version: 0.12.0
       '@vicons/material':

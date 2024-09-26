@@ -31,6 +31,7 @@
     "@ruomu-ui/toolbar-preview": "workspace:*",
     "@vicons/carbon": "^0.12.0",
     "@vicons/material": "^0.12.0",
+    "@vicons/fluent": "^0.12.0",
     "monaco-editor": "^0.51.0",
     "naive-ui": "^2.39.0",
     "pinia": "^2.1.7",

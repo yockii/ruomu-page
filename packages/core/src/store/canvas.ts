@@ -74,6 +74,12 @@ export const useCanvasStore = defineStore('canvas', {
     }
   },
   actions: {
+    clearState() {
+      this.clearHoverState()
+      this.clearLineState()
+      this.clearSelectState()
+      this.clearDragState()
+    },
     selectNodeById(id: string) {
       if (!id || !this.iframeDom) return
       const doc = this.iframeDom.contentDocument

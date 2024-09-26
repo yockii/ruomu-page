@@ -212,6 +212,7 @@ export const useProjectStore = defineStore("project", {
     async getPageSchema(pageId: string) {
       const page = this.pages.find(p => p.id === pageId)
       if (!page) return
+      
       if (page.schema) {
         this.currentPageSchema = page.schema
         return
@@ -221,8 +222,11 @@ export const useProjectStore = defineStore("project", {
         const response = await PageApi.schema(pageId)
         if (response.code === 0 && response.data) {
           page.schema = response.data
-          this.currentPageSchema = response.data
-          this.currentPageSchema.id = pageId
+          if (!page.schema.children) {
+            page.schema.children = []
+          }
+          page.schema.id = pageId
+          this.currentPageSchema = page.schema
         }
       } catch (e) {
         console.error(e)

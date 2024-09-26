@@ -1,5 +1,19 @@
 <script setup lang="ts">
-  import { NModal, NButton, NPopconfirm, NForm, NFormItem, NFormItemGi, NInput, NGrid, NSelect, NDivider, NTabs, NTabPane } from 'naive-ui'
+  import {
+    NModal,
+    NButton,
+    NPopconfirm,
+    NForm,
+    NFormItem,
+    NFormItemGi,
+    NInput,
+    NGrid,
+    NSelect,
+    NDivider,
+    NTabs,
+    NTabPane,
+    FormInst,
+  } from 'naive-ui'
   import { ApiDefinition } from '@ruomu-ui/types'
   import { computed, PropType, ref } from 'vue'
   import { JsEditor, JsonViewer } from '@ruomu-ui/editor'
@@ -16,12 +30,18 @@
 
   const emit = defineEmits(['confirm', 'delete'])
   
-  const confirm = () => {
+  const confirm = async () => {
+    try {
+      await formRef.value?.validate()
+    } catch (errors) {
+      return
+    }
     emit('confirm')
     visible.value = false
   }
   
   // form
+  const formRef = ref<FormInst | null>(null)
   const rules = {
     name: {
       required: true,
@@ -52,6 +72,10 @@
   const responseValue = ref('')
   
   const doRequest = () => {
+    if(!api.value.url || !api.value.method) {
+      return
+    }
+    
     const vs = requestCode.value.split('\n')
     const v = vs.slice(1, vs.length - 1).join('\n')
     // v 就是赋值语句
@@ -73,7 +97,7 @@
 <template>
   <n-modal v-model:show="visible" :mask-closable="false" preset="card" :title="api.label || api.name" style="width: 800px;" :bordered="false">
     <div class="api-info">
-      <n-form :model="api" :rules="rules" label-placement="left" label-width="auto" size="small">
+      <n-form ref="formRef" :model="api" :rules="rules" label-placement="left" label-width="auto" size="small">
         <n-grid :cols="24" :x-gap="16">
           <n-form-item-gi :span="12" label="接口显示名称" path="label">
             <n-input v-model:value="api.label" placeholder="请输入接口显示名称" />
@@ -140,8 +164,8 @@
             确定删除？
         </n-popconfirm>
         <div class="flex justify-end">
-          <n-button class="mr-8px" @click="visible = false">取消</n-button>
-          <n-button type="primary" @click="confirm">确定</n-button>
+          <n-button class="mr-8px" @click.prevent="visible = false">取消</n-button>
+          <n-button type="primary" @click.prevent="confirm">确定</n-button>
         </div>
       </div>
     </template>
