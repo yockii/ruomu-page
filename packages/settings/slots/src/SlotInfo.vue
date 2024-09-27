@@ -1,15 +1,16 @@
 <script setup lang="ts">
   import { NCheckbox, NCollapseTransition, NIcon } from 'naive-ui'
   import { computed, PropType, ref } from 'vue'
-  import type { Schema } from '@ruomu-ui/types'
+  import type { Schema, SlotInfo } from '@ruomu-ui/types'
   import { ChevronDown, ChevronUp } from '@vicons/tabler'
-  import { useCanvasStore } from '@ruomu-ui/core'
+  import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
 
+  const projectStore = useProjectStore()
   const canvasStore = useCanvasStore()
   
   const props = defineProps({
-    slotName: {
-      type: String,
+    slotInfo: {
+      type: Object as PropType<SlotInfo>,
       required: true,
     },
     schema: {
@@ -18,16 +19,16 @@
     },
   })
 
-  const slotEnabled = computed(() => !!props.schema.slots?.find(s => s.name === props.slotName))
+  const slotEnabled = computed(() => !!props.schema.slots?.find(s => s.name === props.slotInfo.name))
 
   const updateSlotEnabled = (enabled: boolean) => {
     if (enabled) {
       if (!props.schema.slots) {
         props.schema.slots = []
       }
-      props.schema.slots?.push({ name: props.slotName })
+      props.schema.slots?.push({ name: props.slotInfo.name })
     } else {
-      props.schema.slots = props.schema.slots?.filter(s => s.name !== props.slotName)
+      props.schema.slots = props.schema.slots?.filter(s => s.name !== props.slotInfo.name)
     }
     projectStore.pageDirt = true
   }
@@ -36,7 +37,7 @@
 
   const slotChildren = computed(() => {
     if (slotEnabled.value) {
-      const slot = props.schema.slots?.find(s => s.name === props.slotName)
+      const slot = props.schema.slots?.find(s => s.name === props.slotInfo.name)
       if (slot) {
         return slot.children || []
       }
@@ -46,7 +47,7 @@
   
   const ondrop = (e: DragEvent) => {
     e.preventDefault()
-    canvasStore.slotDragEnd(props.schema?.id, props.slotName)
+    canvasStore.slotDragEnd(props.schema?.id, props.slotInfo)
     projectStore.pageDirt = true
   }
   
@@ -57,7 +58,7 @@
 <template>
   <div class="bg-#EFEFEF flex mt-8px px-8px h-36px items-center justify-between">
     <div>
-      <span class="mr-8px">{{ slotName }}</span>
+      <span class="mr-8px">{{ slotInfo.name }}</span>
       <n-checkbox :checked="slotEnabled" @update:checked="updateSlotEnabled" />
     </div>
     <n-icon size="18" class=" cursor-pointer" @click="expanded = !expanded">

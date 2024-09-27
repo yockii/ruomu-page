@@ -47,6 +47,8 @@ export type MaterialComponent = {
   tagName: string;
   // 组件截图
   thumbnail?: string;
+  // 允许的组件名称,设置了则只允许指定的组件作为children
+  allowedChildrenComponents?: string[];
   // 元信息，如props、events、slots等
   metaInfo: MaterialComponentMetaInfo;
 }
@@ -55,7 +57,13 @@ export type MaterialComponentMetaInfo = {
   isContainer?: boolean;
   props: PropertyGroup[];
   events: Record<string, Event>;
-  slots: string[];
+  slots: SlotInfo[];
+}
+
+export type SlotInfo = {
+  name: string;
+  description?: string;
+  allowedComponents?: string[];
 }
 
 export type PropertyGroup = {

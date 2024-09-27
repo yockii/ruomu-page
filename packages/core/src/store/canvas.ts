@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
-import type { MaterialComponent, MaterialComponentMetaInfo, Node, Schema } from '@ruomu-ui/types'
+import type { MaterialComponent, MaterialComponentMetaInfo, Node, Schema, SlotInfo } from '@ruomu-ui/types'
 import { useProjectStore } from './project'
 import { useLayoutStore } from './layout'
+import { useComponentsStore } from './components'
 
 type RectState = {
   id?: string;
@@ -221,11 +222,19 @@ export const useCanvasStore = defineStore('canvas', {
       this.clearDragState()
       this.clearLineState()
     },
-    slotDragEnd(schemaId?: string, slotName?: string) {
-      if (!schemaId || !slotName) return 
+    slotDragEnd(schemaId?: string, slotInfo?: SlotInfo) {
+      if (!schemaId || !slotInfo) return 
       const {data} = this.dragState
       if (!data) return
-      useProjectStore().addComponent(data, schemaId, "in", slotName)
+      if (slotInfo.allowedComponents) {
+        const componentsStore = useComponentsStore()
+        const c = componentsStore.findComponentById(schemaId)
+        if (!c || slotInfo.allowedComponents.indexOf(c.name) === -1) {
+          return
+        }
+      }
+      
+      useProjectStore().addComponent(data, schemaId, "in", slotInfo.name)
     }
   },
   persistShare: true,

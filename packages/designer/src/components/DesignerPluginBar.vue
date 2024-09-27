@@ -39,10 +39,10 @@
       }
     })
     
-    if (!currentPlugin.value) {
-      currentPlugin.value = PluginMaterial
-      showPluginPanel.value = true
-    }
+    // if (!currentPlugin.value) {
+    //   currentPlugin.value = PluginMaterial
+    //   showPluginPanel.value = true
+    // }
     
     usePluginMaterialStore().getLibs()
   })

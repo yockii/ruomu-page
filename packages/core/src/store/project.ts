@@ -193,6 +193,13 @@ export const useProjectStore = defineStore("project", {
         if (response.code === 0 && response.data) {
           this.pages = response.data.items || []
           if (this.pages.length > 0) {
+            if (this.currentPageSchema) {
+              const idx = this.pages.findIndex(p => p.id === this.currentPageSchema!.id)
+              if (idx > -1) {
+                return
+              }
+            }
+            
             if (this.project.homePageId) {
               const homePage = this.pages.find(p => p.id === this.project!.homePageId)
               if (homePage && homePage.id) {
@@ -215,6 +222,7 @@ export const useProjectStore = defineStore("project", {
       
       if (page.schema) {
         this.currentPageSchema = page.schema
+        this.pageDirt = false
         return
       }
       
@@ -227,6 +235,7 @@ export const useProjectStore = defineStore("project", {
           }
           page.schema.id = pageId
           this.currentPageSchema = page.schema
+          this.pageDirt = false
         }
       } catch (e) {
         console.error(e)

@@ -94,9 +94,22 @@ export const BuiltInComponents:MaterialComponent[] = [
               rules: {}
             },
             {
-              label: 'className',
+              label: 'css类名列表',
               description: 'class name list',
               name: 'className',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: "文字内容",
+              name: "innerHTML",
+              description: "没有子组件时可以显示的文字",
               type: 'string',
               required: false,
               defaultValue: '',
@@ -471,7 +484,85 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [
+        {
+          groupName: '基础属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'id',
+              description: '元素的唯一标识符',
+              name: 'id',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'className',
+              description: '类名列表',
+              name: 'className',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'border',
+              description: '表格边框宽度',
+              name: 'border',
+              type: 'number',
+              required: false,
+              defaultValue: 0,
+              widget: {
+                component: 'number',
+                props: { min: 0 }
+              },
+              rules: { type: 'number', min: 0 }
+            }
+          ]
+        },
+        {
+          groupName: '布局属性',
+          collapse: true,
+          properties: [
+            {
+              label: 'cellPadding',
+              description: '单元格内边距',
+              name: 'cellPadding',
+              type: 'number',
+              required: false,
+              defaultValue: 0,
+              widget: {
+                component: 'number',
+                props: { min: 0 }
+              },
+              rules: { type: 'number', min: 0 }
+            },
+            {
+              label: 'cellSpacing',
+              description: '单元格间距',
+              name: 'cellSpacing',
+              type: 'number',
+              required: false,
+              defaultValue: 0,
+              widget: {
+                component: 'number',
+                props: { min: 0 }
+              },
+              rules: { type: 'number', min: 0 }
+            }
+          ]
+        }
+      ],
       events: {},
       slots: []
     }
