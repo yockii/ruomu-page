@@ -38,7 +38,8 @@
         topPlugins.value.push(item)
       }
     })
-    
+
+    showPluginPanel.value = false
     // if (!currentPlugin.value) {
     //   currentPlugin.value = PluginMaterial
     //   showPluginPanel.value = true

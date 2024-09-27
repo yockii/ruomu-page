@@ -6,7 +6,7 @@
   const props = defineProps({
     editable: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     language: {
       type: String,

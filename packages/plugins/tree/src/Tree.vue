@@ -59,7 +59,7 @@
 </script>
 
 <template>
-  <div class="w-240px">
+  <div class="w-320px">
     <n-tree
       block-line
       draggable
