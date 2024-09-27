@@ -8,6 +8,10 @@
       type: Boolean,
       default: true,
     },
+    language: {
+      type: String,
+      default: 'html'
+    }
   })
   const code = defineModel('code', {
     type: String,
@@ -21,6 +25,7 @@
     const m = await loader.init()
     editorInstance = m.editor.create(editorContainer.value!, {
       value: code.value,
+      language: props.language,
     })
 
     editorInstance.onDidChangeModelContent(() => {

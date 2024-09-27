@@ -3,7 +3,7 @@
   import { computed } from 'vue'
   import { toKebabCase, useComponentsStore, useProjectStore } from '@ruomu-ui/core'
   import { storeToRefs } from 'pinia'
-  import type { JsMethod, MaterialLib, Schema, Variable } from '@ruomu-ui/types'
+  import type { JsMethod, MaterialLib, Property, Schema, Variable } from '@ruomu-ui/types'
   
   const projectStore = useProjectStore()
   const componentsStore = useComponentsStore()
@@ -75,7 +75,8 @@
       code: [storeCode, stateCode, jsMethodsCode].join("\n"), 
       imports: [
         { libName: "vue", componentName: "reactive" },
-        { libName: "@/store", componentName: "useStore" }
+        { libName: "@/store", componentName: "useStore" },
+        { libName: "@/api", componentName: "api" }
       ] 
     }
   }
@@ -148,7 +149,30 @@
               continue
             }
             let v = c.props[p]
-            props.push({name: p, value: v })
+            let n = p
+            let componentProp:Property|undefined = undefined
+            for (const g in component.metaInfo.props) {
+              componentProp = component.metaInfo.props[g].properties.find(cp => cp.name === p)
+              if (componentProp) {
+                break
+              }
+            } 
+            if (componentProp) {
+              switch (componentProp.type) {
+                case 'boolean':
+                case 'number':
+                  n = ":" + p
+                  v = v.toString()
+                  break
+                case 'object':
+                case 'array':
+                  n = ":" + p
+                  v = JSON.stringify(v)
+                  break
+                }
+            }
+            
+            props.push({name: n, value: v })
           }
         }
         if(c.events) {
@@ -156,7 +180,7 @@
             const method = findMethodById(e.methodId)
             if (method) {
               props.push({
-                name: ":" + e.eventName,
+                name: e.eventName,
                 value: method.name,
               })
             }
@@ -196,7 +220,7 @@
               if (typeof child === "string") {
                 code += space + " ".repeat(4) + child + "\n"
               } else {
-                const ccInfo = buildComponentCode(child, spaceNum + 2)
+                const ccInfo = buildComponentCode(child, spaceNum + 4)
                 code += ccInfo.code + '\n'
                 imports.push(...ccInfo.imports)
               }

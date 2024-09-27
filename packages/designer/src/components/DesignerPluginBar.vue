@@ -39,10 +39,10 @@
       }
     })
     
-    // if (!currentPlugin.value) {
+    if (!currentPlugin.value) {
       currentPlugin.value = PluginMaterial
       showPluginPanel.value = true
-    // }
+    }
     
     usePluginMaterialStore().getLibs()
   })
@@ -54,7 +54,7 @@
       <template v-for="item in topPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
-            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px">
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px" :class="{'active': showPluginPanel && currentPlugin?.id === item.id }">
               <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>
@@ -67,7 +67,7 @@
       <template v-for="item in bottomPlugins" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
-            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px">
+            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px" :class="{'active': showPluginPanel && currentPlugin?.id === item.id}">
               <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>
@@ -79,5 +79,7 @@
 </template>
 
 <style scoped>
-
+.active {
+  color: #409EFF;
+}
 </style>
