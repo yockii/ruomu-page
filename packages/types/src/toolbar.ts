@@ -11,7 +11,7 @@ export type Toolbar = {
 export type Plugin = {
   id: string;
   title?: string;
-  align: 'top' | 'bottom';
+  align: 'top' | 'bottom' | 'middle';
   panelPinned?: boolean;
   icon?: Component | (() => Component);
   component: Component | (() => Component);

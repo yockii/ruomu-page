@@ -6,10 +6,10 @@
   import { onMounted, ref } from 'vue'
   import { storeToRefs } from 'pinia'
   import { usePluginMaterialStore } from '@ruomu-ui/plugin-material'
-  import PluginMaterial from '@ruomu-ui/plugin-material'
   
   const topPlugins = ref<Plugin[]>([])
   const bottomPlugins = ref<Plugin[]>([])
+  const middlePlugins = ref<Plugin[]>([])
   
   
   const togglePluginPanel = (plugin: Plugin) => {
@@ -34,16 +34,14 @@
     addons.plugins.forEach((item:Plugin) => {
       if (item.align === 'bottom') {
         bottomPlugins.value.push(item)
+      } else if (item.align === 'middle') {
+        middlePlugins.value.push(item)
       } else {
         topPlugins.value.push(item)
       }
     })
 
     showPluginPanel.value = false
-    // if (!currentPlugin.value) {
-    //   currentPlugin.value = PluginMaterial
-    //   showPluginPanel.value = true
-    // }
     
     usePluginMaterialStore().getLibs()
   })
@@ -51,24 +49,11 @@
 
 <template>
   <div class="w-40px h-100% flex flex-col justify-between z-99 b-r-1px b-r-solid b-#CCC">
-    <div class="flex flex-col items-center mt-8px">
-      <template v-for="item in topPlugins" :key="item.id">
+    <div class="flex flex-col items-center mt-8px" v-for="(pluginGroup, i) in [topPlugins, middlePlugins, bottomPlugins]" :key="i">
+      <template v-for="item in pluginGroup" :key="item.id">
         <n-tooltip placement="right" trigger="hover">
           <template #trigger>
             <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px" :class="{'active': showPluginPanel && currentPlugin?.id === item.id }">
-              <component :is="resolveComponent(item.icon!)" />
-            </n-icon>
-          </template>
-          {{item.title}}
-        </n-tooltip>
-      </template>
-    </div>
-    <div class="flex flex-col items-center">
-     <!-- bottomPlugins -->
-      <template v-for="item in bottomPlugins" :key="item.id">
-        <n-tooltip placement="right" trigger="hover">
-          <template #trigger>
-            <n-icon size="24" @click="togglePluginPanel(item)" class="cursor-pointer mb-16px" :class="{'active': showPluginPanel && currentPlugin?.id === item.id}">
               <component :is="resolveComponent(item.icon!)" />
             </n-icon>
           </template>

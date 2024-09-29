@@ -1,4 +1,5 @@
 import Designer from "./Designer.vue"
+import addons from "./config/addons.ts"
 
-export {Designer}
+export {Designer, addons}
 export default Designer

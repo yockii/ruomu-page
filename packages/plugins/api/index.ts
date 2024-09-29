@@ -5,7 +5,7 @@ import { Api } from "@vicons/tabler"
 const ApiPlugin: Plugin = {
   id: "api",
   title: "接口管理",
-  align: "top",
+  align: "middle",
   icon: () => Api,
   component: () => ApiPanel,
 }

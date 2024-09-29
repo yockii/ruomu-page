@@ -36,6 +36,63 @@ importers:
       '@ruomu-ui/designer':
         specifier: workspace:*
         version: link:../../packages/designer
+      '@ruomu-ui/plugin-api':
+        specifier: workspace:*
+        version: link:../../packages/plugins/api
+      '@ruomu-ui/plugin-code':
+        specifier: workspace:*
+        version: link:../../packages/plugins/code
+      '@ruomu-ui/plugin-function':
+        specifier: workspace:*
+        version: link:../../packages/plugins/func
+      '@ruomu-ui/plugin-material':
+        specifier: workspace:*
+        version: link:../../packages/plugins/material
+      '@ruomu-ui/plugin-page':
+        specifier: workspace:*
+        version: link:../../packages/plugins/page
+      '@ruomu-ui/plugin-schema':
+        specifier: workspace:*
+        version: link:../../packages/plugins/schema
+      '@ruomu-ui/plugin-state':
+        specifier: workspace:*
+        version: link:../../packages/plugins/state
+      '@ruomu-ui/plugin-store':
+        specifier: workspace:*
+        version: link:../../packages/plugins/store
+      '@ruomu-ui/plugin-tree':
+        specifier: workspace:*
+        version: link:../../packages/plugins/tree
+      '@ruomu-ui/setting-events':
+        specifier: workspace:*
+        version: link:../../packages/settings/events
+      '@ruomu-ui/setting-props':
+        specifier: workspace:*
+        version: link:../../packages/settings/props
+      '@ruomu-ui/setting-slots':
+        specifier: workspace:*
+        version: link:../../packages/settings/slots
+      '@ruomu-ui/setting-styles':
+        specifier: workspace:*
+        version: link:../../packages/settings/styles
+      '@ruomu-ui/toolbar-breadcrumb':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/breadcrumb
+      '@ruomu-ui/toolbar-fullscreen':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/fullscreen
+      '@ruomu-ui/toolbar-logo':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/logo
+      '@ruomu-ui/toolbar-media':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/media
+      '@ruomu-ui/toolbar-preview':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/preview
+      '@ruomu-ui/toolbar-save':
+        specifier: workspace:*
+        version: link:../../packages/toolbars/save
       vue:
         specifier: ^3.4.34
         version: 3.4.34(typescript@5.5.4)
@@ -137,63 +194,9 @@ importers:
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../core
-      '@ruomu-ui/plugin-api':
-        specifier: workspace:*
-        version: link:../plugins/api
-      '@ruomu-ui/plugin-code':
-        specifier: workspace:*
-        version: link:../plugins/code
-      '@ruomu-ui/plugin-function':
-        specifier: workspace:*
-        version: link:../plugins/func
       '@ruomu-ui/plugin-material':
         specifier: workspace:*
         version: link:../plugins/material
-      '@ruomu-ui/plugin-page':
-        specifier: workspace:*
-        version: link:../plugins/page
-      '@ruomu-ui/plugin-schema':
-        specifier: workspace:*
-        version: link:../plugins/schema
-      '@ruomu-ui/plugin-state':
-        specifier: workspace:*
-        version: link:../plugins/state
-      '@ruomu-ui/plugin-store':
-        specifier: workspace:*
-        version: link:../plugins/store
-      '@ruomu-ui/plugin-tree':
-        specifier: workspace:*
-        version: link:../plugins/tree
-      '@ruomu-ui/setting-events':
-        specifier: workspace:*
-        version: link:../settings/events
-      '@ruomu-ui/setting-props':
-        specifier: workspace:*
-        version: link:../settings/props
-      '@ruomu-ui/setting-slots':
-        specifier: workspace:*
-        version: link:../settings/slots
-      '@ruomu-ui/setting-styles':
-        specifier: workspace:*
-        version: link:../settings/styles
-      '@ruomu-ui/toolbar-breadcrumb':
-        specifier: workspace:*
-        version: link:../toolbars/breadcrumb
-      '@ruomu-ui/toolbar-fullscreen':
-        specifier: workspace:*
-        version: link:../toolbars/fullscreen
-      '@ruomu-ui/toolbar-logo':
-        specifier: workspace:*
-        version: link:../toolbars/logo
-      '@ruomu-ui/toolbar-media':
-        specifier: workspace:*
-        version: link:../toolbars/media
-      '@ruomu-ui/toolbar-preview':
-        specifier: workspace:*
-        version: link:../toolbars/preview
-      '@ruomu-ui/toolbar-save':
-        specifier: workspace:*
-        version: link:../toolbars/save
       '@ruomu-ui/types':
         specifier: workspace:*
         version: link:../types

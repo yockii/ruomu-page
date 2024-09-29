@@ -5,7 +5,7 @@ import {PageScroll} from "@vicons/carbon"
 const Page: Plugin = {
   id: "page",
   title: "页面管理",
-  align: "top",
+  align: "middle",
   icon: () => PageScroll,
   component: () => CompPageComponent,
 }
