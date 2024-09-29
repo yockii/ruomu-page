@@ -1,12 +1,13 @@
 <script setup lang="ts">
   import { NList, NListItem, NThing, NButton, NIcon, NCollapseTransition } from 'naive-ui'
   import type { JsMethod } from '@ruomu-ui/types'
-  import { useProjectStore } from '@ruomu-ui/core'
+  import { deepClone, useProjectStore } from '@ruomu-ui/core'
   import { computed, ref } from 'vue'
   import { ChevronDown, ChevronUp, Plus } from '@vicons/tabler'
   import MethodPanel from './MethodPanel.vue'
   import { usePluginFunctionStore } from './Store.ts'
   import { storeToRefs } from 'pinia'
+  import BuiltInMethodPanel from './BuiltInMethodPanel.vue'
 
   const projectStore = useProjectStore()
   const myStore = usePluginFunctionStore()
@@ -19,8 +20,9 @@
   const showCustomMethods = ref(true)
   
   const showMethod = (method: JsMethod) => {
-    currentMethod.value = method
+    currentMethod.value = deepClone(method)
     showMethodPanel.value = true
+    showBuiltInMethodPanel.value = false
   }
   const addNewMethod = (code: string) => {
     // 如果有id,则不理会，否则新增
@@ -45,6 +47,76 @@
       projectStore.pageDirt = true
     }
   }
+  
+  // 内置方法
+  const currentBuiltInMethodCode = ref('') 
+  const currentBuiltInMethod = ref('')
+  const showBuiltInMethodPanel = ref(false)
+  const editBuiltInMethod = (methodName: string) => {
+    console.log(methodName)
+    switch (methodName) {
+      case 'onMounted':
+        currentBuiltInMethodCode.value = jsBlock.value?.onMounted || ''
+        break
+      case 'onUnmounted':
+        currentBuiltInMethodCode.value = jsBlock.value?.onUnmounted || ''
+        break
+      case 'onUpdated':
+        currentBuiltInMethodCode.value = jsBlock.value?.onUpdated || ''
+        break
+      case 'onBeforeMount':
+        currentBuiltInMethodCode.value = jsBlock.value?.onBeforeMount || ''
+        break
+      case 'onBeforeUnmount':
+        currentBuiltInMethodCode.value = jsBlock.value?.onBeforeUnmount || ''
+        break
+      default:
+        return
+    }
+    currentBuiltInMethod.value = methodName
+    showBuiltInMethodPanel.value = true
+  }
+  
+  const confirmBuiltInMethodEdition = () => {
+    if(projectStore.currentPageSchema) {
+      const cs = currentBuiltInMethodCode.value.split("\n")
+      // 去掉首尾行
+      const code = cs.slice(1, cs.length - 1).join('\n')
+      
+      if(!projectStore.currentPageSchema.js) {
+        projectStore.currentPageSchema.js = {
+          onMounted: '',
+          onUnmounted: '',
+          onUpdated: '',
+          onBeforeMount: '',
+          onBeforeUnmount: '',
+          methods: []
+        }
+      }
+      switch (currentBuiltInMethod.value) {
+          case 'onMounted':
+            projectStore.currentPageSchema.js.onMounted = code
+            break
+          case 'onUnmounted':
+            projectStore.currentPageSchema.js.onUnmounted = code
+            break
+          case 'onUpdated':
+            projectStore.currentPageSchema.js.onUpdated = code
+            break
+          case'onBeforeMount':
+            projectStore.currentPageSchema.js.onBeforeMount = code
+            break
+          case 'onBeforeUnmount':
+            projectStore.currentPageSchema.js.onBeforeUnmount = code
+            break
+          default:
+            return
+        }
+      
+      showBuiltInMethodPanel.value = false
+      projectStore.pageDirt = true
+    }
+  }
 </script>
 
 <template>
@@ -60,19 +132,19 @@
     </div>
     <n-collapse-transition :show="showBuiltInMethods">
       <n-list hoverable clickable>
-        <n-list-item>
-          <n-thing title="onMounted" description="在页面挂载后执行" />
+        <n-list-item @click="editBuiltInMethod('onMounted')">
+          <n-thing title="onMounted" description="在页面挂载后执行"/>
         </n-list-item>
-        <n-list-item>
+        <n-list-item @click="editBuiltInMethod('onUnmounted')">
           <n-thing title="onUnmounted" description="在页面卸载后执行" />
         </n-list-item>
-        <n-list-item>
+        <n-list-item @click="editBuiltInMethod('onUpdated')">
           <n-thing title="onUpdated" description="在页面更新后执行" />
         </n-list-item>
-        <n-list-item>
+        <n-list-item @click="editBuiltInMethod('onBeforeMount')">
           <n-thing title="onBeforeMount" description="在页面挂载前执行" />
         </n-list-item>
-        <n-list-item>
+        <n-list-item @click="editBuiltInMethod('onBeforeUnmount')">
           <n-thing title="onBeforeUnmount" description="在页面卸载前执行" />
         </n-list-item>
       </n-list>
@@ -102,6 +174,7 @@
       </n-list>
     </n-collapse-transition>
     
+    <built-in-method-panel v-if="showBuiltInMethodPanel" @close="showBuiltInMethodPanel=false" v-model:code="currentBuiltInMethodCode" :method-name="currentBuiltInMethod" @confirm="confirmBuiltInMethodEdition" />
     <method-panel v-if="showMethodPanel" :method="currentMethod" @close="showMethodPanel=false" @confirm="addNewMethod" @remove="removeMethod"/>
   </div>
 </template>

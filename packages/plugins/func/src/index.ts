@@ -5,3 +5,5 @@ export {
   Func,
   usePluginFunctionStore
 }
+
+export default Func

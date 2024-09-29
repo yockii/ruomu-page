@@ -8,10 +8,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ruomu-ui/types": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
-    "@vicons/tabler": "^0.12.0",
+    "@ruomu-ui/plugin-function": "workspace:*",
+    "@ruomu-ui/types": "workspace:*",
     "@vicons/material": "^0.12.0",
+    "@vicons/tabler": "^0.12.0",
     "vue": "^3.4.37"
   },
   "devDependencies": {

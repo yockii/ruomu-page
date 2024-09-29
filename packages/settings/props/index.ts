@@ -5,7 +5,7 @@ import {SettingsEthernetFilled} from "@vicons/material"
 const Props: Setting = {
   id: "props",
   title: "属性",
-  icon: SettingsEthernetFilled,
+  icon: () => SettingsEthernetFilled,
   component: () => PropsComponent,
 }
 

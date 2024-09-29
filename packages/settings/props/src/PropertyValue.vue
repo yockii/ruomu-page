@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { NColorPicker, NInput, NSelect, NSlider, NSwitch } from 'naive-ui'
+  import { NColorPicker, NInput, NSelect, NSlider, NSwitch, NInputNumber } from 'naive-ui'
   import { computed, PropType } from 'vue'
   import type { Property } from '@ruomu-ui/types'
   import { useCanvasStore, useProjectStore } from '@ruomu-ui/core'
@@ -54,8 +54,10 @@
     <n-switch v-if="property.widget?.component === 'switch'" :value="value" @update:value="updateValue" />
     <!-- slider -->
     <n-slider v-if="property.widget?.component === 'slider'" :value="value" @update:value="updateValue" show-tooltip />
-    <!-- number / function -->
-
+    <!-- number -->
+    <n-input-number v-if="property.widget?.component === 'number'" :value="value" @update:value="updateValue" clearable />
+    <!-- function (提示使用绑定) -->
+    <div v-if="property.widget?.component === 'function'" class="text-red-500 text-12px">请绑定函数</div>
   </div>
 </template>
 

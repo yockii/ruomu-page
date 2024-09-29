@@ -5,7 +5,7 @@ import {EventNoteFilled} from "@vicons/material"
 const Events: Setting = {
   id: "events",
   title: "事件",
-  icon: EventNoteFilled,
+  icon: () => EventNoteFilled,
   component: () => EventsComponent,
 }
 

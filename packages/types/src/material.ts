@@ -73,9 +73,10 @@ export type PropertyGroup = {
 }
 
 export type PropertyWidget = {
-  component: 'input' | 'number' | 'color' | 'select' | 'switch' | 'slider' | 'upload' | 'json-editor';
+  component: 'input' | 'number' | 'color' | 'select' | 'switch' | 'slider' | 'function' | 'upload' | 'json-editor';
   inline?: boolean, // 是否行内显示
-  props: Record<string, any>;
+  // 如果是function,则需要 params: Parameter[]
+  props?: Record<string, any>;
 }
 
 export type Property = {

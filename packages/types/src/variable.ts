@@ -8,6 +8,8 @@ export type Variable = {
 
 export type RelatedProperty = {
   name: string;
-  varName: string;
-  syncUpdate: boolean;
+  varName?: string;
+  syncUpdate?: boolean;
+
+  methodId?: string;
 }

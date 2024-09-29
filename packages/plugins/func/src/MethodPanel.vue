@@ -209,7 +209,7 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="less" scoped>
   .method-panel {
     width: 800px;
     height: calc(100vh - 40px);

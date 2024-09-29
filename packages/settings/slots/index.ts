@@ -5,7 +5,7 @@ import {BrandingWatermarkOutlined} from "@vicons/material"
 const Slots: Setting = {
   id: "slots",
   title: "插槽",
-  icon: BrandingWatermarkOutlined,
+  icon: () => BrandingWatermarkOutlined,
   component: () => SlotsComponent,
 }
 

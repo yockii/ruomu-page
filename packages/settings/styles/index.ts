@@ -5,7 +5,7 @@ import {CssFilled} from "@vicons/material"
 const Styles: Setting = {
   id: "styles",
   title: "样式",
-  icon: CssFilled,
+  icon: () => CssFilled,
   component: () => StylesComponent,
 }
 

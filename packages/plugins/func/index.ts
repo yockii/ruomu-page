@@ -1,15 +1,15 @@
-import { Func as FunctionComponent, usePluginFunctionStore } from "./src"
+import Func, { usePluginFunctionStore } from "./src"
 import type {Plugin} from "@ruomu-ui/types"
 import { MathFunction } from "@vicons/tabler"
 
-const Func: Plugin = {
+const FuncPlugin: Plugin = {
   id: "func",
-  title: "函数",
+  title: "页面函数",
   align: "top",
   icon: () => MathFunction,
-  component: () => FunctionComponent,
+  component: () => Func,
 }
 
 export { usePluginFunctionStore }
 
-export default Func
+export default FuncPlugin
