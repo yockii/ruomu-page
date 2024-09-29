@@ -88,7 +88,7 @@ export type Property = {
   required: boolean;
   defaultValue: any;
   widget?: PropertyWidget,
-  rules: Record<string, any>;
+  rules?: Record<string, any>;
 }
 
 export type Event = {

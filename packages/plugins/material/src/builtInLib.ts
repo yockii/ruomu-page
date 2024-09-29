@@ -440,7 +440,51 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [
+        {
+          groupName: '基础属性',
+          collapse: false,
+          properties: [
+            {
+              label: '表单方法',
+              description: 'method',
+              name: 'method',
+              type: 'string',
+              defaultValue: 'post',
+              required: false,
+              widget: {
+                component: 'select',
+                props: {
+                  options: [
+                    {
+                      label: 'get',
+                      value: 'get'
+                    },
+                    {
+                      label: 'post',
+                      value: 'post'
+                    }
+                  ]
+                }
+              },
+              rules: {}
+            },
+            {
+              label: '表单action',
+              description: 'action',
+              name: 'action',
+              type: 'string',
+              defaultValue: '',
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+          ]
+        }
+      ],
       events: {},
       slots: []
     }
@@ -454,7 +498,215 @@ export const BuiltInComponents:MaterialComponent[] = [
     tagName: "input",
     thumbnail: "",
     metaInfo: {
-      props: [],
+      props: [
+        {
+          groupName: '基础属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'id',
+              description: 'id',
+              name: 'id',
+              type: 'string',
+              defaultValue: '',
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'type',
+              description: 'type',
+              name: 'type',
+              type: 'string',
+              defaultValue: 'text',
+              required: false,
+              widget: {
+                component: 'select',
+                props: {
+                  options: [
+                    {
+                      label: 'text',
+                      value: 'text'
+                    },
+                    {
+                      label: 'number',
+                      value: 'number'
+                    },
+                    {
+                      label: 'password',
+                      value: 'password'
+                    },
+                    {
+                      label: 'email',
+                      value: 'email'
+                    },
+                    {
+                      label: 'tel',
+                      value: 'tel'
+                    },
+                    {
+                      label: 'url',
+                      value: 'url'
+                    },
+                    {
+                      label: 'file',
+                      value: 'file'
+                    },
+                    {
+                      label: 'color',
+                      value: 'color'
+                    },
+                    {
+                      label: 'range',
+                      value: 'range'
+                    },
+                    {
+                      label: 'checkbox',
+                      value: 'checkbox'
+                    },
+                    {
+                      label: 'radio',
+                      value: 'radio'
+                    },
+                  ]
+                }
+              }
+            },
+            {
+              label: 'name',
+              description: 'name',
+              name: 'name',
+              type: 'string',
+              defaultValue: '',
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'placeholder',
+              description: 'placeholder',
+              name: 'placeholder',
+              type: 'string',
+              defaultValue: '',
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'value',
+              description: 'value',
+              name: 'value',
+              type: 'string',
+              defaultValue: '',
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+          ]
+        },
+        {
+          groupName: '控制属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'disabled',
+              description: 'disabled',
+              name: 'disabled',
+              type: 'boolean',
+              defaultValue: false,
+              required: false,
+              widget: {
+                component: 'switch',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'readonly',
+              description: 'readonly',
+              name: 'readonly',
+              type: 'boolean',
+              defaultValue: false,
+              required: false,
+              widget: {
+                component: 'switch',
+                props: {}
+              },
+              rules: {}
+            },
+          ]
+        },
+        {
+          groupName: '限制属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'maxlength',
+              description: 'maxlength',
+              name: 'maxlength',
+              type: 'number',
+              defaultValue: 0,
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'min',
+              description: 'min',
+              name: 'min',
+              type: 'number',
+              defaultValue: 0,
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'max',
+              description: 'max',
+              name: 'max',
+              type: 'number',
+              defaultValue: 0,
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'step',
+              description: 'step',
+              name: 'step',
+              type: 'number',
+              defaultValue: 0,
+              required: false,
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+          ]
+        }
+      ],
       events: {},
       slots: []
     }
@@ -576,7 +828,40 @@ export const BuiltInComponents:MaterialComponent[] = [
     tagName: "img",
     thumbnail: "",
     metaInfo: {
-      props: [],
+      props: [
+        {
+          groupName: '基础属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'src',
+              description: '图片地址',
+              name: 'src',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'alt',
+              description: '图片描述',
+              name: 'alt',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            }
+          ]
+        }
+      ],
       events: {},
       slots: []
     }
@@ -591,7 +876,40 @@ export const BuiltInComponents:MaterialComponent[] = [
     thumbnail: "",
     metaInfo: {
       isContainer: true,
-      props: [],
+      props: [
+        {
+          groupName: '基础属性',
+          collapse: false,
+          properties: [
+            {
+              label: 'href',
+              description: '链接地址',
+              name: 'href',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            },
+            {
+              label: 'target',
+              description:'打开方式',
+              name: 'target',
+              type: 'string',
+              required: false,
+              defaultValue: '',
+              widget: {
+                component: 'input',
+                props: {}
+              },
+              rules: {}
+            }
+          ]
+        }
+      ],
       events: {},
       slots: []
     }
