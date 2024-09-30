@@ -2,6 +2,9 @@
 
 低代码构建应用平台
 
+## 使用说明
+详见 [文档](https://github.com/yockii/ruomu-page/blob/master/packages/designer/README.md)
+
 ## 特点
 - 低代码页面构建
 - 支持插槽、事件、变量绑定、样式自定义、方法自定义

@@ -1,16 +1,18 @@
-# Ruomu Low Code UI Designer
-Ruomu Low Code UI Designer is a low-code UI designer that allows you to design and edit UI components without writing any code. It is built on top of the Vue.js framework and uses the Vue.js component system to provide a rich set of UI components.
+[English](README_EN.md)
 
-## Features
-- Drag and drop components to create a UI design
-- Edit properties of components
-- Preview the UI design in real-time
-- Save and load designs
-- Compatible with any UI Library you want to use only with some json configurations for each component
+# 若木低代码UI设计器
+若木低代码UI设计器是一款无需编写任何代码即可设计和编辑UI组件的工具。它基于Vue.js框架构建，并利用Vue.js组件系统提供了丰富的UI组件集。
 
-## Usage
-1. Install the dependencies: `npm install @ruomu-ui/designer`
-2. In your Vue.js project, import the designer component and use it:
+## 特性
+- 拖放组件以创建UI设计
+- 编辑组件属性
+- 实时预览UI设计
+- 保存和加载设计方案
+- 兼容任何您想使用的UI库，只需为每个组件配置一些json文件
+
+## 使用方法
+1. 安装依赖项：`npm install @ruomu-ui/designer`
+2. 在您的Vue.js项目中导入设计器组件并使用它：
 ```vue
 <script setup lang="ts">
   import Designer from '@ruomu-ui/designer'
@@ -21,8 +23,12 @@ Ruomu Low Code UI Designer is a low-code UI designer that allows you to design a
 </template>
 ```
 
-note: you need a backend service to store the project data, the backend service can be implemented by yourself or using my open source project [ruomu-backend](https://github.com/yockii/ruomu)
+注意：您需要一个后端服务来存储项目数据，后端服务可以自行实现或使用我的开源项目 [ruomu-backend](https://github.com/yockii/ruomu)
 
-the `canvas.html` is rendered by the backend service, you can customize it according to your needs. see [canvas.html](https://github.com/yockii/ruomu/blob/main/views/canvas.html) for more details.
+`canvas.html` 是由后端服务渲染的，您可以根据需要自定义它。更多详情请参见 [canvas.html](https://github.com/yockii/ruomu/blob/main/views/canvas.html)。
 
-a simple implementation for this can be found in [ruomu-page/apps/designer](https://github.com/yockii/ruomu-page/tree/master/apps/designer)
+一个简单的实现可以在 [ruomu-page/apps/designer](https://github.com/yockii/ruomu-page/tree/master/apps/designer) 中找到。
+
+提示：后端BaseURL在`.env`文件中配置。如果您决定使用自己的后端服务，则需要遵循 [types](https://github.com/yockii/ruomu-page/tree/master/packages/types) 和 [api](https://github.com/yockii/ruomu-page/tree/master/packages/api)。
+
+api包是可选的，您可以使用自己的API实现。
