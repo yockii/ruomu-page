@@ -2,7 +2,7 @@
   import { NButton, NIcon, NPopconfirm, NTooltip } from 'naive-ui'
   import { Close, Unknown } from '@vicons/carbon'
   import { JsEditor } from '@ruomu-ui/editor'
-  import { nextTick, ref, watch } from 'vue'
+  import { nextTick, onMounted, ref, watch } from 'vue'
 
   const props = defineProps({
     methodName: {
@@ -20,11 +20,18 @@
   
   const showEditor = ref(true)
   
+  const editableCode = ref('')
+  
   watch(() => props.methodName, () => {
     showEditor.value = false
     nextTick(() => {
+      editableCode.value = `function ${props.methodName}() {\n${code.value || ''}\n}`
       showEditor.value = true
     })
+  })
+  
+  onMounted(() => {
+    editableCode.value = `function ${props.methodName}() {\n${code.value || ''}\n}`
   })
 </script>
 
@@ -44,7 +51,7 @@
     <div class="flex flex-col mt-4px mx-4px">
       <div class="flex items-center mx-4px my-4px text-12px">
           <span>
-            支持：state、api、router、store
+            支持：state、api、router、store、fx
           </span>
         <n-tooltip>
           <template #trigger>
@@ -65,16 +72,19 @@
           <p>
             路由跳转使用router.push(url)，如：router.push('/login')
           </p>
+          <p>
+            fx代表页面函数，如定义了自定义方法名 methodAAA, 那么就可以通过fx.methodAAA()来调用
+          </p>
         </n-tooltip>
       </div>
       <div class="code-area">
-        <js-editor v-if="showEditor" v-model:code="code" :method-name="methodName" :params="params" editable />
+        <js-editor v-if="showEditor" v-model:code="editableCode" :method-name="methodName" :params="params" editable />
       </div>
     </div>
 
     <div class="footer">
       <div>
-        <n-popconfirm @positive-click="code = ''">
+        <n-popconfirm @positive-click="editableCode = ''">
           <template #trigger>
             <n-button size="small" type="error" class="ml-8px">清空</n-button>
           </template>
@@ -82,7 +92,7 @@
         </n-popconfirm>
       </div>
       <div>
-        <n-button class="mr-8px" size="small" type="primary" @click="emit('confirm')">确认</n-button>
+        <n-button class="mr-8px" size="small" type="primary" @click="emit('confirm', editableCode)">确认</n-button>
         <n-button class="mr-8px" size="small" text @click="emit('close')">取消</n-button>
       </div>
     </div>

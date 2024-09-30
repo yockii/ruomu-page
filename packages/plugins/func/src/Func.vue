@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { NList, NListItem, NThing, NButton, NIcon, NCollapseTransition } from 'naive-ui'
+  import { NButton, NCollapseTransition, NIcon, NList, NListItem, NThing } from 'naive-ui'
   import type { JsMethod } from '@ruomu-ui/types'
   import { deepClone, useProjectStore } from '@ruomu-ui/core'
   import { computed, ref } from 'vue'
@@ -24,13 +24,15 @@
     showMethodPanel.value = true
     showBuiltInMethodPanel.value = false
   }
-  const addNewMethod = (code: string) => {
+  const addNewMethod = (resultCode: string) => {
     // 如果有id,则不理会，否则新增
-    currentMethod.value.code = code
+    const cs = resultCode.split("\n")
+    // 去掉首尾行
+    currentMethod.value.code = cs.slice(1, cs.length - 1).join('\n')
     if (!currentMethod.value.id) {
       currentMethod.value.id = Date.now() + ''
-      projectStore.addNewCustomMethod(currentMethod.value)
     }
+    projectStore.addNewCustomMethod(currentMethod.value)
     showMethodPanel.value = false
     projectStore.pageDirt = true
   }
@@ -75,11 +77,12 @@
     }
     currentBuiltInMethod.value = methodName
     showBuiltInMethodPanel.value = true
+    showMethodPanel.value = false
   }
   
-  const confirmBuiltInMethodEdition = () => {
+  const confirmBuiltInMethodEdition = (resultCode: string) => {
     if(projectStore.currentPageSchema) {
-      const cs = currentBuiltInMethodCode.value.split("\n")
+      const cs = resultCode.split("\n")
       // 去掉首尾行
       const code = cs.slice(1, cs.length - 1).join('\n')
       
@@ -174,7 +177,7 @@
       </n-list>
     </n-collapse-transition>
     
-    <built-in-method-panel v-if="showBuiltInMethodPanel" @close="showBuiltInMethodPanel=false" v-model:code="currentBuiltInMethodCode" :method-name="currentBuiltInMethod" @confirm="confirmBuiltInMethodEdition" />
+    <built-in-method-panel v-if="showBuiltInMethodPanel" @close="showBuiltInMethodPanel=false" :code="currentBuiltInMethodCode" :method-name="currentBuiltInMethod" @confirm="confirmBuiltInMethodEdition" />
     <method-panel v-if="showMethodPanel" :method="currentMethod" @close="showMethodPanel=false" @confirm="addNewMethod" @remove="removeMethod"/>
   </div>
 </template>

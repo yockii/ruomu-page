@@ -89,12 +89,7 @@
   }
 
   const confirmAddMethod = () => {
-    const code = editableCode.value
-    // 去掉首尾行
-    const lines = code.split('\n')
-    lines.shift()
-    lines.pop()
-    emit('confirm', lines.join('\n'))
+    emit('confirm', editableCode.value)
   }
 
   const showBindRelation = ref(false)
@@ -162,7 +157,7 @@
 
     <div class="flex items-center mx-4px my-4px text-12px">
           <span>
-            支持：state、api、router、store
+            支持：state、api、router、store、fx
           </span>
       <n-tooltip>
         <template #trigger>
@@ -182,6 +177,9 @@
         </p>
         <p>
           路由跳转使用router.push(url)，如：router.push('/login')
+        </p>
+        <p>
+          fx代表页面函数，如定义了自定义方法名 methodAAA, 那么就可以通过fx.methodAAA()来调用
         </p>
       </n-tooltip>
     </div>

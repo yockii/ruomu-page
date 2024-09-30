@@ -21,7 +21,7 @@
   const pluginFunctionStore = usePluginFunctionStore()
   const { currentMethod, showMethodPanel } = storeToRefs(pluginFunctionStore)
   const layoutStore = useLayoutStore()
-  const {currentPlugin, showPluginPanel} = storeToRefs(layoutStore)
+  const { currentPlugin, showPluginPanel } = storeToRefs(layoutStore)
 
   // 当前的schema
   const projectStore = useProjectStore()
@@ -133,47 +133,62 @@
         }
         projectStore.addNewCustomMethod(method)
         currentMethod.value = method
-        showMethodPanel.value = true
-        showPluginPanel.value = true
-        currentPlugin.value = Func
-        return
+      }
+      // 开始绑定
+      if (currentSchema.value?.relatedProps) {
+        currentSchema.value.relatedProps[props.property.name] = {
+          name: props.property.name,
+          methodId: methodId,
+        }
       } else {
-        if (!relatedPropFullName.value) {
+        currentSchema.value.relatedProps = {
+          [props.property.name]: {
+            name: props.property.name,
+            methodId: methodId,
+          },
+        }
+      }
+      
+      // 打开方法编辑面板
+      showMethodPanel.value = true
+      showPluginPanel.value = true
+      currentPlugin.value = Func
+      return
+    } else {
+      if (!relatedPropFullName.value) {
+        return
+      }
+      if (useTemplateSymbol.value) {
+        // 判断所有{{}}包裹的内容是否都是以 state 或 store 开始，否则提示错误
+        let all = relatedPropFullName.value.match(/\{\{(.*?)}}/g) || []
+        let allValid = all.every((v: string) => {
+          let vv = v.replace('{{', '').replace('}}', '')
+          return vv.startsWith('state.') || vv.startsWith('store.')
+        })
+        if (!allValid) {
+          dialog.error({
+            title: '错误',
+            content: '变量非法，请确认变量：必须从state/store中获取',
+          })
           return
         }
-
-        if (useTemplateSymbol.value) {
-          // 判断所有{{}}包裹的内容是否都是以 state 或 store 开始，否则提示错误
-          let all = relatedPropFullName.value.match(/\{\{(.*?)}}/g) || []
-          let allValid = all.every((v: string) => {
-            let vv = v.replace('{{', '').replace('}}', '')
-            return vv.startsWith('state.') || vv.startsWith('store.')
+      } else {
+        let relatedPropType = getRelatedPropType(relatedPropFullName.value)
+        let propType = props.property.type
+        if (propType !== relatedPropType) {
+          dialog.warning({
+            title: '提示',
+            content: `${props.property.name} 的类型与 ${relatedPropFullName.value} 不一致，请确认是否提交！`,
+            positiveText: '确定',
+            negativeText: '取消',
+            onPositiveClick: () => {
+              doConfirmBind()
+            },
           })
-          if (!allValid) {
-            dialog.error({
-              title: '错误',
-              content: '变量非法，请确认变量：必须从state/store中获取',
-            })
-            return
-          }
-        } else {
-          let relatedPropType = getRelatedPropType(relatedPropFullName.value)
-          let propType = props.property.type
-          if (propType !== relatedPropType) {
-            dialog.warning({
-              title: '提示',
-              content: `${props.property.name} 的类型与 ${relatedPropFullName.value} 不一致，请确认是否提交！`,
-              positiveText: '确定',
-              negativeText: '取消',
-              onPositiveClick: () => {
-                doConfirmBind()
-              },
-            })
-            return
-          }
+          return
         }
-        doConfirmBind()
       }
+      doConfirmBind()
     }
   }
 

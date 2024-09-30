@@ -388,7 +388,13 @@ export const useProjectStore = defineStore("project", {
     addNewCustomMethod(m: JsMethod) {
       if (this.currentPageSchema?.js) {
         if (this.currentPageSchema.js.methods) {
-          this.currentPageSchema.js.methods.push(m)
+          // 检查是否有相同id,有则覆盖，没有push
+          const index = this.currentPageSchema.js.methods.findIndex(method => method.id === m.id)
+          if (index !== -1) {
+            this.currentPageSchema.js.methods[index] = m
+          } else {
+            this.currentPageSchema.js.methods.push(m)
+          }
         } else {
           this.currentPageSchema.js.methods = [m]
         }
