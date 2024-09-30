@@ -11,6 +11,7 @@
     "@ruomu-ui/api": "workspace:*",
     "@ruomu-ui/core": "workspace:*",
     "@ruomu-ui/types": "workspace:*",
+    "@ruomu-ui/editor": "workspace:*",
     "@vicons/carbon": "^0.12.0",
     "@vicons/fluent": "^0.12.0",
     "@vicons/material": "^0.12.0",

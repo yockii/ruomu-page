@@ -76,6 +76,7 @@
       imports: [
         { libName: "vue", componentName: "reactive" },
         { libName: "@/store", componentName: "useStore" },
+        { libName: "@/router", componentName: "useRouter" },
         { libName: "@/api", componentName: "api" }
       ] 
     }

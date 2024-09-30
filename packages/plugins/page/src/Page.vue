@@ -7,6 +7,7 @@
   import type { Page } from '@ruomu-ui/types'
   import { ref } from 'vue'
   import { PageApi, ProjectApi } from '@ruomu-ui/api'
+  import RouteGuardModal from './RouteGuardModal.vue'
 
   const canvasStore = useCanvasStore()
   const projectStore = useProjectStore()
@@ -116,13 +117,21 @@
       message.error('设置首页失败：' + error)
     }
   }
+  
+  ////////////
+  // 路由守卫
+  const showRouteGuardModal = ref(false)
+  const openRouteGuardModal = () => {
+    showRouteGuardModal.value = true
+  }
 </script>
 
 <template>
   <div class="w-240px">
     <div class="page-container">
       <div class="mx-4px my-8px">
-        <n-button block @click="openEditPageModal()">
+        <n-button size="tiny" block @click="openRouteGuardModal()">路由守卫</n-button>
+        <n-button class="my-4px" block @click="openEditPageModal()">
           新增页面
           <template #icon>
             <n-icon>
@@ -139,6 +148,7 @@
   </div>
   
   <edit-page v-model:page="currentPage" v-model:visible="editPageVisible" @confirm="confirmPage" @delete="delPage"/>
+  <route-guard-modal v-model:visible="showRouteGuardModal" />
 </template>
 
 <style lang="less" scoped>

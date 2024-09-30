@@ -12,6 +12,11 @@ export type Project = {
   usedMaterialLib?: MaterialLib[];
   store?: Variable[]
   api?: ApiInfo
+  routeGuard?: RouteGuard
+}
+
+export type RouteGuard = {
+  beforeEnter?: string;
 }
 
 export type Page = {
@@ -58,6 +63,8 @@ export type Schema = {
   componentName: string;
   isContainer?: boolean;
   tagName: string;
+  visibleProperty?: string;
+  invisible?: boolean;
   props: Record<string, any>;
   relatedProps?: Record<string, RelatedProperty>;
   children?: Schema[];

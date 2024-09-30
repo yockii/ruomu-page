@@ -428,6 +428,9 @@ importers:
       '@ruomu-ui/core':
         specifier: workspace:*
         version: link:../../core
+      '@ruomu-ui/editor':
+        specifier: workspace:*
+        version: link:../../editor
       '@ruomu-ui/types':
         specifier: workspace:*
         version: link:../../types
@@ -589,6 +592,9 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@vicons/carbon':
+        specifier: ^0.12.0
+        version: 0.12.0
+      '@vicons/material':
         specifier: ^0.12.0
         version: 0.12.0
       naive-ui:

@@ -55,6 +55,7 @@ export type MaterialComponent = {
 
 export type MaterialComponentMetaInfo = {
   isContainer?: boolean;
+  visibleProperty?: string; // 控制显示隐藏的属性，默认查找 visible / show
   props: PropertyGroup[];
   events: Record<string, Event>;
   slots: SlotInfo[];

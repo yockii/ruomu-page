@@ -49,7 +49,8 @@
                     @update:value="updateValue" :actions="['clear']" />
     <!-- select -->
     <n-select v-if="property.widget?.component === 'select'" :value="value" @update:value="updateValue" clearable
-              :options="property.widget?.props.options" />
+              style="min-width: 80px;"
+              :options="property.widget?.props?.options" />
     <!-- switch -->
     <n-switch v-if="property.widget?.component === 'switch'" :value="value" @update:value="updateValue" />
     <!-- slider -->

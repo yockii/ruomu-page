@@ -5,6 +5,8 @@
   import type {TreeDropInfo, TreeOption} from 'naive-ui'
   import { computed, h } from 'vue'
   import { Delete } from "@vicons/carbon"
+  import {VisibilityOffOutlined, VisibilityOutlined} from '@vicons/material'
+  import { Schema } from '@ruomu-ui/types'
 
   const projectStore = useProjectStore()
   const canvasStore = useCanvasStore()
@@ -15,16 +17,28 @@
     return h('span', {}, option.componentName as string)
   }
   
-  const renderTreeSuffix = ({ option }: { option: TreeOption })  => {
+  const renderTreeSuffix = ({ option }: { option: TreeOption & Schema })  => {
+    const children = []
+    
+    children.push(h(NIcon, {
+      size:18,
+      onClick: () => {
+        option.invisible = !option.invisible
+      }
+    }, {default: () => h(option.invisible ? VisibilityOffOutlined : VisibilityOutlined)}))
+    
+    
     // 删除按钮
-    return h(NPopconfirm, {
+    children.push(h(NPopconfirm, {
       onPositiveClick: () => {
         projectStore.removeSchema(option.id)
       }
     }, {
       trigger: () => h(NIcon, { size: 18 }, { default: () => h(Delete) }),
       default: () => '确定删除吗？'
-    })
+    }))
+    
+    return h('span', {}, children)
   }
 
   const selectedKeys = computed(() => {
