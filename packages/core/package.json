@@ -7,19 +7,19 @@
     "@ruomu-ui/api": "workspace:*"
   },
   "peerDependencies": {
+    "@ruomu-ui/types": "workspace:*",
+    "axios": "^1.7.4",
     "pinia": "^2.1.7",
     "vite": "^5.3.5",
-    "vue": "^3.4.34",
-    "axios": "^1.7.4",
-    "@ruomu-ui/types": "workspace:*"
+    "vue": "^3.4.34"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/generator": "^7.25.0",
-    "@babel/parser": "^7.25.3",
-    "@babel/preset-env": "^7.25.3",
-    "@babel/preset-typescript": "^7.24.7",
-    "@babel/traverse": "^7.25.3",
+    "@babel/core": "^7.26.0",
+    "@babel/generator": "^7.26.0",
+    "@babel/parser": "^7.26.1",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@babel/traverse": "^7.25.9",
     "prettier": "^3.3.3"
   },
   "publishConfig": {

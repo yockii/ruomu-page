@@ -4,13 +4,11 @@
   "license": "MIT",
   "main": "index.ts",
   "dependencies": {
-    "axios": "^1.7.4",
-    "@ruomu-ui/types": "workspace:*"
+    "@ruomu-ui/types": "workspace:*",
+    "axios": "^1.7.7"
   },
   "peerDependencies": {
     "vite": "^5.3.5"
-  },
-  "devDependencies": {
   },
   "publishConfig": {
     "access": "public"

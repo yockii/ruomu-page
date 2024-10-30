@@ -8,18 +8,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.34",
+    "@ruomu-ui/core": "workspace:*",
     "@ruomu-ui/types": "workspace:*",
-    "@ruomu-ui/core": "workspace:*"
+    "vue": "^3.5.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "vue-tsc": "^2.0.29"
-  },
-  "peerDependencies": {
-    
+    "@vitejs/plugin-vue": "^5.1.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vue-tsc": "^2.1.8"
   },
   "publishConfig": {
     "access": "public"
