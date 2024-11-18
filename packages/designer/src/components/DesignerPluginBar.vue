@@ -13,7 +13,7 @@
   
   
   const togglePluginPanel = (plugin: Plugin) => {
-    if (currentPlugin.value) {
+    if (currentPlugin.value && currentPlugin.value.component) {
       if (currentPlugin.value.id === plugin.id) {
         showPluginPanel.value = !showPluginPanel.value
       } else {
