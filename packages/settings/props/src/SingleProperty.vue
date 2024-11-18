@@ -41,16 +41,16 @@
           <property-value :property="property" inline v-show="!variableBound" />
         </div>
         <div class="property-bind">
-        <n-tooltip>
-          <template #trigger>
-            <n-icon class="cursor-pointer" size="18" @click.stop="openRelatePropDialog" :color="variableBound?'#0e7a0d':''">
-              <CodeFilled v-if="variableBound" />
-              <CodeOffFilled v-else/>
-            </n-icon>
-          </template>
-          <span>关联变量</span>
-        </n-tooltip>
-      </div>
+          <n-tooltip>
+            <template #trigger>
+              <n-icon class="cursor-pointer" size="18" @click.stop="openRelatePropDialog" :color="variableBound?'#0e7a0d':''">
+                <CodeFilled v-if="variableBound" />
+                <CodeOffFilled v-else/>
+              </n-icon>
+            </template>
+            <span>关联变量</span>
+          </n-tooltip>
+        </div>
       </div>
     </template>
     <template v-else>

@@ -15,7 +15,7 @@ async function Get<T>(url: string, params?: Record<string, any>): Promise<Respon
   return data;
 }
 
-async function Post<T>(url: string, data?: Record<string, any>): Promise<Response<T>> {
+async function Post<T>(url: string, data?: Record<string, any> | any): Promise<Response<T>> {
   const res = await instance.post(url, data);
   return res.data;
 }

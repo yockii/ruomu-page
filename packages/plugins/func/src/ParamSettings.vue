@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NModal, NButton, NButtonGroup, NIcon, NTooltip, NInput, NDataTable, NSelect } from 'naive-ui'
-import { computed, PropType, ref, h, onMounted } from 'vue'
+import { computed, PropType, ref, h, onMounted, watch } from 'vue'
 import type { Parameter } from '@ruomu-ui/types'
 import { ChevronDown, ChevronUp, Plus, Trash } from '@vicons/tabler'
 import type { DataTableColumns } from 'naive-ui'
@@ -22,6 +22,10 @@ const visible = computed({
 })
 
 const data = ref<Parameter[]>([])
+
+watch(() => props.params, (v) => {
+  data.value = v
+})
 
 const nameAllowed = (value: string) => {
   // js方法名只能包含字母、数字、下划线

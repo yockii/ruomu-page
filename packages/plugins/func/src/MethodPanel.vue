@@ -73,8 +73,8 @@
   // 参数设置
   const paramStringArray = computed(() => {
     // return props.method.params?.map(p => `${p.name}: ${p.type}`) || []
-    // return props.method.params?.map(p => `${p.name}`) || []
-    return props.method.params || []
+    return props.method.params?.map(p => `${p.name}`) || []
+    // return props.method.params || []
   })
 
   const params = ref<Parameter[]>([])
